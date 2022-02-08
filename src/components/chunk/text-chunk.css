@@ -1,0 +1,18 @@
+.text-chunk{
+    display: inline-block;
+    font-size: xx-large;
+    text-align: left;
+    border-radius: 10%;
+    transition: background-color .1s;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #000;
+    letter-spacing: .1px;
+}
+.text-chunk:hover{
+    color: #000;
+}
+.text-chunk>span{
+    margin-right: auto;
+    margin-left: auto;
+}
