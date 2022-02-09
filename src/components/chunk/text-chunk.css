@@ -2,7 +2,7 @@
     display: inline-block;
     font-size: xx-large;
     text-align: left;
-    border-radius: 10%;
+    border-radius: 4px;
     transition: background-color .1s;
     padding-left: 6px;
     padding-right: 6px;

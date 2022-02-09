@@ -3,6 +3,7 @@
  * @Author: 尉旭胜(Riansin)
  */
 import './App.css';
+import { Helmet } from "react-helmet";
 import IndexPage from './page/index';
 // import { Layout } from 'antd';
 import 'antd/dist/antd.css'
@@ -13,6 +14,11 @@ import 'antd/dist/antd.css'
 function App() {
   return (
     <div className="App">
+      <Helmet>
+                <meta charSet="utf-8" />
+                <title>解忧杂货店</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+        </Helmet>
       <IndexPage/>
     </div>
   );

@@ -13,9 +13,14 @@ export default function TextChunk(props) {
         fontSize: 18,
     };
     const Children = props.children ? props.children : '';
+    //设置字体大小
     const heightValue = chunkStyle.fontSize + 10;
+    //追加类名
     const ClassName = props.class ? props.class : '';
-    const getalpha = props.alpha ? props.alpha : 0.08 , [alpha,setAlpha]=useState(0);
+    //设置背景透明
+    const getalpha = props.alpha ? props.alpha : 0.08, [alpha, setAlpha] = useState(0);
+    
+    const widthsize = props.width ? props.width : 'auto';
     const mouseBgcolor = (e) => {
         setAlpha(getalpha)
     }
@@ -27,7 +32,7 @@ export default function TextChunk(props) {
     // },[])
     return(
         <>   
-            <a href="#" className={`text-chunk ${ClassName}`} style={{ fontSize:`${chunkStyle.fontSize}px`,height:`${heightValue}px`,lineHeight:`${heightValue}px`,backgroundColor:`rgba(55,53,47,${alpha})`}} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor}>
+            <a href="#" className={`text-chunk ${ClassName}`} style={{ fontSize:`${chunkStyle.fontSize}px`,width:`${widthsize}`,height:`${heightValue}px`,lineHeight:`${heightValue}px`,backgroundColor:`rgba(55,53,47,${alpha})`}} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor}>
                 {Children}{props.content}
             </a>
          </>

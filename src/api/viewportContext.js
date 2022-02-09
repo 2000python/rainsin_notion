@@ -2,6 +2,8 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
+//获取界面宽高的hook
+
 import React from "react";
 
 const viewportContext = React.createContext({});
