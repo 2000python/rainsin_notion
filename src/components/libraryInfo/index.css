@@ -1,0 +1,40 @@
+.lbinfo-box{
+    display: flex;
+    width: 100%;
+    height: 100vmin;
+}
+
+.show-chunk-divider{
+    margin: 10px 0 !important;
+    min-width: 95% !important;
+    width: 95% !important;
+}
+.lbinfo-tool{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.lbinfo-hint-top{
+    margin-top: 20px;
+}
+.lbInfo-chunk-title{
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    /* font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "PingFang SC", "Microsoft YaHei", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; */
+    letter-spacing: 1px;
+}
+.lbInfo-chunk-title>.icon{
+    margin: 4px 2px 4px 2px;
+}
+
+.lbinfo-motto{
+   flex: 1;
+}
+
+
+
+
+.lbinfo-else{
+    flex: 1;
+}

@@ -3,7 +3,9 @@
  * @Author: 尉旭胜(Riansin)
  */
 import React from 'react';
-import './img-chunk.css'
+import './img-chunk.css';
+
+
 
 function ImgChunk(props) {
     const Class = props.Class ? props.Class : ''

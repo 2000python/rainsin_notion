@@ -11,13 +11,11 @@ import reportWebVitals from './reportWebVitals';
 import { ViewportProvider } from './api/viewportContext'
 
 ReactDOM.render(
-  <React.StrictMode>
     <BrowserRouter>
         <ViewportProvider>
          <App />
         </ViewportProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -13,7 +13,7 @@ function Title(props) {
     return (<div className='banner-title'>
         <div className='banner-title-flex'>
             <div className='banner-title-main'>
-                <TextChunk class='banner-title-icon' fontSize={100} content='🧠' url='#' alpha={.1}></TextChunk>
+                <TextChunk Class='banner-title-icon' fontSize={100} content='🧠' url='#' alpha={.1}></TextChunk>
                 <span>解忧杂货店</span>
                 <div className='banner-title-detail'>
                     <Markdown md={detailInfo}/>

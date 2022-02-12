@@ -4,10 +4,11 @@
     flex-wrap: wrap;
 }
 .left-posts-chunk{
-    flex: 1;
-    height: 40vmin;
-    border-right: 2px solid rgba(228, 227, 226,.5);
+    flex: 1.5;
+    width: 100%;
+    /* border-right: 2px solid rgba(228, 227, 226,.5); */
 }
+
 .right-posts-chunk{
     position: relative;
     flex: 2.5;
@@ -15,13 +16,26 @@
     flex-direction: column;
     margin-left: 50px;
 }
-.right-posts-chunk{
-    flex: 1;
+.right-posts-chunk:nth-child(2){
+    border-left: 1px solid rgb(234,234,234);
+}
+.right-posts-chunk:nth-child(3){
+    border-right: 1px solid rgb(234,234,234);
+}
+.local-icon{
+    display: inline;
+    vertical-align: middle;
+}
+.showchunk-grid{
+    margin: 20px auto;
 }
 ul{
     list-style: none;
 }
-.show-chunk-title{
+.bar-textbox-font-color{
+    color: rgb(116,113,113)!important;
+}
+.bar-post-aboutme-contact-local{
     margin-top: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }

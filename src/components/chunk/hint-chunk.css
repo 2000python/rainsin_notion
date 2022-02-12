@@ -1,0 +1,21 @@
+.hint-chunk{
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 70px;
+    background-color: rgb(238,238,235);
+    border-radius: 4px;
+}
+
+.hint-chunk-center{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 20px;
+}
+.hint-chunk-center>span{
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 800;
+    color: rgb(140,87,66);
+}

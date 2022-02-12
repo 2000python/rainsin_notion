@@ -4,17 +4,26 @@
  */
 import React from 'react';
 import ImgChunk from './img-chunk';
-import TextChunk from './text-chunk';
 import './show-chunk.css'
+
+/**
+ * 展示 组件
+ * @param {String} Class 追加类名
+ * @param {Number} width 设置图片宽度
+ * @param {Number} outwidth  外部盒子宽度
+ * @param {String} title 替换文本
+ * @param {*} children 子元素
+ * @return {ReactComponent}
+ */
 
 function ShowChunk(props) {
     const width = props.width ? props.width : '100%', Class = props.Class ? props.Class : '';
-    return <div className={'show-chunk ' + Class}>
+    const outwidth = props.outwidth ? props.outwidth : '80%';
+    return <div className={'show-chunk ' + Class} style={{width:`${outwidth}`}}>
         <div className='show-chunk-img' style={{width:`${width}`}}>
             <ImgChunk fillmode='cover' alt={props.title} />
-            <TextChunk class='show-chunk-title' content={`${props.title}`} fontSize={16} width='100%' alpha={ .2}/>
         </div>
-        
+        {props.children} 
   </div>;
 }
 

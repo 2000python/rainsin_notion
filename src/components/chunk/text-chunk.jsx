@@ -7,16 +7,29 @@ import React,{ useEffect, useState }from "react";
 import './text-chunk.css'
 
 //传入参数：fontSize-字体大小；content-展示内容
+/**
+ * 锚点文本 组件
+ * @param {String} Class 追加类名
+ * @param {Number} fontSize 设置字体大小
+ * @param {*} children 子元素
+ * @param {Number} alpha  遮罩透明度(0-1)
+ * @param {Number} width 盒子宽度
+ * @param {*} content 文本内容
+ * @return {ReactComponent}
+ */
 
 export default function TextChunk(props) {
     const chunkStyle = props.fontSize ? props : {
         fontSize: 18,
     };
+    const url = props.url ? props.url : '#';
     const Children = props.children ? props.children : '';
     //设置字体大小
     const heightValue = chunkStyle.fontSize + 10;
+
+    const lineheight = props.lineheight ? props.lineheight : heightValue;
     //追加类名
-    const ClassName = props.class ? props.class : '';
+    const ClassName = props.Class ? props.Class : '';
     //设置背景透明
     const getalpha = props.alpha ? props.alpha : 0.08, [alpha, setAlpha] = useState(0);
     
@@ -27,12 +40,17 @@ export default function TextChunk(props) {
     const mouseOutBgcolor = (e) => {
         setAlpha(0)
     }
-    // useEffect(() => {
-        
-    // },[])
+    const style = {
+        fontSize: `${chunkStyle.fontSize}px`,
+        width: `${widthsize}`,
+        height: `${heightValue}px`,
+        lineHeight: `${lineheight}px`,
+        backgroundColor: `rgba(55,53,47,${alpha})`
+    }
+    
     return(
         <>   
-            <a href="#" className={`text-chunk ${ClassName}`} style={{ fontSize:`${chunkStyle.fontSize}px`,width:`${widthsize}`,height:`${heightValue}px`,lineHeight:`${heightValue}px`,backgroundColor:`rgba(55,53,47,${alpha})`}} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor}>
+            <a href={`${url}`} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor}>
                 {Children}{props.content}
             </a>
          </>

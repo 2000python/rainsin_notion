@@ -1,0 +1,88 @@
+.music-list{
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid rgb(228,225,225);
+}
+.music-chunk{
+    width: 100%;
+    height: 100%;
+}
+.music-list>li{
+    width: 100%;
+    height: 70px;
+}
+.music-list>li:nth-child(2n){
+    background-color: rgb(238,238,235);
+}
+.music-list>li:hover{
+    background:rgba(0,0,0,.3);
+}
+.input-search-music{
+    display: flex;
+    flex: 90px 1;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.input-search-music>div:nth-child(1){
+    display: inline-block;
+}
+.input-search-music>span:nth-child(2){
+    width: 100%;
+}
+
+.music-list-item{
+    display: flex;
+    position: relative;
+}
+.music-list-item-index{
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+}
+.music-list-item-index>span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.music-list-item-detail{
+    flex: auto;
+    width: 40%;
+    height: 100%;
+}
+.item-detail-singlename{
+    display: inline-block;
+    width: 100%;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+.item-detail-artname{
+    display: inline-block;
+    width: 100%;
+    height: 14px;
+    margin-top: 5px;
+   overflow: hidden;
+    font-size: 12px;
+
+}
+.music-list-item-album{
+    width: 65px;
+    height: 100%;
+    overflow: hidden;
+}
+.shade-music{
+    position: absolute;
+    float: left;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,.2);
+}

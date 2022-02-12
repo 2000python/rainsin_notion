@@ -3,28 +3,29 @@
     z-index: 999;
     width: 100%;
     height: 50px;
-    line-height: 50px;
     background-color: #fff;
 }
 ul{
     padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+.nav-center-box{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0,-55%);
 }
 .nav-crumbs{
-    display: inline-block;
-    text-decoration: none;
-    list-style: none;
+    display: flex;
+    align-items: center;
 }
-.nav-crumbs>li
-,.nav-menu>li
-{
-    display: inline-block;
-}
+
 .nav-menu{
     position: absolute;
-    display: inline-block;
-    top: 50%;
-    right: 0;
-    transform: translate(-10%,-50%);
-    text-decoration: none;
-    list-style: none;
+    display: flex;
+    top: 0;
+    right: 18px;
+    align-items: center;
 }

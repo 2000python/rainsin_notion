@@ -1,0 +1,20 @@
+.bar-chunk{
+    display: flex;
+    flex-direction: column;
+}
+.bar-chunk-nav{
+    position: relative;
+}
+.bar-chunk-effect::before{
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+}
+.title-bar{
+    font-weight: 600;
+}

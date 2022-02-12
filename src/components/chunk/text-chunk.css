@@ -8,6 +8,9 @@
     padding-right: 6px;
     color: #000;
     letter-spacing: .1px;
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
 }
 .text-chunk:hover{
     color: #000;

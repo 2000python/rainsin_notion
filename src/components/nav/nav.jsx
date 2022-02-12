@@ -3,7 +3,6 @@
  * @Author: 尉旭胜(Riansin)
  */
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'
 import './nav.css'
 // import { Breadcrumb } from 'antd';
 // import { HomeOutlined, UserOutlined } from '@ant-design/icons';
@@ -14,32 +13,33 @@ function Nav(props) {
     // const location = useLocation();
     // const pathSnippets = location.pathname.split('/')
     return (<nav className='nav'>
-        <ul className='nav-crumbs'>
-            <li>
+        <div className='nav-center-box'>
+        <div className='nav-crumbs'>
+        
             <TextChunk content='📝&nbsp;解忧杂货店' url='/' fontSize={14}></TextChunk>
-            </li>  
-            <li>  
+                         
+                        
             <TextChunk content='📝&nbsp;解忧杂货店' url='/' fontSize={14}></TextChunk>
-            </li>  
-            <li>  
-                <TextChunk content={'📝 解忧杂货店'} url='/' fontSize={14}></TextChunk>
-            </li>
-        </ul>
-        <ul className='nav-menu'>
-            <li>
-                <TextChunk content='分享' url='/share' fontSize={14}></TextChunk>
-            </li>
-            <li>
-                <TextChunk content='🔞' url='/share' fontSize={16}></TextChunk>
-            </li>
-            <li>
-                <TextChunk content='➠' url='/share' fontSize={18}></TextChunk>
-            </li>
-            <li>
-                <TextChunk content='➠' url='/share' fontSize={18}></TextChunk>
-            </li>
-        </ul>
-       
+                         
+                        
+            <TextChunk content={'📝 解忧杂货店'} url='/' fontSize={14}></TextChunk>
+            
+        </div>
+        <div className='nav-menu'>
+
+            <TextChunk Class='nav-center' content='分享' url='/share' fontSize={14}></TextChunk>
+
+
+            <TextChunk Class='nav-center' content='简历' url='/share' fontSize={14}></TextChunk>
+
+
+            <TextChunk Class='nav-center' content='➠' url='/share' fontSize={18}></TextChunk>
+
+
+            <TextChunk Class='nav-center' content='➠' url='/share' fontSize={18}></TextChunk>
+
+        </div>
+        </div>
     </nav>);
 }
 
