@@ -1,0 +1,38 @@
+.resource-info{
+    display: flex;
+}
+
+
+.resource-info-music{
+    flex: .8;
+}
+.resource-info-music-box{
+    width: 90%;
+}
+
+
+.resource-info-magnet{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.resource-info-magnet-box{
+    width: 90%;
+}
+.input-search-magnet{
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.resource-info-clouddesk{
+    flex: .8;
+}
+
+.resource-info-other{
+    flex: .8;
+}

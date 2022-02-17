@@ -28,15 +28,15 @@ function MusicListItem(props) {
   const mouseUp = (e) => {
     const node = e.target.parentNode.childNodes[0].childNodes[0];
     if (e.target.dataset.id === palyId) {
-      node.innerHTML = ' <svg t="1644672311744" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1286" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-96 128a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z m192 0a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z" p-id="1287"></path></svg>';
+      node.innerHTML = ' <svg t="1644672311744" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1286" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-96 128a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z m192 0a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z" p-id="1287"></path></svg>';
     } else {
-      node.innerHTML = ' <svg t="1644672347931" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1442" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-31.936 151.232a64 64 0 0 1 31.744 8.416l127.488 72.864a64 64 0 0 1 0 111.136l-127.488 72.864a64 64 0 0 1-95.744-55.552v-145.728a64 64 0 0 1 64-64z m0 64v145.728l127.488-72.864-127.488-72.864z" p-id="1443"></path></svg>';
+      node.innerHTML = ' <svg t="1644672347931" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1442" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-31.936 151.232a64 64 0 0 1 31.744 8.416l127.488 72.864a64 64 0 0 1 0 111.136l-127.488 72.864a64 64 0 0 1-95.744-55.552v-145.728a64 64 0 0 1 64-64z m0 64v145.728l127.488-72.864-127.488-72.864z" p-id="1443"></path></svg>';
     }
     
   }
   const mouseOut = (e) => {
     const node = e.target.parentNode.childNodes[0].childNodes[0];
-    node.innerHTML = ' <svg t="1644665432787" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1110" width="26" height="26"><path d="M512 160a32 32 0 0 1 0 64 288 288 0 1 0 288 288 286.496 286.496 0 0 0-38.144-143.328 32 32 0 0 1 55.488-31.904A350.496 350.496 0 0 1 864 512c0 194.4-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m160 0a96 96 0 0 1 96 96 32 32 0 0 1-63.776 3.744L704 256a32 32 0 0 0-63.776-3.744L640 256v256a128 128 0 1 1-63.968-110.848L576 256a96 96 0 0 1 96-96z m-160 288a64 64 0 1 0 0 128 64 64 0 0 0 0-128z" p-id="1111"></path></svg>';
+    node.innerHTML = ' <svg t="1644665432787" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1110" width="26" height="26"><path d="M512 160a32 32 0 0 1 0 64 288 288 0 1 0 288 288 286.496 286.496 0 0 0-38.144-143.328 32 32 0 0 1 55.488-31.904A350.496 350.496 0 0 1 864 512c0 194.4-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m160 0a96 96 0 0 1 96 96 32 32 0 0 1-63.776 3.744L704 256a32 32 0 0 0-63.776-3.744L640 256v256a128 128 0 1 1-63.968-110.848L576 256a96 96 0 0 1 96-96z m-160 288a64 64 0 1 0 0 128 64 64 0 0 0 0-128z" p-id="1111"></path></svg>';
   }
   return (
     <ul className='music-list'>
@@ -66,7 +66,7 @@ function MusicListItem(props) {
           <div className='music-list-item-album'>
           
           </div>
-          <div className='shade-music' data-id={item.id} data-provider={item.provider} data-index={index} onDoubleClick={paly} onMouseOver={mouseUp} onMouseOut={mouseOut}></div>
+          <div className='shade-music' data-artists={artists} data-name={item.name} data-id={item.id} data-provider={item.provider} data-index={index} onDoubleClick={paly} onMouseOver={mouseUp} onMouseOut={mouseOut}></div>
         </li>
       })}
     </ul>
@@ -75,12 +75,14 @@ function MusicListItem(props) {
 
 function MusicChunk() {
   const [list, setList] = useState();
-  const [now, setNow] = useState('https://rainsin-1305486451.file.myqcloud.com/music/%E4%B9%B1%E8%88%9E%E6%98%A5%E7%A7%8B%20-%20%E5%91%A8%E6%9D%B0%E4%BC%A6.mp3');
+  const [now, setNow] = useState('https://rainsin-1305486451.cos.ap-nanjing.myqcloud.com/music/%E5%91%A8%E6%9D%B0%E4%BC%A6/%E4%B8%83%E9%87%8C%E9%A6%99/04%20-%20%E5%A4%96%E5%A9%86.aac');
+  const [title, setTilte] = useState('周杰伦-外婆')
   const [searchProvider, setSearchProvider] = useState('kugou');
   const nowPaly = (_, data) => {
     (async function (data) {
       const getMusic = await axios.get(`http://127.0.0.1:7001/getmusic?id=${data.id}&provider=${data.provider}`);
       setNow(getMusic.data.url)
+      setTilte(`${data.artists}-${data.name}`)
     })(data);
   }
   async function getListMethod(value='故长安'){
@@ -99,8 +101,12 @@ function MusicChunk() {
   useEffect(() => {
     getListMethod();
   }, [])
+  function getJay(e) {
+    console.log(e);
+  }
     return <div className='music-chunk'>
-       <AudioPlayer
+      <AudioPlayer
+          header={title}
           autoPlay
           src={now}
       />
@@ -111,8 +117,8 @@ function MusicChunk() {
         </Select>
       <Search placeholder="歌名/歌手" onSearch={onSearch}  />
       </div>
-      <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
-      <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
+      <TextChunk fontSize={17} lineheight='_' onClick={getJay}><Tag color='yellow'>周杰伦</Tag></TextChunk>
+      <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>七里香</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>

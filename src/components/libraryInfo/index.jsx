@@ -2,54 +2,99 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Divider } from 'antd';
 import HintChunk from '../chunk/hint-chunk'
 import TextChunk from '../chunk/text-chunk'
+import ImgChunk from '../chunk/img-chunk';
 import './index.css'
+
+import data,{right} from './API/data';
+import Path from '../../api/svg';
+
+/**
+ * 信息分类 组件
+ * @param {String} Class 追加类名
+ * @param {Number} fontSize 设置字体大小
+ * @return {ReactComponent}
+ */
+
+function LibraryInfoList(props) {
+  const subproject = props.data ? props.data.subproject : [];
+  const hintId = props.data.svg_Id ? props.data.svg_Id : 1; 
+  const children = props.data.content ? props.data.content : '无数据';
+
+  return <>
+    <HintChunk id={hintId} className='lbinfo-hint-top'>
+          {children}
+    </HintChunk>
+    <Divider orientation="left" className='show-chunk-divider' />
+    {subproject.map((item, index) => {
+      return (
+        <TextChunk key={index} Class='lbInfo-chunk-title' content={`${item.classify}`} fontSize={16} width='95%' alpha={.2} lineheight=' _'>
+           {Path[item.svg_Id - 1].node} &nbsp;&nbsp; 
+        </TextChunk>
+      )
+    })}
+  </>
+}
+
+/**
+ * 格言 组件
+ * @param {String} author 追加类名
+ * @param {*} children 子元素
+ * @param {String} content 文本内容
+ * @return {ReactComponent}
+ */
+
+function Mottos(props) {
+  const content = props.content ? props.content : '';
+  const author = props.author ? props.author : '无数据';
+  return (
+    <>
+      <div className='lbinfo-motto-content'>
+          <span className='motto-content'>
+            {content}{props.children}
+          </span>
+          <span className='motto-author'>
+          — {author}
+          </span>
+        </div>
+    </>
+  )
+}
 
 function LibraryInfo() {
   return (
     <div className='lbinfo-box'>
       <div className='lbinfo-tool'>
-        <HintChunk id={1} className='lbinfo-hint-top'>
-          图书管理猿的书桌
-        </HintChunk>
-        <Divider orientation="left" className='show-chunk-divider' />
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;最喜欢' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644683771190" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10953" width="18" height="18"><path d="M512.304 960a42.666667 42.666667 0 0 1-29.226667-11.52l-362.666666-341.333333-32.853334-33.28a298.666667 298.666667 0 0 1 422.4-422.613334l2.346667 2.346667 2.346667-2.346667a298.666667 298.666667 0 1 1 422.4 422.613334l-32.426667 32.64-362.666667 341.333333A42.666667 42.666667 0 0 1 512.304 960zM298.970667 149.333333a213.333333 213.333333 0 0 0-151.04 364.16l32.426666 32.64L512.304 858.666667l332.373333-312.96 32.213334-32.213334A213.333333 213.333333 0 0 0 575.024 211.626667l-32.64 32.64a42.666667 42.666667 0 0 1-60.16 0l-32.64-32.64A211.84 211.84 0 0 0 298.970667 149.333333z m576 426.666667z" fill="#333333" p-id="10954"></path><path d="M320.304 448a42.666667 42.666667 0 0 1-30.08-72.96l192-192a42.666667 42.666667 0 1 1 60.16 60.373333l-192 192A42.666667 42.666667 0 0 1 320.304 448z" fill="#333333" p-id="10955"></path></svg>
-        </TextChunk>
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;收藏品' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644684502883" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11921" width="18" height="18"><path d="M282.766507 610.432L100.494507 401.92 370.361173 340.48 512.014507 102.656l141.610666 237.909333 269.824 61.397334-182.272 208.512 27.306667 300.757333a42.666667 42.666667 0 0 0 84.992-7.722667l-24.021333-264.405333 174.634666-199.722667c38.144-43.648 19.2-102.229333-37.418666-115.114666l-258.474667-58.794667-135.68-228.010667c-29.738667-49.877333-91.306667-49.92-121.045333 0L315.74784 265.429333 57.273173 324.224C0.953173 337.066667-18.33216 395.648 19.854507 439.338667l174.634666 199.722666-24.021333 264.405334c-5.248 57.770667 44.544 94.037333 97.877333 71.125333l260.48-111.786667a42.666667 42.666667 0 1 0-33.706666-78.378666L257.721173 886.314667l25.045334-275.882667z" fill="#3D3D3D" p-id="11922"></path></svg>
-        </TextChunk>
-        <HintChunk id={1} className='lbinfo-hint-top'>
-          图书管理猿的书架
-        </HintChunk>
-        <Divider orientation="left" className='show-chunk-divider' />
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;最喜欢' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644683771190" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10953" width="18" height="18"><path d="M512.304 960a42.666667 42.666667 0 0 1-29.226667-11.52l-362.666666-341.333333-32.853334-33.28a298.666667 298.666667 0 0 1 422.4-422.613334l2.346667 2.346667 2.346667-2.346667a298.666667 298.666667 0 1 1 422.4 422.613334l-32.426667 32.64-362.666667 341.333333A42.666667 42.666667 0 0 1 512.304 960zM298.970667 149.333333a213.333333 213.333333 0 0 0-151.04 364.16l32.426666 32.64L512.304 858.666667l332.373333-312.96 32.213334-32.213334A213.333333 213.333333 0 0 0 575.024 211.626667l-32.64 32.64a42.666667 42.666667 0 0 1-60.16 0l-32.64-32.64A211.84 211.84 0 0 0 298.970667 149.333333z m576 426.666667z" fill="#333333" p-id="10954"></path><path d="M320.304 448a42.666667 42.666667 0 0 1-30.08-72.96l192-192a42.666667 42.666667 0 1 1 60.16 60.373333l-192 192A42.666667 42.666667 0 0 1 320.304 448z" fill="#333333" p-id="10955"></path></svg>
-        </TextChunk>
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;收藏品' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644684502883" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11921" width="18" height="18"><path d="M282.766507 610.432L100.494507 401.92 370.361173 340.48 512.014507 102.656l141.610666 237.909333 269.824 61.397334-182.272 208.512 27.306667 300.757333a42.666667 42.666667 0 0 0 84.992-7.722667l-24.021333-264.405333 174.634666-199.722667c38.144-43.648 19.2-102.229333-37.418666-115.114666l-258.474667-58.794667-135.68-228.010667c-29.738667-49.877333-91.306667-49.92-121.045333 0L315.74784 265.429333 57.273173 324.224C0.953173 337.066667-18.33216 395.648 19.854507 439.338667l174.634666 199.722666-24.021333 264.405334c-5.248 57.770667 44.544 94.037333 97.877333 71.125333l260.48-111.786667a42.666667 42.666667 0 1 0-33.706666-78.378666L257.721173 886.314667l25.045334-275.882667z" fill="#3D3D3D" p-id="11922"></path></svg>
-        </TextChunk>
-        <HintChunk id={1} className='lbinfo-hint-top'>
-          图书管理猿的书桌
-        </HintChunk>
-        <Divider orientation="left" className='show-chunk-divider' />
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;最喜欢' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644683771190" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10953" width="18" height="18"><path d="M512.304 960a42.666667 42.666667 0 0 1-29.226667-11.52l-362.666666-341.333333-32.853334-33.28a298.666667 298.666667 0 0 1 422.4-422.613334l2.346667 2.346667 2.346667-2.346667a298.666667 298.666667 0 1 1 422.4 422.613334l-32.426667 32.64-362.666667 341.333333A42.666667 42.666667 0 0 1 512.304 960zM298.970667 149.333333a213.333333 213.333333 0 0 0-151.04 364.16l32.426666 32.64L512.304 858.666667l332.373333-312.96 32.213334-32.213334A213.333333 213.333333 0 0 0 575.024 211.626667l-32.64 32.64a42.666667 42.666667 0 0 1-60.16 0l-32.64-32.64A211.84 211.84 0 0 0 298.970667 149.333333z m576 426.666667z" fill="#333333" p-id="10954"></path><path d="M320.304 448a42.666667 42.666667 0 0 1-30.08-72.96l192-192a42.666667 42.666667 0 1 1 60.16 60.373333l-192 192A42.666667 42.666667 0 0 1 320.304 448z" fill="#333333" p-id="10955"></path></svg>
-        </TextChunk>
-        <TextChunk Class='lbInfo-chunk-title' content='&nbsp;&nbsp;收藏品' fontSize={16} width='95%' alpha={.2} lineheight=' _'>
-        <svg t="1644684502883" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11921" width="18" height="18"><path d="M282.766507 610.432L100.494507 401.92 370.361173 340.48 512.014507 102.656l141.610666 237.909333 269.824 61.397334-182.272 208.512 27.306667 300.757333a42.666667 42.666667 0 0 0 84.992-7.722667l-24.021333-264.405333 174.634666-199.722667c38.144-43.648 19.2-102.229333-37.418666-115.114666l-258.474667-58.794667-135.68-228.010667c-29.738667-49.877333-91.306667-49.92-121.045333 0L315.74784 265.429333 57.273173 324.224C0.953173 337.066667-18.33216 395.648 19.854507 439.338667l174.634666 199.722666-24.021333 264.405334c-5.248 57.770667 44.544 94.037333 97.877333 71.125333l260.48-111.786667a42.666667 42.666667 0 1 0-33.706666-78.378666L257.721173 886.314667l25.045334-275.882667z" fill="#3D3D3D" p-id="11922"></path></svg>
-        </TextChunk>
+        {data.map((item, index) => {
+          return (
+            <LibraryInfoList key={index} data={item}></LibraryInfoList>
+          )
+        })}
       </div>
       <div className='lbinfo-motto'>
-
+        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url='https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack.webp'/>
+        <Divider orientation="left" className='motto-chunk-divider' />
+        <Mottos author='Ursula K. LeGuin'>
+        “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
+        </Mottos>
       </div>
       <div className='lbinfo-motto'>
-        
+        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack2.webp"/>
+        <Divider orientation="left" className='motto-chunk-divider' />
+        <Mottos author='Ursula K. LeGuin'>
+        “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
+        </Mottos>
       </div>
-      <div className='lbinfo-else'></div>
+      <div className='lbinfo-else'>
+      {right.map((item, index) => {
+          return (
+            <LibraryInfoList key={index} data={item}></LibraryInfoList>
+          )
+        })}
+      </div>
     </div>
   )
 }

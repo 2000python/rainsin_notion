@@ -14,7 +14,7 @@ function HintChunk(props) {
       <div className={`hint-chunk ${ClassName}`}>
           <div className='hint-chunk-center'>
             <TextChunk fontSize={24} lineheight=' _' >
-                {Path[props.id - 1].node}
+                {Path[`${props.id - 1}`].node}
               </TextChunk>
               <span>
                {children}

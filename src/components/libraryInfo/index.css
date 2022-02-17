@@ -1,7 +1,6 @@
 .lbinfo-box{
     display: flex;
     width: 100%;
-    height: 100vmin;
 }
 
 .show-chunk-divider{
@@ -29,12 +28,50 @@
 }
 
 .lbinfo-motto{
-   flex: 1;
+   flex: 1.3;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 15px;
 }
-
-
-
+.lbinfo-motto:nth-child(2){
+    border-right: var(--border-style);
+}
+.lbinfo-motto-box{
+    width: 90%;
+    padding-bottom: 110%;
+}
+.lbinfo-motto-border{
+    border-radius: 0;
+}
+.motto-chunk-divider{
+    width: 90% !important;
+    min-width: 90% !important;
+    margin: 10px 0 !important;
+}
+.lbinfo-motto-content{
+    width: 90%;
+    border-left: 4px solid rgb(41,40,36);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.motto-content{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: italic;
+    color: rgb(101,100,97);
+    
+}
+.motto-author{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+}
 
 .lbinfo-else{
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }

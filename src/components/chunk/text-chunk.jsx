@@ -15,10 +15,12 @@ import './text-chunk.css'
  * @param {Number} alpha  遮罩透明度(0-1)
  * @param {Number} width 盒子宽度
  * @param {*} content 文本内容
+ * @param {String} target 跳转
  * @return {ReactComponent}
  */
 
 export default function TextChunk(props) {
+    const clickEvent = props.onClick ? props.onClick : null;
     const chunkStyle = props.fontSize ? props : {
         fontSize: 18,
     };
@@ -34,6 +36,7 @@ export default function TextChunk(props) {
     const getalpha = props.alpha ? props.alpha : 0.08, [alpha, setAlpha] = useState(0);
     
     const widthsize = props.width ? props.width : 'auto';
+    const target = props.target ? props.target : '';
     const mouseBgcolor = (e) => {
         setAlpha(getalpha)
     }
@@ -47,10 +50,13 @@ export default function TextChunk(props) {
         lineHeight: `${lineheight}px`,
         backgroundColor: `rgba(55,53,47,${alpha})`
     }
-    
+    function click(e) {
+        e.stopPropagation()
+        return clickEvent === null ? undefined : clickEvent(e);
+    }
     return(
         <>   
-            <a href={`${url}`} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor}>
+            <a href={`${url}`} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
             </a>
          </>
