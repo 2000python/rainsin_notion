@@ -1,0 +1,22 @@
+.grid-chunk{
+    width: 100%;
+    height: 880px;
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); */
+    grid-template-columns: repeat(5,minmax(200px,1fr)); 
+}
+.is-video-item{
+    height: 200px;
+    margin: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.grid-chunk-bili-load{
+    width: 100%;
+    height: 880px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

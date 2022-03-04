@@ -4,7 +4,7 @@
 
 
 .resource-info-music{
-    flex: .8;
+    flex: 1;
 }
 .resource-info-music-box{
     width: 90%;
@@ -30,7 +30,7 @@
 
 
 .resource-info-clouddesk{
-    flex: .8;
+    flex: 2;
 }
 
 .resource-info-other{

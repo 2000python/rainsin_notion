@@ -9,12 +9,16 @@ import './title.css'
 import Markdown from '../markdown/markdown';
 
 function Title(props) {
-    const detailInfo = props.detail ? props.detail : ' > ***坚持梦想是一件“知易行难”的事，一个没有期限的梦想只是一个梦，给梦想加一个“截止日期”。***'
+    const detailInfo = props.detail ? props.detail : ' > ***坚持梦想是一件“知易行难”的事，一个没有期限的梦想只是一个梦，给梦想加一个“截止日期”。***';
+    const icon = props.icon ? props.icon : '🧠';
+    const title = props.Ititle ? props.Ititle : '解忧杂货店';
     return (<div className='banner-title'>
         <div className='banner-title-flex'>
             <div className='banner-title-main'>
-                <TextChunk Class='banner-title-icon' fontSize={100} content='🧠' url='#' alpha={.1}></TextChunk>
-                <span>解忧杂货店</span>
+                <TextChunk Class='banner-title-icon' fontSize={100} content={icon} url='#' alpha={.1} >
+                    
+                </TextChunk>
+                <span>{title}</span>
                 <div className='banner-title-detail'>
                     <Markdown md={detailInfo}/>
                 </div>

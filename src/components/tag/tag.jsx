@@ -8,6 +8,7 @@ import './tag.css'
 
 function Tag(props) {
   const color = Color;
+  const className = props.className ? props.className : '';
   const inputColor = props.color ? props.color : 'white';
   const findColor = inputColor in color ? color[inputColor] : '255,255,255';
   const fontsize = props.fontsize ? props.fontsize : 14,lineheight = props.lineheight ? props.lineheight :fontsize + 8
@@ -17,7 +18,7 @@ function Tag(props) {
     lineHeight: `${lineheight}px`
   }
   return (
-    <span className='tag' style={style}>
+    <span className={'tag ' + className} style={style}>
       { props.children}{props.content}
     </span>
   )

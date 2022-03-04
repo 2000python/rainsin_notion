@@ -1,0 +1,33 @@
+.segment-chunk{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.segment-chunk-nav{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    width: 100%;
+    height: 60px;
+    border-bottom: var(--border-style);
+}
+.segment-chunk-nav-svg{
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    /* font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "PingFang SC", "Microsoft YaHei", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; */
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+/* 
+
+// 内容区
+
+*/
+.grid-segment-chunk{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+}

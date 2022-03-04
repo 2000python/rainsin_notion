@@ -80,13 +80,13 @@ function MusicChunk() {
   const [searchProvider, setSearchProvider] = useState('kugou');
   const nowPaly = (_, data) => {
     (async function (data) {
-      const getMusic = await axios.get(`http://127.0.0.1:7001/getmusic?id=${data.id}&provider=${data.provider}`);
+      const getMusic = await axios.get(`http://rainsin.yicp.top/getmusic?id=${data.id}&provider=${data.provider}`);
       setNow(getMusic.data.url)
       setTilte(`${data.artists}-${data.name}`)
     })(data);
   }
   async function getListMethod(value='故长安'){
-    const getMusicList = await axios.get(`http://127.0.0.1:7001/music?name=${value}&provider=${searchProvider}`);
+    const getMusicList = await axios.get(`http://rainsin.yicp.top/music?name=${value}&provider=${searchProvider}`);
     setList(getMusicList.data);
   }
   useEffect(() => {
@@ -107,7 +107,7 @@ function MusicChunk() {
     return <div className='music-chunk'>
       <AudioPlayer
           header={title}
-          autoPlay
+          autoPlay={false}
           src={now}
       />
       <div className='input-search-music'>
@@ -119,7 +119,7 @@ function MusicChunk() {
       </div>
       <TextChunk fontSize={17} lineheight='_' onClick={getJay}><Tag color='yellow'>周杰伦</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>七里香</Tag></TextChunk>
-      <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
+      <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>仙剑奇侠传</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>

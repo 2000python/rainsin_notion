@@ -2,7 +2,7 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React,{useEffect} from 'react'
+import React,{useEffect,useRef} from 'react'
 import { Divider } from 'antd';
 import HintChunk from '../chunk/hint-chunk'
 import TextChunk from '../chunk/text-chunk'
@@ -19,19 +19,20 @@ import Path from '../../api/svg';
  * @return {ReactComponent}
  */
 
-function LibraryInfoList(props) {
+export function LibraryInfoList(props) {
   const subproject = props.data ? props.data.subproject : [];
   const hintId = props.data.svg_Id ? props.data.svg_Id : 1; 
   const children = props.data.content ? props.data.content : '无数据';
-
+  const hintWidth = props.hintWidth, hintHeight = props.hintHeight;
+  
   return <>
-    <HintChunk id={hintId} className='lbinfo-hint-top'>
+    <HintChunk id={hintId} className='lbinfo-hint-top' width={hintHeight} height={hintHeight}>
           {children}
     </HintChunk>
     <Divider orientation="left" className='show-chunk-divider' />
     {subproject.map((item, index) => {
       return (
-        <TextChunk key={index} Class='lbInfo-chunk-title' content={`${item.classify}`} fontSize={16} width='95%' alpha={.2} lineheight=' _'>
+        <TextChunk key={index} url={`/library/${item.classify_en}`} Class={`lbInfo-chunk-title`} content={`${item.classify}`} fontSize={16} width='95%' alpha={.2} lineheight=' _'>
            {Path[item.svg_Id - 1].node} &nbsp;&nbsp; 
         </TextChunk>
       )
@@ -47,7 +48,7 @@ function LibraryInfoList(props) {
  * @return {ReactComponent}
  */
 
-function Mottos(props) {
+export function Mottos(props) {
   const content = props.content ? props.content : '';
   const author = props.author ? props.author : '无数据';
   return (

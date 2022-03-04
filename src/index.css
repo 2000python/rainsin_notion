@@ -9,6 +9,9 @@ body {
 :root{
   --border-style:1px solid rgb(234,234,234);
 }
+a{
+  color: #000;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -60,8 +60,8 @@ function Magnet() {
         PubSub.publish('isLoad', true);
         let s = searchPlat, q = value,p = 1;
         (async function (s = 'btsow', q, p = 1) {
-            const getvalue = await axios.get(`http://127.0.0.1:7001/getmagnet?s=${s}&q=${q}&p=${p}`)
-            getSearchvalue(getvalue.data.data)
+            const getvalue = await axios.get(`http://rainsin.yicp.top/getmagnet?s=${s}&q=${q}&p=${p}`)
+            getSearchvalue(getvalue.data.data instanceof Array ? getvalue.data.data : [])
             PubSub.publish('isLoad', false)
         })(s, q, p)
     }

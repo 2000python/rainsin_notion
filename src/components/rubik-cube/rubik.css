@@ -1,0 +1,71 @@
+/* .rubik{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(400px,1fr));
+} */
+
+/* .grid-rubik-box{
+    height: 400px;
+}
+.grid-rubik-box:nth-child(2n){
+    background-color: #000;
+}
+.grid-rubik-box:nth-child(2n-3){
+    background-color: rgb(218, 37, 37);
+} */
+
+.rubik{
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.flex-rubik-box{
+    flex: 1;
+}
+.img-rubik {
+    flex: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.divider-width-rubik{
+    min-width: 95% !important;
+    width: 95% !important;
+}
+.img-rubik-title{
+    margin: 70px 0;
+    font-size: 40px;
+    font-weight: 600;
+}
+.img-rubik-box{
+    width: 80%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.img-rubik-Cube{
+   width: 90%;
+   height: auto;
+}
+.flex-rubik-img{
+    width: 33%;
+    height: auto;
+    margin: 10px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.speedcube{
+    width: 63%;
+}
+.img-rubik-cubeskills{
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.posi-box{
+    padding-right: 0;
+}

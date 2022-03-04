@@ -17,6 +17,11 @@ ul{
     top: 50%;
     transform: translate(0,-55%);
 }
+
+.nav-patn-box{
+    margin-left: 14px;
+}
+
 .nav-crumbs{
     display: flex;
     align-items: center;

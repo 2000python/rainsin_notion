@@ -3,25 +3,30 @@
  * @Author: 尉旭胜(Riansin)
  */
 import './App.css';
+import { BrowserRouter as Router, Route,Link ,Switch} from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import IndexPage from './page/index';
+import PubSub from 'pubsub-js';
 // import { Layout } from 'antd';
 import 'antd/dist/antd.css'
 // import { Link,Route } from 'react-router-dom';
 
 // const { Header, Footer, Sider, Content } = Layout;
 
-function App() {
+export function IApp() {
+  
   return (
     <div className="App">
-      <Helmet>
-                <meta charSet="utf-8" />
-                <title>解忧杂货店</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-        </Helmet>
-      <IndexPage/>
+      <IndexPage></IndexPage>
     </div>
   );
+}
+function App(props) {
+  return (
+    <>
+      {props.children}
+    </>
+  )
 }
 
 export default App;

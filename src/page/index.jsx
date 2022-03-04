@@ -11,7 +11,7 @@ import useViewport from '../api/viewportContext';
 
 function IndexPage() {
     const { width } = useViewport();
-    const breakpoint = 620;
+    const breakpoint = 960;
     return width > breakpoint ? <DesktopIndexPage/> : <PhoneIndexPage/>;
 }
 

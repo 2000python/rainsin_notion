@@ -2,7 +2,8 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React,{ useEffect, useState }from "react";
+import React,{ useEffect, useState,useRef }from "react";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import './text-chunk.css'
 
@@ -16,6 +17,7 @@ import './text-chunk.css'
  * @param {Number} width 盒子宽度
  * @param {*} content 文本内容
  * @param {String} target 跳转
+ * @param {boolean} isPreventDefault 是否阻止默认事件
  * @return {ReactComponent}
  */
 
@@ -24,6 +26,8 @@ export default function TextChunk(props) {
     const chunkStyle = props.fontSize ? props : {
         fontSize: 18,
     };
+    const title = props.title ? props.title : '';
+
     const url = props.url ? props.url : '#';
     const Children = props.children ? props.children : '';
     //设置字体大小
@@ -37,6 +41,11 @@ export default function TextChunk(props) {
     
     const widthsize = props.width ? props.width : 'auto';
     const target = props.target ? props.target : '';
+    //是否阻止默认事件
+    const isPreventDefault = props.isPreventDefault ? props.isPreventDefault : false;
+    
+    const svgwidth = props.svgwidth ? props.svgwidth : 18, svgheight = props.svgheight ? props.svgheight : svgwidth;
+    
     const mouseBgcolor = (e) => {
         setAlpha(getalpha)
     }
@@ -51,14 +60,23 @@ export default function TextChunk(props) {
         backgroundColor: `rgba(55,53,47,${alpha})`
     }
     function click(e) {
-        e.stopPropagation()
+        if (isPreventDefault) {
+            e.preventDefault()
+        }
         return clickEvent === null ? undefined : clickEvent(e);
     }
+    const ref = useRef();
+  useEffect(() => {
+        if (ref.current.firstChild.nodeName === 'svg') {
+            ref.current.firstChild.style.width = `${svgwidth}px`;
+            ref.current.firstChild.style.height = `${svgheight}px`;
+        }
+    })
     return(
         <>   
-            <a href={`${url}`} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
+            <Link to={`${url}`} ref={ref} title={title} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
-            </a>
+            </Link>
          </>
     )
 }

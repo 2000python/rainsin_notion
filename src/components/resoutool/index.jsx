@@ -12,6 +12,7 @@ import { Divider } from 'antd';
 import Tag from '../tag/tag';
 import Magnet from './magnet'
 import './index.css'
+import Bilibili from './telegram/bilibili';
 
 function ResourceInfo() {
   //   const [numPages, setNumPages] = useState(null);
@@ -31,12 +32,17 @@ function ResourceInfo() {
             <MusicChunk />
             <TextboxChunk fontsize={18}>
               付费的歌就算了，如果非要听的话，可以给你分享几个软件:<br/>
-              <TextChunk fontSize={17} target='_blank' lineheight='_' url='https://github.com/lyswhut/lx-music-desktop'><Tag color='yellow'>Lx music(Linux\Windows\MacOS)</Tag></TextChunk>
+              <TextChunk  fontSize={17} target='_blank' lineheight='_' url='https://github.com/lyswhut/lx-music-desktop'><Tag color='yellow'>Lx music(Linux\Windows\MacOS)</Tag></TextChunk>
               <TextChunk fontSize={17} target='_blank' lineheight='_' url='https://github.com/lyswhut/lx-music-mobile'><Tag color='blue'>Lx music mobile</Tag></TextChunk>
             </TextboxChunk>
           </BarChunk>
         </div>
         
+      </div>
+      <div className='resource-info-clouddesk'>
+        <BarChunk isTag={false} content='搜BILIBILI' fontsize={35}>
+          <Bilibili></Bilibili>
+          </BarChunk>
       </div>
       <div className='resource-info-magnet'>
         <div className='resource-info-magnet-box'>
@@ -44,12 +50,6 @@ function ResourceInfo() {
           <Magnet></Magnet>
           </BarChunk>
         </div>
-      </div>
-      <div className='resource-info-clouddesk'>
-
-      </div>
-      <div className='resource-info-other'>
-
       </div>
       </div>
   )

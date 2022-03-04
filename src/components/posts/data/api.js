@@ -10,27 +10,31 @@ export const IsOpen = {
 const artData = [
     {
         id: 1,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/poet.jpg',
-        title: '🪢 技术',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/js.webp',
+        title: '⌨️ 🖥  前端技术',
         isTag: false,
+        classrouter: '/blog/technology',
     },
     {
         id: 2,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/poet.jpg',
-        title: '⌨️ 🖥 前端真好玩',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/76419.webp',
+        title: '🪢  ✍🏻 其他技术 🏸️',
         isTag: false,
+        classrouter: '/blog/other',
     },
     {
         id: 3,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/poet.jpg',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/note.webp',
         title: '📖 随笔',
         isTag: false,
+        classrouter: '/blog/notes',
     },
     {
         id: 4,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/poet.jpg',
-        title: '📌 想到再说',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/ufo.webp',
+        title: '🛸 奇奇怪怪 👽',
         isTag: false,
+        classrouter: '/blog/curious'
     }
 ]
 export default artData
