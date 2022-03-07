@@ -16,7 +16,6 @@ import DetailChunk from '../components/chunk/detail-chunk';
 
 function DesktopIndexPage() {
     return (<>
-        <Nav/>
         <Banner />
         <div className='wrap'>
             <Title />

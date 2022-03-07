@@ -1,6 +1,7 @@
 .nav {
     position: fixed;
     z-index: 999;
+    top: 0;
     width: 100%;
     height: 50px;
     background-color: #fff;
@@ -19,7 +20,7 @@ ul{
 }
 
 .nav-patn-box{
-    margin-left: 14px;
+    margin-left: 18px;
 }
 
 .nav-crumbs{

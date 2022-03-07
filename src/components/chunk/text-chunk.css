@@ -1,5 +1,6 @@
 .text-chunk{
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     font-size: xx-large;
     text-align: left;
     border-radius: 4px;

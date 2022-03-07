@@ -4,20 +4,23 @@
  */
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw'
 import 'katex/dist/katex.min.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-function markdown(props) {
+function Markdown(props) {
     return <>
       <ReactMarkdown
         children={props.md}
         escapeHtml={false}
-        remarkPlugins={[remarkGfm, remarkMath]}
-        rehypePlugins={[rehypeKatex]}
+        remarkPlugins={[remarkGfm, remarkMath,remarkParse,remarkRehype]}
+        rehypePlugins={[rehypeRaw, rehypeKatex]}
         components={{
             code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '')
@@ -39,4 +42,4 @@ function markdown(props) {
   </>;
 }
 
-export default markdown;
+export default Markdown;

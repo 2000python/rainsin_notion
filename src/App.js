@@ -13,20 +13,14 @@ import 'antd/dist/antd.css'
 
 // const { Header, Footer, Sider, Content } = Layout;
 
-export function IApp() {
+function App() {
   
   return (
     <div className="App">
+
       <IndexPage></IndexPage>
     </div>
   );
-}
-function App(props) {
-  return (
-    <>
-      {props.children}
-    </>
-  )
 }
 
 export default App;

@@ -6,16 +6,20 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import ImgChunk from './img-chunk';
 import Tag from '../tag/tag';
+import { encode, decode } from 'js-base64';
 import './enum-chunk.css';
 
 function EnumChunk(props) {
   const data = props.data ? props.data : new Error('没有数据');
+  const [tag, settag] = React.useState([]), [urlMid, setMid] = React.useState();
+  const mid = props.mid
     React.useEffect(() => {
-        
-    })
+      settag(data.tag_list.split(','));
+      setMid(encode(data.art_url));
+    },[])
   return (
     <div className='enum-chunk'>
-      <Link to='/blog/detail?id=1' className='enum-chunk-item '>
+      <Link to={'/blog/detail/'+ urlMid} className='enum-chunk-item '>
         <div className='enum-chunk-item-img-box'>
           <ImgChunk fillmode='cover' Class='enum-chunk-item-img' />
         </div>
@@ -27,9 +31,11 @@ function EnumChunk(props) {
             {data.description}
           </div>
           <div className='enum-chunk-item-content-tag'>
-            <Tag className='enum-chunk-item-content-tag-mag' color='blue' content='CSS' fontsize={12}></Tag>
-            <Tag className='enum-chunk-item-content-tag-mag' color='blue' content='CSS3' fontsize={12}></Tag>
-            <Tag className='enum-chunk-item-content-tag-mag' color='blue' content='BFC' fontsize={12}></Tag>
+            {tag.map((item,index) => {
+              return <>
+              <Tag className='enum-chunk-item-content-tag-mag' color='blue' content={item} fontsize={12}></Tag>
+              </>
+            })}
           </div>
         </div>
       </Link>

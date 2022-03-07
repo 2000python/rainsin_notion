@@ -2,59 +2,61 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect, createContext,useContext,useMemo } from 'react';
+
+import {observer} from "mobx-react-lite";
+
+import { store } from './app/store';
+
 import ReactDOM from 'react-dom';
-import PubSub from 'pubsub-js';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter,Route,Routes} from 'react-router-dom';
 import './index.css';
-import { IApp } from './App';
+import  App  from './App';
 import BookDetail from './page/books-rack/detail';
 import RubikIndex from './page/rubik';
 import BlogIndex from './page/blog';
 import reportWebVitals from './reportWebVitals';
 import { ViewportProvider } from './api/viewportContext';
+import BlogDetail from './page/blog/detail';
+import Nav from './components/nav/nav';
 
-function AllTitle() {
-  const [title, setTitle] = useState('解忧杂货店');
+export const Context = createContext({});
 
-  const setPagetitle = (_,data) => {
-    setTitle(data.Ititle)
-  }
-
-  useEffect(() => {
-    PubSub.subscribe('PageTitle',setPagetitle)
-  },[])
+function Title() {
+  const path = useContext(Context)
   return (
     <>
       <Helmet>
                 <meta charSet="utf-8" />
-                <title>{title}</title>
+                <title>{path.page_title[path.page_title.length - 1]}</title>
                 <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
     </>
   )
 }
-
+const AllTitle = observer(Title);
 ReactDOM.render(
+  <Context.Provider value={store}>
   <ViewportProvider>
     <BrowserRouter>
       <AllTitle></AllTitle>
       <Routes>
-        <Route path="/" element={<IApp />}>
-        </Route>
-        <Route path="/library/:mid" element={<BookDetail></BookDetail>}>
-          {/* <Route path="/:artdetail" element={}>
-
-          </Route> */}
-        </Route>
-        <Route path="/rubik/:mid" element={<RubikIndex></RubikIndex>}>
-        </Route>
-        <Route path='/blog/:mid' element={<BlogIndex></BlogIndex>}>
+        <Route path="/" element={<Nav />}>
+          <Route index element={<App />} />
+          <Route path="/library/:mid" element={<BookDetail></BookDetail>}>
+          </Route>
+          <Route path="/rubik/:mid" element={<RubikIndex></RubikIndex>}>
+          </Route>
+          <Route  path='/blog/:mid' element={<BlogIndex></BlogIndex>}>
+          </Route>
+          <Route path='/blog/detail/:art_mid' element={<BlogDetail></BlogDetail>}>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
-    </ViewportProvider>,
+    </ViewportProvider>
+    </Context.Provider>,
     
   document.getElementById('root')
 );

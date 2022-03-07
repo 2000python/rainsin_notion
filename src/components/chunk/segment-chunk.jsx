@@ -12,6 +12,7 @@ import {classifyId} from '../../page/blog/api/data'
 function SegmentChunk(props) {
     const databaseName = props.databaseName ? props.databaseName : '未分类', childData = props.childData ? props.childData : [];
     const databaseCid = props.cid ? props.cid : 1; 
+    const mid = props.mid;
     return (
         <div className='segment-chunk'>
             <div className='segment-chunk-nav'>
@@ -31,7 +32,7 @@ function SegmentChunk(props) {
             <div className='grid-segment-chunk'>
                 {childData.map((data, index) => {
                     return <>
-                        <EnumChunk data={data} ></EnumChunk>
+                        <EnumChunk data={data} mid={mid} ></EnumChunk>
                     </>
                 })}
             </div>   

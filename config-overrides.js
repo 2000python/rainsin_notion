@@ -2,7 +2,11 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-const {override} = require("customize-cra");
+const { override, fixBabelImports,addDecoratorsLegacy } = require('customize-cra');
+
+module.exports = override(
+    
+);
 
 module.exports = {
   webpack: override(config => {

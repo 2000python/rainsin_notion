@@ -46,6 +46,8 @@ export default function TextChunk(props) {
     
     const svgwidth = props.svgwidth ? props.svgwidth : 18, svgheight = props.svgheight ? props.svgheight : svgwidth;
     
+    const data = props.data ? props.data : {}
+
     const mouseBgcolor = (e) => {
         setAlpha(getalpha)
     }
@@ -74,7 +76,7 @@ export default function TextChunk(props) {
     })
     return(
         <>   
-            <Link to={`${url}`} ref={ref} title={title} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
+            <Link to={`${url}`} {...data} ref={ref} title={title} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
             </Link>
          </>
