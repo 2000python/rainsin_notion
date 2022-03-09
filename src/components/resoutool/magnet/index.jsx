@@ -2,21 +2,99 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import PubSub from "pubsub-js";
 import copy from "copy-to-clipboard"
 import TextChunk from "../../chunk/text-chunk";
 import Tag from "../../tag/tag";
 import axios from "axios";
-import { Select,Input,Empty,Spin  } from 'antd';
 import magnetParam from '../../../api/magnet'
-import { LoadingOutlined } from '@ant-design/icons';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import { Context } from "../../..";
+import { observer } from "mobx-react-lite";
 
 import './index.css'
 
-const { Option } = Select;
-const { Search } = Input;
-
+function MagnetSelectUI(props) {
+    const select = useContext(Context)
+    useEffect(() => {
+        console.log(select);
+    })
+    const change = (event,newValue) => {
+        select.select_magnet_value(newValue.param);
+        console.log(select.magnet_param);
+    }
+  return (
+    <Autocomplete
+      id="country-select-demo"
+      sx={{ width: 150 }}
+      onChange={change}
+      options={magnetParam}
+      autoHighlight
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option) => (
+        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+          {option.name}
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="选择平台"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password', // disable autocomplete and autofill
+          }}
+        />
+      )}
+    />
+  );
+}
+const MagnetSelect = observer(MagnetSelectUI);
+function CustomizedInputBase(props) {
+    const search = props.onSearch;
+    return (
+      <Paper
+        component="form"
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      >
+        <IconButton sx={{ p: '10px' }} aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search Google Maps"
+          inputProps={{ 'aria-label': 'search google maps' }}
+        />
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+          <DirectionsIcon />
+        </IconButton>
+      </Paper>
+    );
+  }
+function Search(props) {
+    const search = props.onSearch;
+    return<></>
+}
+function Empty() {
+    return<></>
+}
+function Spin() {
+    return<></>
+}
 function ListItem(props) {
     const onCopy = () => {
         copy(props.magnet);
@@ -34,11 +112,7 @@ function ListItem(props) {
     )
 }
 function MagnetList(props) {
-    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-    useEffect(() => {
-        console.log(props.list);
-    },[])
-    return props.isLoading ? <div className="show-magnet-list magnet-center-empty"><Spin indicator={antIcon} /></div> :
+    return props.isLoading ? <div className="show-magnet-list magnet-center-empty"><Spin  /></div> :
     props.list && props.list.length === 0 ? <div className="show-magnet-list magnet-center-empty"><Empty description='没有数据' /></div> :
         <div className="show-magnet-list">
             {props.list.map((item,index) => {
@@ -65,10 +139,6 @@ function Magnet() {
             PubSub.publish('isLoad', false)
         })(s, q, p)
     }
-    //改变搜索平台
-    const changePalt = value => {
-        setPlat(value)
-    }
     //点击标签搜索
     const searchTag = e => {
         e.preventDefault();
@@ -88,14 +158,8 @@ function Magnet() {
     return(
         <>
             <div className="input-search-magnet">
-                <Select defaultValue='u3c3' style={{ width: 150 }} onChange={changePalt}>
-                    {magnetParam.map((item,index)=>{
-                        return (
-                        <Option key={item.id} value={item.param}>{ item.name}</Option>
-                        )
-                    })}
-            </Select>
-            <Search placeholder="电影/电视剧/神秘代码" onSearch={onSearch}  />
+            <MagnetSelect />
+            <CustomizedInputBase onSearch={onSearch}></CustomizedInputBase>
             </div>
             <div className="magnet-suggest">
             <TextChunk fontSize={17} lineheight='_' onClick={searchTag}><Tag color='purple'>活宝三人组</Tag></TextChunk>

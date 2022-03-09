@@ -4,13 +4,14 @@
  */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Drawer } from 'antd';
+import { Drawer } from '@mui/material'
 import { Route,Routes,Outlet,useParams,useLocation} from 'react-router-dom';
 import ShowChunk from '../chunk/show-chunk';
 import BarChunk from '../chunk/bar-chunk';
 import TextboxChunk from '../chunk/textbox-chunk';
 import TextChunk from '../chunk/text-chunk';
 import ImgChunk from '../chunk/img-chunk';
+import MusicChunk from '../chunk/music-chunk';
 
 import './posts.css'
 
@@ -55,7 +56,7 @@ function Posts(props) {
         <div className='blog-posts'>
             <div className='left-posts-chunk'>
                 <BarChunk isTag={false} content='ABOUT ME' fontsize={40}>
-                    <ShowChunk outwidth='100%' ImgClass='post-me-img' url='https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/286C5EC621FFF0752402DEE12C87A8D0.png'>
+                        <MusicChunk></MusicChunk>
                         <TextboxChunk fontsize={18}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🐟 🌅 ✌ ，🇨🇳 一个不止于code的程序猿 👨‍💻 ，🛸 喜欢一些奇奇怪怪的东西 👽 ，🎼 一个老Jay迷 🎧，也是一个喜欢听秦腔的老秦人 👺，喜欢玩魔方，都会一点但是都不精通。
                         </TextboxChunk>
@@ -73,7 +74,7 @@ function Posts(props) {
                             <svg t="1644517067553" className="local-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5019" width="14" height="14"><path d="M679.428571 746.857143l84-396q5.142857-25.142857-6-36t-29.428571-4L234.285714 501.142857q-16.571429 6.285714-22.571428 14.285714t-1.428572 15.142858 18.285715 11.142857l126.285714 39.428571 293.142857-184.571428q12-8 18.285714-3.428572 4 2.857143-2.285714 8.571429l-237.142857 214.285714-9.142857 130.285714q13.142857 0 25.714285-12.571428l61.714286-59.428572 128 94.285715q36.571429 20.571429 46.285714-21.714286z m344.571429-234.857143q0 104-40.571429 198.857143t-109.142857 163.428571-163.428571 109.142857-198.857143 40.571429-198.857143-40.571429-163.428571-109.142857-109.142857-163.428571T0 512t40.571429-198.857143 109.142857-163.428571T313.142857 40.571429 512 0t198.857143 40.571429 163.428571 109.142857 109.142857 163.428571 40.571429 198.857143z" p-id="5020"></path></svg>Tg: @Tiamon_we
                             </TextChunk>
                         </TextboxChunk>
-                    </ShowChunk>
+                    
                 </BarChunk>
 
             </div>

@@ -8,11 +8,10 @@ import TextChunk from '../chunk/text-chunk';
 import MusicChunk from '../chunk/music-chunk';
 import TextboxChunk from '../chunk/textbox-chunk';
 import BarChunk from '../chunk/bar-chunk'
-import { Divider } from 'antd';
+import { Divider } from '@mui/material';
 import Tag from '../tag/tag';
 import Magnet from './magnet'
 import './index.css'
-import Bilibili from './telegram/bilibili';
 
 function ResourceInfo() {
   //   const [numPages, setNumPages] = useState(null);
@@ -41,7 +40,6 @@ function ResourceInfo() {
       </div>
       <div className='resource-info-clouddesk'>
         <BarChunk isTag={false} content='搜BILIBILI' fontsize={35}>
-          <Bilibili></Bilibili>
           </BarChunk>
       </div>
       <div className='resource-info-magnet'>

@@ -9,7 +9,7 @@ import './title.css'
 import Markdown from '../markdown/markdown';
 
 function Title(props) {
-    const detailInfo = props.detail ? props.detail : ' > ***坚持梦想是一件“知易行难”的事，一个没有期限的梦想只是一个梦，给梦想加一个“截止日期”。***';
+    const detailInfo = props.detail ? props.detail : ' 坚持梦想是一件“知易行难”的事，一个没有期限的梦想只是一个梦，给梦想加一个“截止日期”。';
     const icon = props.icon ? props.icon : '🧠';
     const title = props.Ititle ? props.Ititle : '解忧杂货店';
     return (<div className='banner-title'>
@@ -20,7 +20,7 @@ function Title(props) {
                 </TextChunk>
                 <span>{title}</span>
                 <div className='banner-title-detail'>
-                    <Markdown md={detailInfo}/>
+                    {detailInfo}
                 </div>
                 
             </div>

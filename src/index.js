@@ -20,11 +20,12 @@ import reportWebVitals from './reportWebVitals';
 import { ViewportProvider } from './api/viewportContext';
 import BlogDetail from './page/blog/detail';
 import Nav from './components/nav/nav';
+import { tianyi,aliyun } from './api/tianyi';
 
 export const Context = createContext({});
 
 function Title() {
-  const path = useContext(Context)
+  const path = useContext(Context);
   return (
     <>
       <Helmet>
@@ -50,7 +51,7 @@ ReactDOM.render(
           </Route>
           <Route  path='/blog/:mid' element={<BlogIndex></BlogIndex>}>
           </Route>
-          <Route path='/blog/detail/:art_mid' element={<BlogDetail></BlogDetail>}>
+          <Route path='/blog/detail/:art_mid/:art_title' element={<BlogDetail></BlogDetail>}>
           </Route>
         </Route>
       </Routes>

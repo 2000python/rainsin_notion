@@ -10,7 +10,7 @@ export const IsOpen = {
 const artData = [
     {
         id: 1,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/js.webp',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/note.webp',
         title: '⌨️ 🖥  前端技术',
         isTag: false,
         classrouter: '/blog/technology',
@@ -24,14 +24,14 @@ const artData = [
     },
     {
         id: 3,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/note.webp',
+        url: 'https://goodstock.photos/wp-content/uploads/before-i-die-chalkboard-sign.jpg',
         title: '📖 随笔',
         isTag: false,
         classrouter: '/blog/notes',
     },
     {
         id: 4,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/ufo.webp',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/JSECoin.-Javascript-embedded-cryptocurrency-20077.jpg',
         title: '🛸 奇奇怪怪 👽',
         isTag: false,
         classrouter: '/blog/curious'

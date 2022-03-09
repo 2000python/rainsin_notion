@@ -1,16 +1,25 @@
 .blog-art{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     width: 100%;
+    margin-top: 50px;
 }
 .blog-art-wrap{
-    width: 60%;
+   padding-left: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.blog-art-wrap-content{
+    width: 65%;
 }
 .blog-art-bar{
     position: fixed;
-    top: 70px;
-    left: 10px;
-    width: 20%;
-    height: 100vh;
+    top: 60px;
+    left: 0;
+    width: 20rem;
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
 }
+/* .blog-art-detail{
+    width: 100%;
+} */

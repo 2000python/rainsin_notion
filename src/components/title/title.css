@@ -9,7 +9,7 @@
 }
 .banner-title-main{
     position: relative;
-    flex: 2;
+    flex: 3;
     /* background-color: #000; */
 }
 .banner-title-main>span{
@@ -19,7 +19,7 @@
     font-weight: 900;
 }
 .banner-title-minor{
-    flex: 5;
+    flex: 3;
 }
 .banner-title-icon{
     position: absolute;
@@ -27,5 +27,8 @@
 }
 .banner-title-detail{
     position: absolute;
+    display: inline-block;
     top: 80%;
+    color: #000;
+    font-size: 16px;
 }

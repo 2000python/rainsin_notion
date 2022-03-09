@@ -5,16 +5,31 @@
 import React,{useEffect} from 'react';
 import ReactPlayer from 'react-player'
 import { Player } from 'video-react';
-import { Divider } from 'antd';
-import HintChunk from '../chunk/hint-chunk';
+import { Divider } from '@mui/material';
 import TextChunk from '../chunk/text-chunk';
 import Path from '../../api/svg'
-import './rubik.css'
+import './rubik.css';
 import 'video-react/dist/video-react.css';
 
-import { library as l ,rubik as r ,keydata as k,lll} from '../../api/drawerset';
+import Posi_data, { Basic_data, Twisty_data } from './api/data';
 
-import Posi_data, { Basic_data, Twisty_data } from './api/data'
+function HintChunk(props) {
+  const children = props.children ? props.children : '';
+  const ClassName = props.className ? props.className : '';
+  const width = props.width ? props.width : 24, height = props.height ? props.height : width;
+  return (
+      <div className={`hint-chunk-rubik ${ClassName}`}>
+          <div className='hint-chunk-center-rubik' >
+            <TextChunk fontSize={24} lineheight=' _' svgwidth={width} svgheight={height}>
+                {Path[`${props.id - 1}`].node}
+              </TextChunk>
+              <span>
+               {children}
+              </span>
+          </div>
+    </div>
+  )
+}
 
 function RubikBasicList(props) {
   const subproject = props.data ? props.data.subproject : [];
@@ -29,13 +44,13 @@ function RubikBasicList(props) {
     <HintChunk id={hintId} className={`lbinfo-hint-top ${hintclassName}`}>
           {children}
     </HintChunk>
-    <Divider orientation="left" className={`show-chunk-divider ${dividerWidth}` } />
+    <Divider textAlign="left" className={`show-chunk-divider-rubik ${dividerWidth}` } />
     <div className={`${outclassName}`}>
       {subproject.map((item, index) => {
         const title = item.sketch ? item.sketch : '自己想';
       return (
         <div className={`${className}`} key={index}>
-        <TextChunk key={index} url={`/rubik/${item.classify_en}`} Class={`lbInfo-chunk-title `} content={`${item.classify}`} fontSize={16} width='95%' alpha={.2} lineheight=' _' title={title}>
+        <TextChunk key={index} url={`/rubik/${item.classify_en}`} Class={`lbInfo-chunk-title `} content={`${item.classify}`} fontSize={16} width='100%' alpha={.2} lineheight=' _' title={title}>
            {Path[item.svg_Id - 1].node} &nbsp;&nbsp; 
         </TextChunk>
         </div>
@@ -75,9 +90,9 @@ function Rubik() {
           <div className='megaminx grid-rubik-box'></div>
           <div className='blindfolded grid-rubik-box'></div> */}
         <div className='basic-box flex-rubik-box'>
-          <Divider orientation='center' children='基础' className='divider-width-rubik'/>
+          <Divider textAlign='center' children='基础' className='divider-width-rubik'/>
             {showData(Basic_data)}
-          <Divider orientation="center" children='异形' className='divider-width-rubik'></Divider>
+          <Divider textAlign="center" children='异形' className='divider-width-rubik'></Divider>
             {showData(Twisty_data)}
         </div>
         <div className='img-rubik flex-rubik-box'>
@@ -123,7 +138,7 @@ function Rubik() {
           </div>
         </div>
         <div className='posi-box flex-rubik-box'>
-        <Divider orientation="center" children='正阶' className='divider-width-rubik'></Divider>
+        <Divider textAlign="center" children='正阶' className='divider-width-rubik'></Divider>
           {showData(Posi_data)}
         </div>
       

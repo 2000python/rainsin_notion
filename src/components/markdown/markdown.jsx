@@ -10,17 +10,34 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw'
-import 'katex/dist/katex.min.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function Markdown(props) {
+    // const [mark,setMark] = React.useState();
+    // marked.setOptions({
+    //     renderer: new marked.Renderer(),
+    //     highlight: function(code) {
+    //         return hljs.highlightAuto(code).value;
+    //     }, // highlight.js css expects a top-level 'hljs' class.
+    //     pedantic: false,
+    //     gfm: true,
+    //     breaks: false,
+    //     sanitize: false,
+    //     smartLists: true,
+    //     smartypants: false,
+    //     xhtml: false
+    // });
+    // React.useEffect(() => {
+    //     setMark(marked.parse(props.md))
+    // },[])
+    
     return <>
       <ReactMarkdown
         children={props.md}
         escapeHtml={false}
-        remarkPlugins={[remarkGfm, remarkMath,remarkParse,remarkRehype]}
-        rehypePlugins={[rehypeRaw, rehypeKatex]}
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[]}
         components={{
             code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '')
@@ -33,12 +50,13 @@ function Markdown(props) {
                         {...props}
                     />
                 ) : (
-                    <code className={className} {...props}>
+                    <code className='common-code' {...props}>
                         {children}
                     </code>
                 )
             }
-        }}/>
+            }} />
+        
   </>;
 }
 

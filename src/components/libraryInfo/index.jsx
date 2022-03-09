@@ -3,7 +3,7 @@
  * @Author: 尉旭胜(Riansin)
  */
 import React,{useEffect,useRef} from 'react'
-import { Divider } from 'antd';
+import { Chip,Divider } from '@mui/material';
 import HintChunk from '../chunk/hint-chunk'
 import TextChunk from '../chunk/text-chunk'
 import ImgChunk from '../chunk/img-chunk';
@@ -77,14 +77,14 @@ function LibraryInfo() {
       </div>
       <div className='lbinfo-motto'>
         <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url='https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack.webp'/>
-        <Divider orientation="left" className='motto-chunk-divider' />
+        <Divider textAlign="left" className='motto-chunk-divider' />
         <Mottos author='Ursula K. LeGuin'>
         “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
         </Mottos>
       </div>
       <div className='lbinfo-motto'>
         <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack2.webp"/>
-        <Divider orientation="left" className='motto-chunk-divider' />
+        <Divider textAlign="left" className='motto-chunk-divider' />
         <Mottos author='Ursula K. LeGuin'>
         “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
         </Mottos>

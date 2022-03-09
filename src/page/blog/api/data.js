@@ -61,7 +61,7 @@ const blogTechData = [
         childData: [
             {
                 cid: 1,
-                title: 'BFC(块级格式化上下文)，是面试的一大热门问题。本文阐述BFC的规则及其应用。',
+                title: 'BFC的规则及其应用。',
                 classify: 'css',
                 img_url: 'https://rainsin-1305486451.file.myqcloud.com/img/55.jpg',
                 art_url: 'https://rainsin-1305486451.file.myqcloud.com/mark/%E6%89%8B%E5%86%99%E9%A2%98.md',

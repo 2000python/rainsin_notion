@@ -20,7 +20,10 @@ export const store = makeAutoObservable({
     title: '解忧杂货店',
     icon: '🧠',
   }],
-  blog_detail_list_data:[],
+  blog_detail_list_data: [],
+  magnet_param: 'u3c3',
+  tianyi_obj: null,
+  aliyun_obj: null,
   push_Title(value) {
     this.page_title.push(value);
     this.concat_Data()
@@ -33,7 +36,7 @@ export const store = makeAutoObservable({
     this.page_path.push(value);
     this.concat_Data()
   },
-  pop_Path() {
+  pop_Path(history) {
     this.page_path.pop();
     this.page_title.pop();
     this.page_icon.pop();
@@ -76,4 +79,13 @@ export const store = makeAutoObservable({
         break;
     }
   },
+  select_magnet_value(value) {
+    this.magnet_param = value
+  },
+  get_tainyi_obj(fun) {
+    this.tianyi_obj = fun();
+  },
+  get_aliyun_obj(fun) {
+    this.aliyun_obj = fun();
+  }
 })

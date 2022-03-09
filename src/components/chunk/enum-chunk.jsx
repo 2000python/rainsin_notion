@@ -19,7 +19,7 @@ function EnumChunk(props) {
     },[])
   return (
     <div className='enum-chunk'>
-      <Link to={'/blog/detail/'+ urlMid} className='enum-chunk-item '>
+      <Link to={'/blog/detail/'+ urlMid + '/'+ data.title} className='enum-chunk-item '>
         <div className='enum-chunk-item-img-box'>
           <ImgChunk fillmode='cover' Class='enum-chunk-item-img' />
         </div>
