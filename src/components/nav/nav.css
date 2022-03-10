@@ -35,3 +35,61 @@
     right: 18px;
     align-items: center;
 }
+
+@keyframes animal {
+    0%{
+      transform: rotate(-360deg);
+      -ms-transform: rotate(-360deg);
+      -webkit-transform: rotate(-360deg);
+    }
+    100%{
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+      }
+  }
+
+  .nav-music-cont{
+    animation: animal 2s infinite linear ;
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center;
+  }
+
+.music-box{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: left 1s;
+}
+.music-box-content{
+    position: absolute;
+    padding: 0 10px;
+    top: 80px;
+    left: 40px;
+    width: 370px;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: all 1s;
+    z-index: 1000;
+    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+}
+.music-box-close{
+   left: -100vw;
+}
+
+.meck-open-box{
+    left: 0;
+}
+.meck-close-box{
+    left: -100vw;
+}
+
+.content-open-box{
+    left:40px;
+}
+.content-close-box{
+    left: -500px;
+}

@@ -11,6 +11,8 @@ import antiShake from '../../api/antiShake';
 import ReactAudioPlayer from 'react-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import './music-chunk.css'
+import { Context } from '../..';
+import { observer } from 'mobx-react-lite';
 
 // function MusicListItem(props) {
 //   const data = props.data ? props.data : [];
@@ -125,16 +127,123 @@ import './music-chunk.css'
       
 //   </div>;
 // }
+const music_tag = [
+  {
+    id: 1,
+    name: '周杰伦',
+    color: 'yellow'
+  },
+  {
+    id: 2,
+    name: '七里香',
+    color: 'green'
+  },
+  {
+    id: 3,
+    name: '仙剑奇侠传',
+    color: 'yellow'
+  },
+  {
+    id: 4,
+    name: '米兰的小铁匠',
+    color: 'green'
+  },
+  {
+    id: 5,
+    name: '乱舞春秋',
+    color: 'blue'
+  },
+  {
+    id: 6,
+    name: '印第安老斑鸠',
+    color: 'purple'
+  },
+  {
+    id: 7,
+    name: '任然',
+    color: 'pink'
+  },
+  {
+    id: 8,
+    name: '以父之名',
+    color: 'red'
+  },
+  {
+    id: 9,
+    name: '花海',
+    color: 'brown'
+  },
+  {
+    id: 10,
+    name: '依然范特西',
+    color: 'yellow'
+  },
+  {
+    id: 11,
+    name: '一路向北',
+    color: 'blue'
+  },
+  {
+    id: 12,
+    name: '11月的萧邦',
+    color: 'green'
+  },
+]
 
-function MusicChunk() {
+function MusicList() {
   return <>
-    <ReactAudioPlayer
-      className='reactaudioplayer'
-      src='https://rainsin-1305486451.cos.ap-nanjing.myqcloud.com/music/%E5%91%A8%E6%9D%B0%E4%BC%A6/%E4%B8%83%E9%87%8C%E9%A6%99/04%20-%20%E5%A4%96%E5%A9%86.aac'
-      autoPlay
-      controls
-    />
+    <div className='music-list'>
+      我出现啦
+      </div>
   </>
 }
 
-export default MusicChunk;
+function MusicSearch() {
+  return <>
+    
+  </>
+}
+function MusicChunk() {
+  const methods = React.useContext(Context);
+  const [ListData, setListData] = useState();
+  const [setURL, setMusicURL] = useState();
+  const [isShowMusicData, setIsShowMusicData] = useState(false);
+  const music_search = () => {
+      setIsShowMusicData(true)
+  }
+  const search_tag = (e, key, limit = 30, offset = 1, type = 2) => {
+    (async function () {
+      const data = await axios(`http://rainsin.yicp.top/music?key=${e.target.textContent}&limit=${limit}&offset=${offset}&type=${type}`)
+      setListData(data.data.data.musics)
+    })(methods, axios, limit, offset, type);
+  }
+  // useEffect(() => {
+  //   let limit=20, offset=1, type=2,key='周杰伦'
+  //   (async function () {
+  //     const data = await axios(`http://rainsin.yicp.top/music?key=${key}&limit=${limit}&offset=${offset}&type=${type}`)
+  //     setListData(data.data.data.musics)
+  //   })(methods, axios,limit=20, offset=1, type=2,key);
+  // },[])
+  return <>
+    <div className='music-chunk'>
+    <ReactAudioPlayer
+        className='react-audio-player'
+        src={'https://freetyst.nf.migu.cn/public%2Fproduct9th%2Fproduct45%2F2022%2F02%2F1515%2F2009%E5%B9%B406%E6%9C%8826%E6%97%A5%E5%8D%9A%E5%B0%94%E6%99%AE%E6%96%AF%2F%E5%85%A8%E6%9B%B2%E8%AF%95%E5%90%AC%2FMp3_64_22_16%2F60054701897152859.mp3?Key=78bb694b09d9e8c3&Tim=1646920505642&channelid=01&msisdn=75364f11c85142ce80cdb278871df0f0'}
+        autoPlay={false}
+        controls={true}
+      />
+
+      <div></div>
+      <div className='music-chunk-tag'>
+        {music_tag.map((item, index) => {
+          return <TextChunk onClick={search_tag} key={index} isPreventDefault={true} fontSize={17} lineheight='_'><Tag color={item.color}>{item.name}</Tag></TextChunk>
+        })}
+      </div>
+      {isShowMusicData ? <>
+        <MusicList></MusicList>
+      </> : <>我消失啦</>}
+      </div>
+  </>
+}
+
+export default observer(MusicChunk);

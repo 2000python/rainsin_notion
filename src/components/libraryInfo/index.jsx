@@ -29,7 +29,7 @@ export function LibraryInfoList(props) {
     <HintChunk id={hintId} className='lbinfo-hint-top' width={hintHeight} height={hintHeight}>
           {children}
     </HintChunk>
-    <Divider orientation="left" className='show-chunk-divider' />
+    <Divider textAlign="left" className='show-chunk-divider' />
     {subproject.map((item, index) => {
       return (
         <TextChunk key={index} url={`/library/${item.classify_en}`} Class={`lbInfo-chunk-title`} content={`${item.classify}`} fontSize={16} width='95%' alpha={.2} lineheight=' _'>

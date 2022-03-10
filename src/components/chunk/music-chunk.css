@@ -1,12 +1,14 @@
 .music-list{
     width: 100%;
-    height: 700px;
-    overflow-y: scroll;
+    height: 400px;
+    overflow: auto;
     border: 1px solid rgb(228,225,225);
+   
 }
 .music-chunk{
     width: 100%;
     height: 100%;
+    box-shadow: (15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
 }
 .music-list>li{
     width: 100%;
@@ -85,4 +87,12 @@
     top: 0;
     left: 0;
     background-color: rgba(255,255,255,.2);
+}
+
+.react-audio-player{
+    width: 100%;
+    margin: 20px 0;
+}
+.music-chunk-tag{
+    margin-bottom: 20px;
 }

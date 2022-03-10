@@ -4,8 +4,8 @@
  */
 import { makeAutoObservable } from 'mobx';
 import blogTechData,{blogNotesData,blogCuriousData,blogOtherData} from '../page/blog/api/data';
-
-export const store = makeAutoObservable({
+import axios from 'axios';
+ const store = makeAutoObservable({
   page_title: ['解忧杂货店'],
   page_path:[{
     pathname: '/',
@@ -22,8 +22,24 @@ export const store = makeAutoObservable({
   }],
   blog_detail_list_data: [],
   magnet_param: 'u3c3',
-  tianyi_obj: null,
-  aliyun_obj: null,
+  music_paly: false,
+   music_mouse: false,
+   click_timer: null,
+  music: {
+     listdata: [],
+     src: '',
+  },
+   add_music_list(musics) {
+      store.music.listdata = musics
+  },
+   change_nav_music_paly(e) {
+     if (store.music_paly) {
+       e.pause();
+     } else {
+       e.play();
+     }
+    store.music_paly = !store.music_paly;
+  },
   push_Title(value) {
     this.page_title.push(value);
     this.concat_Data()
@@ -36,7 +52,7 @@ export const store = makeAutoObservable({
     this.page_path.push(value);
     this.concat_Data()
   },
-  pop_Path(history) {
+  pop_Path() {
     this.page_path.pop();
     this.page_title.pop();
     this.page_icon.pop();
@@ -82,10 +98,5 @@ export const store = makeAutoObservable({
   select_magnet_value(value) {
     this.magnet_param = value
   },
-  get_tainyi_obj(fun) {
-    this.tianyi_obj = fun();
-  },
-  get_aliyun_obj(fun) {
-    this.aliyun_obj = fun();
-  }
-})
+ })
+export default store

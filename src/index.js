@@ -6,7 +6,7 @@ import React, { useState, useEffect, createContext,useContext,useMemo } from 're
 
 import {observer} from "mobx-react-lite";
 
-import { store } from './app/store';
+import store  from './app/store';
 
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';

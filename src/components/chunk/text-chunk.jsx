@@ -2,8 +2,10 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React,{ useEffect, useState,useRef }from "react";
+import React,{ useEffect, useState,useRef,useContext }from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../..";
+import Tooltip from '@mui/material/Tooltip';
 // import { Link } from "react-router-dom";
 import './text-chunk.css'
 
@@ -12,17 +14,26 @@ import './text-chunk.css'
  * 锚点文本 组件
  * @param {String} Class 追加类名
  * @param {Number} fontSize 设置字体大小
- * @param {*} children 子元素
+ * @param {node} children 子元素
  * @param {Number} alpha  遮罩透明度(0-1)
  * @param {Number} width 盒子宽度
  * @param {*} content 文本内容
  * @param {String} target 跳转
  * @param {boolean} isPreventDefault 是否阻止默认事件
+ * @param {function} onClick  点击事件
+ * @param {Number} svgwidth  svg宽
+ * @param {Number} svgheight  svg高 默认与svgwidth相等
+ * @param {Object} data  HTML元素的data Set属性
+ * @param {Number} lineheight  _
  * @return {ReactComponent}
  */
 
 export default function TextChunk(props) {
+    const content = useContext(Context)
     const clickEvent = props.onClick ? props.onClick : null;
+    const MouseOverEvent = props.MouseOver ? props.MouseOver : null;
+    const MouseOutEvent = props.MouseOut ? props.MouseOut : null;
+    const dbClickEvent = props.dbClick ? props.dbClick : null;
     const chunkStyle = props.fontSize ? props : {
         fontSize: 18,
     };
@@ -46,13 +57,16 @@ export default function TextChunk(props) {
     
     const svgwidth = props.svgwidth ? props.svgwidth : 18, svgheight = props.svgheight ? props.svgheight : svgwidth;
     
-    const data = props.data ? props.data : {}
+    const data = props.data ? props.data : {};
+    let timer = null;
 
     const mouseBgcolor = (e) => {
-        setAlpha(getalpha)
+        setAlpha(getalpha);
+        return MouseOverEvent === null ? undefined : MouseOverEvent(e)
     }
     const mouseOutBgcolor = (e) => {
-        setAlpha(0)
+        setAlpha(0);
+        return MouseOutEvent === null ? undefined : MouseOutEvent(e)
     }
     const style = {
         fontSize: `${chunkStyle.fontSize}px`,
@@ -65,7 +79,18 @@ export default function TextChunk(props) {
         if (isPreventDefault) {
             e.preventDefault()
         }
-        return clickEvent === null ? undefined : clickEvent(e);
+        clearTimeout(content.click_timer); 
+        if (e.detail === 2)
+            return ;  
+        content.click_timer = setTimeout(function () { 
+            console.log("单击");
+            return clickEvent === null ? undefined : clickEvent(e);
+        }, 600); 
+    }
+    function dbClick(e) {
+        clearTimeout(content.click_timer);
+        console.log("双击");
+        return dbClickEvent === null ? undefined : dbClickEvent(e);
     }
     const ref = useRef();
   useEffect(() => {
@@ -76,9 +101,11 @@ export default function TextChunk(props) {
     })
     return(
         <>   
-            <Link to={`${url}`} {...data} ref={ref} title={title} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
+            <Tooltip title={title}>
+            <Link to={`${url}`} {...data} onDoubleClick={dbClick} ref={ref} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
             </Link>
+            </Tooltip> 
          </>
     )
 }
