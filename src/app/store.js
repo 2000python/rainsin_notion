@@ -5,9 +5,9 @@
 import { makeAutoObservable } from 'mobx';
 import blogTechData,{blogNotesData,blogCuriousData,blogOtherData} from '../page/blog/api/data';
 import axios from 'axios';
- const store = makeAutoObservable({
+const store = makeAutoObservable({
   page_title: ['解忧杂货店'],
-  page_path:[{
+  page_path: [{
     pathname: '/',
     search: '',
     state: null,
@@ -22,23 +22,66 @@ import axios from 'axios';
   }],
   blog_detail_list_data: [],
   magnet_param: 'u3c3',
+  //音乐播放器播放状态
   music_paly: false,
-   music_mouse: false,
-   click_timer: null,
+  //鼠标是否经过
+  music_mouse: false,
+  //双击事件计时器 防止单击事件触发
+  click_timer: null,
+  Player: null,
+  //播放器状态
   music: {
-     listdata: [],
-     src: '',
+    //搜索数据
+    searchlistdata: [],
+    //播放列表
+    palylistdata: [],
+    //当前播放url
+    src: '',
+    //当前播放歌曲专辑图片
+    album_img_url: 'https://y.qq.com/music/photo_new/T002R300x300M000004AfbeH1xUvTe_1.jpg?max_age=2592000'
+    
   },
-   add_music_list(musics) {
-      store.music.listdata = musics
+  //播放器控件类名
+  music_control_class: {},
+  //播放器是否展开
+  music_unfold: false,
+  //播放器对应状态的类名
+  music_unfold_class: {},
+  //得到播放器
+  get_player(e) {
+    store.Player = e
   },
+  //设置音乐控件跟随展开状态的类名
+  set_music_control_class(class_object) {
+    store.music_control_class = {
+      ...class_object,
+    }
+  },
+  //设置音乐盒子展开状态的类名
+  set_music_unfold_class(class_object) {
+    store.music_unfold_class = {
+      ...class_object,
+    }
+  },
+  //改变音乐盒子的展开状态
+  change_music_unfold() {
+    store.music_unfold = !store.music_unfold; 
+  },
+  //设置搜索列表数据
+   set_music_search_list(musics) {
+      store.music.searchlistdata = musics
+  },
+   //改变播放器状态
+   change_music_paly() {
+    store.music_paly = !store.music_paly;
+   },
    change_nav_music_paly(e) {
      if (store.music_paly) {
        e.pause();
      } else {
        e.play();
      }
-    store.music_paly = !store.music_paly;
+    // store.music_paly = !store.music_paly;
   },
   push_Title(value) {
     this.page_title.push(value);

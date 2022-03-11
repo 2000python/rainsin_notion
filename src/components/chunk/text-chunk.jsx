@@ -79,17 +79,19 @@ export default function TextChunk(props) {
         if (isPreventDefault) {
             e.preventDefault()
         }
-        clearTimeout(content.click_timer); 
+        if (dbClickEvent !== null) {
+            clearTimeout(content.click_timer); 
         if (e.detail === 2)
             return ;  
-        content.click_timer = setTimeout(function () { 
-            console.log("单击");
+            content.click_timer = setTimeout(function () { 
             return clickEvent === null ? undefined : clickEvent(e);
         }, 600); 
+        } else {
+            return clickEvent === null ? undefined : clickEvent(e);
+        }
     }
     function dbClick(e) {
         clearTimeout(content.click_timer);
-        console.log("双击");
         return dbClickEvent === null ? undefined : dbClickEvent(e);
     }
     const ref = useRef();

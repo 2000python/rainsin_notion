@@ -2,131 +2,14 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import axios from 'axios';
-import PubSub from 'pubsub-js';
 import TextChunk from './text-chunk';
 import Tag from '../tag/tag';
-import antiShake from '../../api/antiShake';
-import ReactAudioPlayer from 'react-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import './music-chunk.css'
 import { Context } from '../..';
 import { observer } from 'mobx-react-lite';
 
-// function MusicListItem(props) {
-//   const data = props.data ? props.data : [];
-//   const [palyId, setId] = useState();
-//   let clickNode = React.createRef();
-//   const paly = antiShake((e) => {
-//     e.stopPropagation();
-//     PubSub.publish('palyNow', e.target.dataset);
-//     setId(e.target.dataset.id)
-//   }) 
-//   const mouseUp = (e) => {
-//     const node = e.target.parentNode.childNodes[0].childNodes[0];
-//     if (e.target.dataset.id === palyId) {
-//       node.innerHTML = ' <svg t="1644672311744" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1286" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-96 128a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z m192 0a32 32 0 0 1 32 32v256a32 32 0 0 1-64 0v-256a32 32 0 0 1 32-32z" p-id="1287"></path></svg>';
-//     } else {
-//       node.innerHTML = ' <svg t="1644672347931" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1442" width="26" height="26"><path d="M512 160c194.4 0 352 157.6 352 352s-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m0 64a288 288 0 1 0 0 576 288 288 0 0 0 0-576z m-31.936 151.232a64 64 0 0 1 31.744 8.416l127.488 72.864a64 64 0 0 1 0 111.136l-127.488 72.864a64 64 0 0 1-95.744-55.552v-145.728a64 64 0 0 1 64-64z m0 64v145.728l127.488-72.864-127.488-72.864z" p-id="1443"></path></svg>';
-//     }
-    
-//   }
-//   const mouseOut = (e) => {
-//     const node = e.target.parentNode.childNodes[0].childNodes[0];
-//     node.innerHTML = ' <svg t="1644665432787" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1110" width="26" height="26"><path d="M512 160a32 32 0 0 1 0 64 288 288 0 1 0 288 288 286.496 286.496 0 0 0-38.144-143.328 32 32 0 0 1 55.488-31.904A350.496 350.496 0 0 1 864 512c0 194.4-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m160 0a96 96 0 0 1 96 96 32 32 0 0 1-63.776 3.744L704 256a32 32 0 0 0-63.776-3.744L640 256v256a128 128 0 1 1-63.968-110.848L576 256a96 96 0 0 1 96-96z m-160 288a64 64 0 1 0 0 128 64 64 0 0 0 0-128z" p-id="1111"></path></svg>';
-//   }
-//   return (
-//     <ul className='music-list'>
-//       {data.map((item, index) => {
-//         let pre = '';
-//         const cotarray = (arr) => {
-//             arr.forEach(e => {
-//             pre += ' ' + e.name;
-//             });
-//             return pre
-//         }
-//         const artists = cotarray(item.artists,index)
-//         return <li ref={clickNode} key={index} className='music-list-item' data-id={item.id} data-provider={item.provider}>
-//           <div className='music-list-item-index'>
-//             <span>
-//             <svg t="1644665432787" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1110" width="26" height="26"><path d="M512 160a32 32 0 0 1 0 64 288 288 0 1 0 288 288 286.496 286.496 0 0 0-38.144-143.328 32 32 0 0 1 55.488-31.904A350.496 350.496 0 0 1 864 512c0 194.4-157.6 352-352 352S160 706.4 160 512 317.6 160 512 160z m160 0a96 96 0 0 1 96 96 32 32 0 0 1-63.776 3.744L704 256a32 32 0 0 0-63.776-3.744L640 256v256a128 128 0 1 1-63.968-110.848L576 256a96 96 0 0 1 96-96z m-160 288a64 64 0 1 0 0 128 64 64 0 0 0 0-128z" p-id="1111"></path></svg>
-//             </span>
-//           </div>
-//           <div className='music-list-item-detail'>
-//             <span className='item-detail-singlename'>
-//               {item.name}
-//             </span>
-//             <span className='item-detail-artname'>
-//               演唱: {artists} | 专辑: {item.album.name}
-//             </span>
-//           </div>
-//           <div className='music-list-item-album'>
-          
-//           </div>
-//           <div className='shade-music' data-artists={artists} data-name={item.name} data-id={item.id} data-provider={item.provider} data-index={index} onDoubleClick={paly} onMouseOver={mouseUp} onMouseOut={mouseOut}></div>
-//         </li>
-//       })}
-//     </ul>
-//   )
-// }
-
-// function MusicChunk() {
-//   const [list, setList] = useState();
-//   const [now, setNow] = useState('https://rainsin-1305486451.cos.ap-nanjing.myqcloud.com/music/%E5%91%A8%E6%9D%B0%E4%BC%A6/%E4%B8%83%E9%87%8C%E9%A6%99/04%20-%20%E5%A4%96%E5%A9%86.aac');
-//   const [title, setTilte] = useState('周杰伦-外婆')
-//   const [searchProvider, setSearchProvider] = useState('kugou');
-//   const nowPaly = (_, data) => {
-//     (async function (data) {
-//       const getMusic = await axios.get(`http://rainsin.yicp.top/getmusic?id=${data.id}&provider=${data.provider}`);
-//       setNow(getMusic.data.url)
-//       setTilte(`${data.artists}-${data.name}`)
-//     })(data);
-//   }
-//   async function getListMethod(value='故长安'){
-//     const getMusicList = await axios.get(`http://rainsin.yicp.top/music?name=${value}&provider=${searchProvider}`);
-//     setList(getMusicList.data);
-//   }
-//   useEffect(() => {
-//     const token = PubSub.subscribe('palyNow', nowPaly);
-//   })
-//   const onSearch = value => {
-//     getListMethod(value)
-//   }
-//   function handleChange(value) {
-//     setSearchProvider(value)
-//   }
-//   useEffect(() => {
-//     getListMethod();
-//   }, [])
-//   function getJay(e) {
-//     console.log(e);
-//   }
-//     return <div className='music-chunk'>
-//       <AudioPlayer
-//           header={title}
-//           autoPlay={false}
-//           src={now}
-//       />
-//       <div className='input-search-music'>
-//         <Select defaultValue="kugou" style={{ width: 90 }} onChange={handleChange}>
-//           <Option value="kugou">酷狗</Option>
-//           <Option value="netease">网易云</Option>
-//         </Select>
-//       <Search placeholder="歌名/歌手" onSearch={onSearch}  />
-//       </div>
-//       <TextChunk fontSize={17} lineheight='_' onClick={getJay}><Tag color='yellow'>周杰伦</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>七里香</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>仙剑奇侠传</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>周杰伦</Tag></TextChunk>
-//       <TextChunk fontSize={17} lineheight='_'><Tag color='yellow'>任然</Tag></TextChunk>
-//       <MusicListItem data={list}>
-//       </MusicListItem>
-      
-//   </div>;
-// }
 const music_tag = [
   {
     id: 1,
@@ -203,18 +86,99 @@ function MusicSearch() {
     
   </>
 }
-function MusicChunk() {
-  const methods = React.useContext(Context);
-  const [ListData, setListData] = useState();
-  const [setURL, setMusicURL] = useState();
-  const [isShowMusicData, setIsShowMusicData] = useState(false);
-  const music_search = () => {
-      setIsShowMusicData(true)
+//播放器控件
+export const MusicControl = {
+  //控件展开类名
+  musicControlUnfoldClass: {
+    music: 'music-box-unfold',
+    music_palyer: 'music-palyer-box-unfold',
+    play_box_state: 'play-state-box-unfold',
+    play_box_progress_bar: "play-progress-box-unfold",
+
+  },
+  //控件收缩类名
+  musicControlShrinkClass: {
+    music: 'music-box-shrink',
+    music_palyer: 'music-palyer-box-shrink',
+    play_box_state: 'play-state-box-shrink',
+    play_box_progress_bar: "play-progress-box-shrink",
+  },
+  //播放状态组件
+  PlayState: (props) => {
+    const context = React.useContext(Context);
+    const onPlay = () => {
+      context.change_nav_music_paly(context.Player)
+    }
+    return <>
+      <div className={"music-transition " + context.music_control_class.play_box_state}>
+        <TextChunk isPreventDefault={true} fontSize={42} svgwidth={40}>
+          <svg t="1646994039416" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6292" width="200" height="200"><path d="M64.2887 526.511505l0-28.009937c0.255827-1.961678 0.521886-3.924379 0.760317-5.886057 2.851954-23.620977 4.167926-47.549969 8.832156-70.811766 14.083763-70.287833 43.99705-133.49848 88.957031-189.413977 48.498574-60.322877 108.580974-105.307418 180.201152-134.699842 42.823318-17.572214 87.363743-28.181853 133.580345-31.546483 7.624654-0.554632 15.242146-1.221828 22.864754-1.837858l25.00858 0c2.300392 0.265036 4.594645 0.680499 6.903224 0.769526 40.860617 1.629103 80.751139 8.746198 119.567189 21.526269 82.522482 27.164686 151.679561 74.249051 206.785623 141.312446 58.518788 71.213925 91.907223 153.003719 100.166327 244.948805 3.841491 42.792619 1.497097 85.23936-6.865361 127.334083-9.788947 49.266054-27.447119 95.578846-53.03796 138.808416-42.437531 71.684646-100.252285 127.659495-173.500543 167.203116-75.265194 40.634466-155.896606 57.843406-241.327324 52.55496-43.023886-2.663666-84.96102-10.900258-125.158535-26.301016-124.022665-47.52848-211.67191-132.775003-262.123976-255.745708-16.795525-40.937364-26.38288-83.73817-29.724998-127.897925C65.613882 541.375028 64.921103 533.944801 64.2887 526.511505L64.2887 526.511505zM512.174474 904.395972c217.750349-0.727571 392.276245-176.013783 392.001999-392.370389-0.274246-217.231533-175.272909-391.646911-391.82599-391.890458-216.513172-0.242524-392.081817 175.197184-392.257825 391.964136C119.921765 728.489636 295.690978 904.360156 512.174474 904.395972L512.174474 904.395972zM512.174474 904.395972M652.651902 351.169011c-58.137095 35.762505-133.38387 79.465866-191.880145 116.77868-28.442796 18.143219-35.953863 59.141982-8.577353 79.662341 54.223972 40.638559 136.970558 87.270623 200.281489 124.577297 29.359678 17.306154 48.41364 5.39794 48.41364-30.91715L700.889533 380.636137C700.889533 350.777085 681.598164 333.360414 652.651902 351.169011zM644.779607 580.931952c0 13.363356-6.005784 18.499329-15.691377 13.007245-29.413913-16.660448-84.810594-49.480948-114.985848-68.886927-11.531638-7.41897-12.793374-18.090007 0-25.850761 32.368198-19.614733 85.200474-52.017724 114.580618-68.658729 9.923-5.621021 16.096607-0.914836 16.096607 12.013615C644.779607 477.210659 644.779607 545.778314 644.779607 580.931952zM365.086487 679.827333l-27.984355 0c-7.726985 0-13.993712-6.265704-13.993712-13.992689L323.10842 358.01493c0-7.725962 6.266727-13.991666 13.993712-13.991666l27.984355 0c7.730055 0 13.995759 6.265704 13.995759 13.991666l0 307.819714C379.082246 673.561629 372.816542 679.827333 365.086487 679.827333L365.086487 679.827333zM365.086487 679.827333" p-id="6293" fill="#515151"></path></svg>
+        </TextChunk>
+        <TextChunk onClick={onPlay} isPreventDefault={true} fontSize={42} svgwidth={40}>
+          {context.music_paly ? <svg t="1646902808958" className="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1583" width="200" height="200"><path d="M910.8 303.6c-5.4-10.5-16.3-17.8-28.9-17.8-17.8 0-32.2 14.4-32.2 32.1 0 6 1.7 11.7 4.6 16.5l-0.1 0.1c26.9 52.4 42.1 111.8 42.1 174.7 0 211.6-171.6 383.2-383.2 383.2S129.8 720.8 129.8 509.2 301.4 126.1 513 126.1c62.5 0 121.5 15 173.6 41.5l0.2-0.4c4.6 2.6 10 4.1 15.7 4.1 17.8 0 32.2-14.4 32.2-32.1 0-13.1-7.9-24.4-19.3-29.4C654.6 78.9 585.9 61.5 513 61.5 265.7 61.5 65.3 262 65.3 509.2S265.7 956.9 513 956.9s447.7-200.4 447.7-447.7c0-74.1-18-144-49.9-205.6z" fill="#515151" p-id="1584"></path><path d="M385.4 352.2V672c0 17.5 14.3 31.9 31.9 31.9 17.6 0 32-14.4 31.9-31.9V352.2c0-17.5-14.3-31.9-31.9-31.9-17.5 0-31.9 14.3-31.9 31.9zM578.9 352.2V672c0 17.5 14.3 31.9 31.9 31.9 17.5 0 31.9-14.4 31.9-31.9V352.2c0-17.5-14.3-31.9-31.9-31.9-17.5 0-31.9 14.3-31.9 31.9z" fill="#515151" p-id="1585"></path><path d="M772.7 217.7a32.2 32.1 0 1 0 64.4 0 32.2 32.1 0 1 0-64.4 0Z" fill="#515151" p-id="1586"></path></svg> :
+          <svg t="1646896787599" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15618" width="200" height="200"><path d="M772.7 217.7a32.2 32.1 0 1 0 64.4 0 32.2 32.1 0 1 0-64.4 0Z" fill="#515151" p-id="15619"></path><path d="M415.8 679.9c5.9 0 11.5-1.6 16.2-4.5l231.1-134.6c10.9-5.2 18.5-16.3 18.5-29.2 0-11.9-6.4-22.3-16-27.8L439.7 352.2c-5.8-6.7-14.4-10.9-23.9-10.9-17.6 0-31.8 14.4-31.8 32.1 0 0.6 0 1.2 0.1 1.8l-0.4 0.2 0.5 269c-0.1 1.1-0.2 2.2-0.2 3.4 0 17.7 14.3 32.1 31.8 32.1z" fill="#515151" p-id="15620"></path><path d="M909.8 306.6c-5.4-10.5-16.3-17.8-28.9-17.8-17.8 0-32.2 14.4-32.2 32.1 0 6 1.7 11.7 4.6 16.5l-0.1 0.1c26.9 52.4 42.1 111.8 42.1 174.7 0 211.6-171.6 383.2-383.2 383.2S128.8 723.8 128.8 512.2 300.4 129.1 512 129.1c62.5 0 121.5 15 173.6 41.5l0.2-0.4c4.6 2.6 10 4.1 15.7 4.1 17.8 0 32.2-14.4 32.2-32.1 0-13.1-7.9-24.4-19.3-29.4C653.6 81.9 584.9 64.5 512 64.5 264.7 64.5 64.3 265 64.3 512.2S264.7 959.9 512 959.9s447.7-200.4 447.7-447.7c0-74.1-18-144-49.9-205.6z" fill="#515151" p-id="15621"></path></svg>
+          }
+        </TextChunk>
+        <TextChunk isPreventDefault={true} fontSize={42} svgwidth={40}>
+          <svg t="1646994073870" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6716" width="200" height="200"><path d="M64.2887 526.511505l0-28.009937c0.255827-1.961678 0.521886-3.924379 0.760317-5.886057 2.851954-23.620977 4.167926-47.549969 8.832156-70.811766 14.083763-70.287833 43.99705-133.49848 88.957031-189.413977 48.498574-60.322877 108.580974-105.307418 180.201152-134.699842 42.823318-17.572214 87.363743-28.181853 133.580345-31.546483 7.624654-0.554632 15.242146-1.221828 22.864754-1.837858l25.00858 0c2.300392 0.265036 4.594645 0.680499 6.903224 0.769526 40.860617 1.629103 80.751139 8.746198 119.567189 21.526269 82.522482 27.164686 151.679561 74.249051 206.785623 141.312446 58.518788 71.213925 91.907223 153.003719 100.166327 244.948805 3.841491 42.792619 1.497097 85.23936-6.865361 127.334083-9.788947 49.266054-27.447119 95.578846-53.03796 138.808416-42.437531 71.684646-100.252285 127.659495-173.500543 167.203116-75.265194 40.634466-155.896606 57.843406-241.327324 52.55496-43.023886-2.663666-84.96102-10.900258-125.158535-26.301016-124.022665-47.52848-211.67191-132.775003-262.123976-255.745708-16.795525-40.937364-26.38288-83.73817-29.724998-127.897925C65.613882 541.375028 64.921103 533.944801 64.2887 526.511505L64.2887 526.511505zM512.174474 904.395972c217.750349-0.727571 392.276245-176.013783 392.001999-392.370389-0.274246-217.231533-175.272909-391.646911-391.82599-391.890458-216.513172-0.242524-392.081817 175.197184-392.257825 391.964136C119.921765 728.489636 295.690978 904.360156 512.174474 904.395972L512.174474 904.395972zM512.174474 904.395972" p-id="6717" fill="#515151"></path><path d="M686.870238 679.803797l-27.979238 0c-7.724938 0-13.990642-6.261611-13.990642-13.988596L644.900358 358.037443c0-7.722892 6.265704-13.990642 13.990642-13.990642l27.979238 0c7.729032 0 13.990642 6.26775 13.990642 13.990642l0 307.777759C700.859857 673.541163 694.598246 679.803797 686.870238 679.803797L686.870238 679.803797z" p-id="6718" fill="#515151"></path><path d="M563.220057 467.950761c-58.490136-37.305651-133.724631-81.001849-191.854563-116.76333-28.942169-17.801435-48.226375-0.38988-48.226375 29.466102l0 260.597203c0 36.308951 19.049868 48.217165 48.402383 30.91715 63.307861-37.300534 146.037051-83.932598 200.252837-124.563994C599.17085 527.083533 591.658759 486.091934 563.220057 467.950761zM509.895571 525.050224c-30.166043 19.407002-85.557608 52.220339-114.964358 68.882833-9.683547 5.483898-15.690354 0.352017-15.690354-13.011338L379.240859 442.562535c0-12.919241 6.167466-17.626449 16.090467-12.010545 29.379121 16.644075 82.205257 49.037856 114.565269 68.653613C522.693038 506.95817 521.426185 517.635347 509.895571 525.050224z" p-id="6719" fill="#515151"></path></svg>
+        </TextChunk>
+      </div>
+    </>
+  },
+  //播放进度条
+  ProgressBar: (props) => {
+    const context = React.useContext(Context);
+    return <>
+      <div className={context.music_control_class.play_box_progress_bar}>
+        
+      </div>
+    </>
+  },
+  LoopState: (props) => {
+    const context = React.useContext(Context);
+    return <>
+      <div className=''>
+
+      </div>
+    </>
   }
+}
+//播放器组件
+function ReactAudioPlayer(props) {
+  const context = React.useContext(Context)
+  const className = props.className ? props.className : '';
+  const player = useRef();
+  useEffect(() => {
+    context.get_player(player.current);
+    console.log(context.Player);
+  },[])
+  return <>
+    <div className={context.music_control_class.music_palyer}>
+      <audio {...props} ref={player}>
+      </audio>
+        {context.music_unfold ? <>
+          <MusicControl.ProgressBar />
+          <MusicControl.LoopState />
+          <MusicControl.PlayState /> 
+        </>
+          : 
+          <>
+            <MusicControl.PlayState />
+            <MusicControl.ProgressBar />
+            <MusicControl.LoopState />
+        </>}
+    </div>
+    
+
+  </>
+}
+function MusicChunk(props) {
+  const onUnfold = props.onUnfold ? props.onUnfold : null;
+  const methods = React.useContext(Context);
+  const [isShowMusicData, setIsShowMusicData] = useState(false);
   const search_tag = (e, key, limit = 30, offset = 1, type = 2) => {
     (async function () {
       const data = await axios(`http://rainsin.yicp.top/music?key=${e.target.textContent}&limit=${limit}&offset=${offset}&type=${type}`)
-      setListData(data.data.data.musics)
     })(methods, axios, limit, offset, type);
   }
   // useEffect(() => {
@@ -224,16 +188,21 @@ function MusicChunk() {
   //     setListData(data.data.data.musics)
   //   })(methods, axios,limit=20, offset=1, type=2,key);
   // },[])
+  const isPlay = () => {
+    methods.change_music_paly();
+  }
+  const isPause = () => {
+    methods.change_music_paly();
+  }
   return <>
-    <div className='music-chunk'>
-    <ReactAudioPlayer
-        className='react-audio-player'
-        src={'https://freetyst.nf.migu.cn/public%2Fproduct9th%2Fproduct45%2F2022%2F02%2F1515%2F2009%E5%B9%B406%E6%9C%8826%E6%97%A5%E5%8D%9A%E5%B0%94%E6%99%AE%E6%96%AF%2F%E5%85%A8%E6%9B%B2%E8%AF%95%E5%90%AC%2FMp3_64_22_16%2F60054701897152859.mp3?Key=78bb694b09d9e8c3&Tim=1646920505642&channelid=01&msisdn=75364f11c85142ce80cdb278871df0f0'}
-        autoPlay={false}
-        controls={true}
-      />
-
-      <div></div>
+    <div className={'music-chunk ' + methods.music_unfold_class.border_radius_init}>
+      <div className='music-chunk-meck' style={{backgroundImage:'url('+ methods.music.album_img_url +')',backgroundColor:'rgb(255,255,255)'}}></div>
+      <div className={'music-chunk-content ' + methods.music_control_class.music}>
+        <div className='music-chunk-content-unfold'>
+        <TextChunk fontSize={18} svgwidth={20} onClick={onUnfold} isPreventDefault={true}>
+          {methods.music_unfold ? <svg t="1646979898441" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1477" width="200" height="200"><path d="M796 279.9L620.6 455.3c-14 14-36.9 14-50.9 0s-14-36.9 0-50.9L745.1 229c14-14 36.9-14 50.9 0s14 36.9 0 50.9z" p-id="1478" fill="#515151"></path><path d="M796 481H581.5c-20.2 0-36.5-16.4-36.5-36.5V228.7c0-20.3 16.5-37.1 36.7-36.7 19.5 0.4 35.3 16.4 35.3 36v166.3c0 8.1 6.6 14.7 14.7 14.7h163.5c20.3 0 37.1 16.4 36.7 36.7-0.3 19.6-16.3 35.3-35.9 35.3zM228 744.1l175.4-175.4c14-14 36.9-14 50.9 0s14 36.9 0 50.9L278.9 795c-14 14-36.9 14-50.9 0s-14-36.9 0-50.9z" p-id="1479" fill="#515151"></path><path d="M228 543h214.3c20.3 0 36.7 16.4 36.7 36.7v215.5c0 20.3-16.5 37.1-36.7 36.7-19.5-0.4-35.3-16.4-35.3-36V615H228.7c-20.3 0-37.1-16.4-36.7-36.7 0.4-19.6 16.4-35.3 36-35.3z" p-id="1480" fill="#515151"></path><path d="M189.3 135.9c-29.7 0-53.8 24.1-53.8 53.7v644.7c0 29.7 24.1 53.7 53.8 53.7h645.4c29.7 0 53.8-24.1 53.8-53.7V189.6c0-29.7-24.1-53.7-53.8-53.7H189.3z m-13-71.1h671.5c61.8 0 111.9 50.1 111.9 111.8v670.8c0 61.7-50.1 111.8-111.9 111.8H176.3c-61.8 0-111.9-50-111.9-111.8V176.6c0-61.7 50.1-111.8 111.9-111.8z m0 0" p-id="1481" fill="#515151"></path></svg> : <svg t="1646979870910" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1278" width="200" height="200"><path d="M795.5 192H581c-19.6 0-35.6 15.7-36 35.3-0.4 20.3 16.4 36.7 36.7 36.7h128.4L581 393.1c-14 14-14 36.9 0 50.9s36.9 14 50.9 0L760 315.9v129c0 19.6 15.8 35.6 35.3 36 20.2 0.4 36.7-16.4 36.7-36.7V228.5c0-20.1-16.3-36.5-36.5-36.5zM442.2 760H313.8L443 630.9c14-14 14-36.9 0-50.9s-36.9-14-50.9 0L264 708.1V579c0-19.6-15.8-35.6-35.3-36-20.2-0.4-36.7 16.4-36.7 36.7v215.6c0 20.3 16.4 36.7 36.7 36.7H443c19.6 0 35.6-15.7 36-35.3 0.3-20.3-16.5-36.7-36.8-36.7z" p-id="1279" fill="#515151"></path><path d="M838 136c27.6 0 50 22.4 50 50v652c0 27.6-22.4 50-50 50H186c-27.6 0-50-22.4-50-50V186c0-27.6 22.4-50 50-50h652m0-72H186c-16.4 0-32.4 3.2-47.5 9.6-14.5 6.1-27.6 14.9-38.8 26.1-11.2 11.2-20 24.2-26.1 38.8-6.4 15.1-9.6 31.1-9.6 47.5v652c0 16.4 3.2 32.4 9.6 47.5 6.1 14.5 14.9 27.6 26.1 38.8 11.2 11.2 24.2 20 38.8 26.1 15.1 6.4 31.1 9.6 47.5 9.6h652c16.4 0 32.4-3.2 47.5-9.6 14.5-6.1 27.6-14.9 38.8-26.1 11.2-11.2 20-24.2 26.1-38.8 6.4-15.1 9.6-31.1 9.6-47.5V186c0-16.4-3.2-32.4-9.6-47.5-6.1-14.5-14.9-27.6-26.1-38.8-11.2-11.2-24.2-20-38.8-26.1-15.1-6.4-31.1-9.6-47.5-9.6z" p-id="1280" fill="#515151"></path></svg>}
+        </TextChunk>
+        </div>
       <div className='music-chunk-tag'>
         {music_tag.map((item, index) => {
           return <TextChunk onClick={search_tag} key={index} isPreventDefault={true} fontSize={17} lineheight='_'><Tag color={item.color}>{item.name}</Tag></TextChunk>
@@ -241,8 +210,22 @@ function MusicChunk() {
       </div>
       {isShowMusicData ? <>
         <MusicList></MusicList>
-      </> : <>我消失啦</>}
+        </> : <>我消失啦</>}
+        <div className={'react-audio-player-box '}>
+        <ReactAudioPlayer
+        className='react-audio-player'
+        src={'https://freetyst.nf.migu.cn/public%2FproductBe%2FproductB03%2F2019%2F10%2F0718%2F2010%E5%B9%B402%E6%9C%8823%E6%97%A5%E6%B5%B7%E8%9D%B6%E5%94%B1%E7%89%87%2F%E5%85%A8%E6%9B%B2%E8%AF%95%E5%90%AC%2FMp3_64_22_16%2F60058622750.mp3?Key=e4633b47217f7a7d&Tim=1646982862719&channelid=01&msisdn=d25e212158894859841ef2ff719add06'}
+        autoPlay={false}
+        onPlay={isPlay}
+        onPause={isPause}
+        header='反方向的钟'
+      />
+        </div>
+        
       </div>
+        
+      </div>
+      
   </>
 }
 

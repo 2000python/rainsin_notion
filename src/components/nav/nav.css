@@ -1,6 +1,6 @@
 .nav {
     position: fixed;
-    z-index: 999;
+    z-index: 970;
     top: 0;
     width: 100%;
     height: 50px;
@@ -58,22 +58,22 @@
 
 .music-box{
     position: fixed;
+    z-index: 1000;
     top: 0;
     width: 100vw;
     height: 100vh;
-    transition: left 1s;
+    transition: left .6s;
 }
 .music-box-content{
     position: absolute;
-    padding: 0 10px;
+    z-index: 1001;
     top: 80px;
     left: 40px;
-    width: 370px;
+    width: 400px;
     height: 80vh;
-    background-color: #fff;
     border-radius: 8px;
-    transition: all 1s;
-    z-index: 1000;
+    background-color: #fff;
+    transition: all .6s;
     box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
 }
 .music-box-close{
@@ -92,4 +92,28 @@
 }
 .content-close-box{
     left: -500px;
+}
+.bg_player {
+    display: none;
+    
+}
+.music-content-unfold{
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    z-index: 9999;
+}
+.border-radius-init{
+    border-radius: 0;
+}
+.music-chunk-content-unfold{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    padding-right: 0;
+}
+.music-transition{
+    transition: all 1s;
 }

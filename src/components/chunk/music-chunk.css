@@ -6,93 +6,88 @@
    
 }
 .music-chunk{
-    width: 100%;
-    height: 100%;
-    box-shadow: (15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
-}
-.music-list>li{
-    width: 100%;
-    height: 70px;
-}
-.music-list>li:nth-child(2n){
-    background-color: rgb(238,238,235);
-}
-.music-list>li:hover{
-    background:rgba(0,0,0,.3);
-}
-.input-search-music{
-    display: flex;
-    flex: 90px 1;
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.input-search-music>div:nth-child(1){
-    display: inline-block;
-}
-.input-search-music>span:nth-child(2){
-    width: 100%;
-}
-
-.music-list-item{
-    display: flex;
     position: relative;
+    z-index: 1002;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,0.35);
 }
-.music-list-item-index{
-    display: inline-block;
-    position: relative;
-    width: 70px;
-    height: 70px;
-}
-.music-list-item-index>span{
+.music-chunk-content{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-.music-list-item-detail{
-    flex: auto;
-    width: 40%;
-    height: 100%;
-}
-.item-detail-singlename{
-    display: inline-block;
-    width: 100%;
-    line-height: 20px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-top: 10px;
-}
-.item-detail-artname{
-    display: inline-block;
-    width: 100%;
-    height: 14px;
-    margin-top: 5px;
-   overflow: hidden;
-    font-size: 12px;
-
-}
-.music-list-item-album{
-    width: 65px;
-    height: 100%;
-    overflow: hidden;
-}
-.shade-music{
-    position: absolute;
-    float: left;
-    z-index: 20;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(255,255,255,.2);
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 }
+.music-chunk-meck{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    filter: blur(65px);
+    opacity: .6;
+}
+
 
 .react-audio-player{
     width: 100%;
-    margin: 20px 0;
+    box-shadow: none;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,0);
 }
 .music-chunk-tag{
+    margin-top: 20px;
     margin-bottom: 20px;
+}
+.react-audio-player-box{
+    position: absolute;
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    bottom: 30px;
+}
+/* 音乐播放器总盒子 */
+.music-box-unfold{
+    position: relative;
+    padding: 150px;
+}
+.music-box-shrink{
+    position: relative;
+    width: 100%;
+}
+.music-palyer-box-unfold{
+    
+}
+.music-palyer-box-shrink{
+
+}
+/* 播放控件盒子 */
+.music-palyer-state-unfold{
+    
+}
+.music-palyer-state-shrink{
+
+}
+
+.rhap_theme-color{ color:#868686;}
+.rhap_background-color { color:#fff ;} 
+.rhap_bar-color {color: #e4e4e4 ; }    
+.rhap_time-color {color: #333 ; }      
+.rhap_font-family { color: inherit; } 
+
+.play-state-box-unfold{
+
+}
+.play-state-box-shrink{
+    display: inline-block;
+}
+.music-palyer-state{
+
 }
