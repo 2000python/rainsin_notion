@@ -1,9 +1,31 @@
+:root{
+    --color-music-font:#515151;
+}
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width:12px;
+    }
+    /* 滚动槽 */
+::-webkit-scrollbar-track {
+    box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius:10px;
+}
+    /* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius:10px;
+    background:rgba(0,0,0,0.1);
+    box-shadow:inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background:rgba(255,0,0,0.4);
+ }
 .music-list{
     width: 100%;
-    height: 400px;
-    overflow: auto;
-    border: 1px solid rgb(228,225,225);
+    max-height: 60%;
    
+}
+.music-list ul{
+    padding: 0;
 }
 .music-chunk{
     position: relative;
@@ -34,6 +56,7 @@
     background-position: 50%;
     filter: blur(65px);
     opacity: .6;
+    transform: translateZ(0);
 }
 
 
@@ -53,28 +76,72 @@
     width: calc(100% - 40px);
     bottom: 30px;
 }
+.music-list-table{
+    width: 100%;
+    color: #fff;
+    height: 100%;
+    overflow: hidden;
+}
+.music-list-thead{
+    width: 100%;
+}
+.music-list-tbody{
+    width: 100%;
+    max-height: calc(100% - 28px);
+    overflow: overlay;
+}
+.album-list-box{
+    display: flex;
+    width: 100%;
+    height: 96%;
+}
+.music-album-box{
+    width: 50%;
+}
+/* 展开 */
 /* 音乐播放器总盒子 */
 .music-box-unfold{
     position: relative;
-    padding: 150px;
+    padding: 90px 120px 0 120px;
 }
-.music-box-shrink{
-    position: relative;
-    width: 100%;
-}
-.music-palyer-box-unfold{
-    
-}
-.music-palyer-box-shrink{
 
+.music-palyer-box-unfold{
+    bottom: 100px;
+    left: 120px;
 }
+
 /* 播放控件盒子 */
 .music-palyer-state-unfold{
     
 }
+.play-state-box-unfold{
+
+}
+
+.music-list-table-unfold{
+    width: 50%;
+}
+
+/* 收缩 */
+.music-box-shrink{
+    position: relative;
+    width: 100%;
+}
+
+.music-palyer-box-shrink{
+
+}
+
 .music-palyer-state-shrink{
 
 }
+.play-state-box-shrink{
+    display: inline-block;
+}
+.music-list-table-shrink{
+    width: 100%;
+}
+
 
 .rhap_theme-color{ color:#868686;}
 .rhap_background-color { color:#fff ;} 
@@ -82,12 +149,80 @@
 .rhap_time-color {color: #333 ; }      
 .rhap_font-family { color: inherit; } 
 
-.play-state-box-unfold{
 
-}
-.play-state-box-shrink{
-    display: inline-block;
-}
+
 .music-palyer-state{
 
+}
+.music-list>.music-list-thead-first{
+    display: flex;
+    align-items: center;
+    color: #e4e4e4;
+    margin: 8px 0;
+}
+.music-list>.music-list-thead-first>li:nth-child(1){
+    padding: 3px 4px;
+}
+.music-list>.music-list-thead-first>div:nth-child(2){
+    display: inline-flex;
+    flex-grow: 1;
+    justify-content: right;
+}
+.music-list-thead .music-list-thead-first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e4e4e4;
+    margin: 8px 0;
+}
+.music-list-thead-first>li{
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.music-list-thead-detial{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e4e4e4;
+    font-size: 14px;
+    padding: 6px 0;
+}
+.music-list-thead-detial>li{
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+}
+.music-list-thead-detial>li:nth-child(1){
+    padding: 0 4px;
+}
+.music-list-thead-detial>li:nth-child(2){
+    flex: 2.5;
+    justify-content: left;
+    overflow: hidden;
+}
+.music-list-thead-detial>li:nth-child(3){
+    flex: .8;
+}
+.music-list-thead-detial>li:nth-child(4){
+    flex: 1;
+}
+.music-list-thead-detial>li:nth-child(5){
+    flex: 1;
+}
+.music-list-font-color{
+    color: rgb(230, 230, 230);
+}
+.music-list-font-color:hover{
+    color: rgb(230, 230, 230)
+}
+.music-list-tbody>a:nth-child(2n){
+    background-color: rgba(0,0,0,.15);
+}
+.music-list-tbody>a:nth-child(2n + 1){
+    background-color: rgba(0,0,0,.1);
+}
+.music-list-tbody>a:hover{
+    background-color: rgba(0,0,0,.2);
 }

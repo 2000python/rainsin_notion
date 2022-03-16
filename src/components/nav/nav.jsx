@@ -10,6 +10,7 @@ import './nav.css';
 import TextChunk from '../chunk/text-chunk';
 import ProgressBar from '../chunk/scrollBar';
 import MusicChunk,{ MusicControl } from '../chunk/music-chunk';
+import { style } from '@mui/system';
 
 const unfold_class = {
     content_unfold: 'music-content-unfold',
@@ -23,7 +24,7 @@ const shrink_class = {
 function NavUI(props) {
     const navData = useContext(Context);
     useEffect(() => {
-        const audio = document.getElementsByClassName('react-audio-player');
+    
     })
     const [musicmouse, setMusicMousenode] = useState(false);
     const [MusicClose, setMusicClose] = useState({
@@ -95,7 +96,7 @@ function NavUI(props) {
             <TextChunk Class='nav-center' content='分享' url='/share' fontSize={14}></TextChunk>
 
 
-            <TextChunk Class='nav-center' content='简历' url='/share' fontSize={14}></TextChunk>
+            <TextChunk Class='nav-center' content='简历' url='/resume' fontSize={14}></TextChunk>
 
 
             <TextChunk Class='nav-center' content='➠' url='/share' fontSize={18}></TextChunk>
@@ -105,12 +106,12 @@ function NavUI(props) {
 
         </div>
         </div>
-            <div className={`music-box ${MusicClose.meck_close} ${navData.music_unfold_class.border_radius_init}`} onClick={music_box_close}>
+            <div className={`music-box ${MusicClose.meck_close} ${navData.music_unfold_class.border_radius_init}`} onClick={music_box_close} >
                 {/* <div className={`music-box-content ${MusicClose.content_close}`}>
                     <MusicChunk></MusicChunk>
                 </div> */}
                 </div>
-                <div className={`music-box-content ${MusicClose.content_close} ${navData.music_unfold_class.content_unfold}`} >
+                <div className={`music-box-content ${MusicClose.content_close} ${navData.music_unfold_class.content_unfold}`} style={{backgroundColor:navData.music.album_main_color}}>
                     <MusicChunk onUnfold={unfold}></MusicChunk>
                 </div>
         </nav>

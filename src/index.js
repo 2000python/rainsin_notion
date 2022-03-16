@@ -20,7 +20,8 @@ import reportWebVitals from './reportWebVitals';
 import { ViewportProvider } from './api/viewportContext';
 import BlogDetail from './page/blog/detail';
 import Nav from './components/nav/nav';
-import { tianyi,aliyun } from './api/tianyi';
+import { tianyi, aliyun } from './api/tianyi';
+import Resume from './page/resume';
 
 export const Context = createContext({});
 
@@ -52,6 +53,9 @@ ReactDOM.render(
           <Route  path='/blog/:mid' element={<BlogIndex></BlogIndex>}>
           </Route>
           <Route path='/blog/detail/:art_mid/:art_title' element={<BlogDetail></BlogDetail>}>
+            </Route>
+            <Route path='/resume' element={<Resume></Resume>}>
+              
           </Route>
         </Route>
       </Routes>

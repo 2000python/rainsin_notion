@@ -4,7 +4,6 @@
  */
 import { makeAutoObservable } from 'mobx';
 import blogTechData,{blogNotesData,blogCuriousData,blogOtherData} from '../page/blog/api/data';
-import axios from 'axios';
 const store = makeAutoObservable({
   page_title: ['解忧杂货店'],
   page_path: [{
@@ -38,8 +37,17 @@ const store = makeAutoObservable({
     //当前播放url
     src: '',
     //当前播放歌曲专辑图片
-    album_img_url: 'https://y.qq.com/music/photo_new/T002R300x300M000004AfbeH1xUvTe_1.jpg?max_age=2592000'
-    
+    album_img_url: 'https://y.qq.com/music/photo_new/T002R300x300M000002C2T860Yo5Cr_1.jpg?max_age=2592000',
+    album_main_color: '',
+    now_paly_cid: '1',
+    list_data:[],
+  },
+  list_state: {
+    now_select_search_list: true,
+    now_select_list_item: [],
+    is_all_select: false,
+    select_item_search: [],
+    select_item_paly: [],
   },
   //播放器控件类名
   music_control_class: {},
@@ -47,7 +55,26 @@ const store = makeAutoObservable({
   music_unfold: false,
   //播放器对应状态的类名
   music_unfold_class: {},
+  //得到图片的主色调
+  imgColor: [],
   //得到播放器
+  
+  set_search_data_list(value) {
+    store.music.searchlistdata = value;
+  },
+  change_music_list() {
+    store.list_state.now_select_search_list = !store.list_state.now_select_search_list;
+  },
+  set_music_list() {
+    if (store.list_state.now_select_search_list) {
+      store.music.list_data = store.music.searchlistdata
+    } else {
+      store.music.list_data = store.music.palylistdata
+    }
+  },
+  change_select_all_item() {
+    store.list_state.is_all_select = !store.list_state.is_all_select;
+  },
   get_player(e) {
     store.Player = e
   },
