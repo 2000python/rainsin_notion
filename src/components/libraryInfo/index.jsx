@@ -83,7 +83,7 @@ function LibraryInfo() {
         </Mottos>
       </div>
       <div className='lbinfo-motto'>
-        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack2.webp"/>
+        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/%E8%91%A3%E5%85%B6%E6%98%8C.png"/>
         <Divider textAlign="left" className='motto-chunk-divider' />
         <Mottos author='Ursula K. LeGuin'>
         “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”

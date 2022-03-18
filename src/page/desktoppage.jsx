@@ -15,7 +15,7 @@ import Rubik from '../components/rubik-cube/rubik';
 
 function DesktopIndexPage() {
     return (<>
-        <Banner />
+        <Banner imgStyle={{backgroundImage:'url(https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/%E9%BA%BB%E4%BB%99%E5%A7%91.jpg)',backgroundPosition: 'center center',backgroundSize: 'cover'}}/>
         <div className='wrap'>
             <Title />
             <Divider textAlign="right"><Chip label="奇思妙想" /></Divider>

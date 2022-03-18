@@ -31,7 +31,7 @@ const artData = [
     },
     {
         id: 4,
-        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/JSECoin.-Javascript-embedded-cryptocurrency-20077.jpg',
+        url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/alien.jpg',
         title: '🛸 奇奇怪怪 👽',
         isTag: false,
         classrouter: '/blog/curious'
