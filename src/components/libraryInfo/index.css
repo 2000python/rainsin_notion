@@ -57,6 +57,8 @@
 }
 .motto-content{
     display: inline-block;
+    width: 100%;
+    letter-spacing: .7px;
     font-size: 14px;
     font-weight: 500;
     font-style: italic;

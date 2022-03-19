@@ -21,7 +21,12 @@ const shrink_class = {
     border_radius_init: '',
 }
 
-function NavUI(props) {
+/**
+ * 导航栏 组件
+ * @return {ReactComponent}
+ */
+
+function Nav(props) {
     const navData = useContext(Context);
     useEffect(() => {
     
@@ -119,6 +124,4 @@ function NavUI(props) {
         </>);
 }
 
-const Nav = observer(NavUI)
-
-export default Nav;
+export default observer(Nav);

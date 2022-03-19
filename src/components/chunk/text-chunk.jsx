@@ -9,7 +9,6 @@ import Tooltip from '@mui/material/Tooltip';
 // import { Link } from "react-router-dom";
 import './text-chunk.css'
 
-//传入参数：fontSize-字体大小；content-展示内容
 /**
  * 锚点文本 组件
  * @param {String} Class 追加类名
@@ -21,6 +20,9 @@ import './text-chunk.css'
  * @param {String} target 跳转
  * @param {boolean} isPreventDefault 是否阻止默认事件
  * @param {function} onClick  点击事件
+ * @param {function} dbClick  双击事件
+ * @param {function} MouseOver  鼠标移到事件
+ * @param {function} MouseOut  鼠标移出事件
  * @param {Number} svgwidth  svg宽
  * @param {Number} svgheight  svg高 默认与svgwidth相等
  * @param {Object} data  HTML元素的data Set属性

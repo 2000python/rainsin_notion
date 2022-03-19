@@ -58,13 +58,15 @@ const store = makeAutoObservable({
   //得到图片的主色调
   imgColor: [],
   //得到播放器
-  
+  //设置音乐搜索数据列表
   set_search_data_list(value) {
     store.music.searchlistdata = value;
   },
+  //改变音乐展示数据列表
   change_music_list() {
     store.list_state.now_select_search_list = !store.list_state.now_select_search_list;
   },
+  //设置音乐展示数据列表
   set_music_list() {
     if (store.list_state.now_select_search_list) {
       store.music.list_data = store.music.searchlistdata
@@ -72,9 +74,11 @@ const store = makeAutoObservable({
       store.music.list_data = store.music.palylistdata
     }
   },
+  //改变是否全部选择音乐项目
   change_select_all_item() {
     store.list_state.is_all_select = !store.list_state.is_all_select;
   },
+  //得到音乐播放器
   get_player(e) {
     store.Player = e
   },
@@ -101,7 +105,8 @@ const store = makeAutoObservable({
    //改变播放器状态
    change_music_paly() {
     store.music_paly = !store.music_paly;
-   },
+  },
+   //改变音乐播放状态
    change_nav_music_paly(e) {
      if (store.music_paly) {
        e.pause();

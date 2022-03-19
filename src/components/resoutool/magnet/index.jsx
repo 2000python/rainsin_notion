@@ -111,6 +111,14 @@ function ListItem(props) {
         </div>
     )
 }
+
+/**
+ * 磁力搜索列表 组件
+ * @param {Boolean} isLoading 设置列表数据
+ * @param {Array} list 设置hint组件宽度
+ * @return {ReactComponent}
+ */
+
 function MagnetList(props) {
     return props.isLoading ? <div className="show-magnet-list magnet-center-empty"><Spin  /></div> :
     props.list && props.list.length === 0 ? <div className="show-magnet-list magnet-center-empty"><Empty description='没有数据' /></div> :

@@ -6,6 +6,12 @@ import React,{useEffect,useRef} from 'react'
 import ImgChunk from './img-chunk'
 import './listitem-chunk.css'
 
+/**
+ * 列表项目 组件
+ * @param {Array} data 数据
+ * @return {ReactComponent}
+ */
+
 function ListitemChunk(props) {
     const data = props.data ? props.data : []
     const imgUrl = data.upic;

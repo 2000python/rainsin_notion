@@ -36,6 +36,19 @@
     align-items: center;
 }
 
+@-webkit-keyframes animal {
+    0%{
+      transform: rotate(-360deg);
+      -ms-transform: rotate(-360deg);
+      -webkit-transform: rotate(-360deg);
+    }
+    100%{
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+      }
+  }
+
 @keyframes animal {
     0%{
       transform: rotate(-360deg);
@@ -50,9 +63,8 @@
   }
 
   .nav-music-cont{
-    animation: animal 2s infinite linear ;
-    -webkit-transform-origin: center center;
-    -ms-transform-origin: center center;
+    -webkit-animation: animal 2s infinite linear ;
+            animation: animal 2s infinite linear ;
     transform-origin: center center;
   }
 

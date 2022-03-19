@@ -13,9 +13,10 @@ import data,{right} from './API/data';
 import Path from '../../api/svg';
 
 /**
- * 信息分类 组件
- * @param {String} Class 追加类名
- * @param {Number} fontSize 设置字体大小
+ * 图书馆信息列表 组件
+ * @param {Number} data 设置列表数据
+ * @param {String} hintWidth 设置hint组件宽度
+ * @param {String} hintHeight 设置hint组件高度（如果不设则默认与宽相等）
  * @return {ReactComponent}
  */
 
@@ -65,6 +66,11 @@ export function Mottos(props) {
   )
 }
 
+/**
+ * 图书馆 组件
+ * @return {ReactComponent}
+ */
+
 function LibraryInfo() {
   return (
     <div className='lbinfo-box'>
@@ -78,15 +84,15 @@ function LibraryInfo() {
       <div className='lbinfo-motto'>
         <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url='https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/bookrack.webp'/>
         <Divider textAlign="left" className='motto-chunk-divider' />
-        <Mottos author='Ursula K. LeGuin'>
-        “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
+        <Mottos author='王勃'>
+        “老当益壮，宁移白首之心；穷且益坚，不坠青云之志。”
         </Mottos>
       </div>
       <div className='lbinfo-motto'>
-        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/%E8%91%A3%E5%85%B6%E6%98%8C.png"/>
+        <ImgChunk Class='lbinfo-motto-border' width="90%" height='auto' alt='书架' fillmode='cover' url="https://rainsin-1305486451.file.myqcloud.com/img/webp/notion/%E8%91%A3%E5%85%B6%E6%98%8C%E6%B8%85.jpg"/>
         <Divider textAlign="left" className='motto-chunk-divider' />
-        <Mottos author='Ursula K. LeGuin'>
-        “The unread story is not a story; it is little black marks on wood pulp. The reader, reading it, makes it live: a live thing, a story.”
+        <Mottos author='易经'>
+        “取法乎上，始得其中；取法乎中，始得其下。          ” 
         </Mottos>
       </div>
       <div className='lbinfo-else'>

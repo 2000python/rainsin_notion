@@ -5,8 +5,16 @@
 import React, { useEffect} from 'react';
 import TextChunk from '../chunk/text-chunk';
 // import mrak from './detail.md'
-import './title.css'
-import Markdown from '../markdown/markdown';
+import './title.css';
+
+/**
+ * 标题 组件
+ * @param {String} detail 设置简介
+ * @param {String} icon 设置icon（emoji）
+ * @param {String} Ititle 设置标题
+ * @param {ReactComponent} children 设置子元素
+ * @return {ReactComponent}
+ */
 
 function Title(props) {
     const detailInfo = props.detail ? props.detail : ' 坚持梦想是一件“知易行难”的事，一个没有期限的梦想只是一个梦，给梦想加一个“截止日期”。';
@@ -24,10 +32,10 @@ function Title(props) {
                 </div>
                 
             </div>
-            <div className='banner-title-minor'>
-                
+            <div className='banner-title-minor'> 
             </div>
-      </div>
+        </div>
+        {props.children}
   </div>);
 }
 

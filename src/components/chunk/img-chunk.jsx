@@ -5,6 +5,17 @@
 import React from 'react';
 import './img-chunk.css';
 
+/**
+ * 图片 组件
+ * @param {Any} children 
+ * @param {String} Class 追加类名
+ * @param {String} width 设置组件宽度
+ * @param {String} height 设置组件高度
+ * @param {String} fillmode 设置图片填充模式
+ * @param {String} alt 设置替换文本
+ * @param {String} url 设置图片路径
+ * @return {ReactComponent}
+ */
 
 
 function ImgChunk(props) {

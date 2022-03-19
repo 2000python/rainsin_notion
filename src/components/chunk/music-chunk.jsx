@@ -75,6 +75,13 @@ const music_tag = [
     color: 'green'
   },
 ]
+
+/**
+ * 音乐列表项目 组件
+ * @param {Array} data 数据
+ * @return {ReactComponent}
+ */
+
 function MusicListItem(props) {
   const context = React.useContext(Context);
   const data = props.data ? props.data : [];
@@ -112,7 +119,10 @@ function MusicListItem(props) {
   </>
 }
 
-
+/**
+ * 音乐列表 组件
+ * @return {ReactComponent}
+ */
 
 function MusicList() {
   const context = React.useContext(Context);
@@ -175,6 +185,13 @@ function MusicList() {
   </>
 }
 
+/**
+ * 音乐搜索 组件
+ * @param {String} Class 追加类名
+ * @param {Number} fontSize 设置字体大小
+ * @return {ReactComponent}
+ */
+
 function MusicSearch() {
   return <>
     
@@ -199,6 +216,12 @@ export const MusicControl = {
     music_list_table:'music-list-table-shrink',
   },
   //播放状态组件
+
+  /**
+   * 播放器播放状态控件 组件
+   * @return {ReactComponent}
+   */
+
   PlayState: (props) => {
     const context = React.useContext(Context);
     const onPlay = () => {
@@ -221,6 +244,12 @@ export const MusicControl = {
     </>
   },
   //播放进度条
+
+  /**
+   * 播放器进度条控件 组件
+   * @return {ReactComponent}
+   */
+
   ProgressBar: (props) => {
     const context = React.useContext(Context);
     return <>
@@ -229,6 +258,12 @@ export const MusicControl = {
       </div>
     </>
   },
+
+  /**
+   * 播放器循环播放控件 组件
+   * @return {ReactComponent}
+   */
+
   LoopState: (props) => {
     const context = React.useContext(Context);
     return <>
@@ -239,6 +274,12 @@ export const MusicControl = {
   }
 }
 //播放器组件
+
+  /**
+   * 音乐播放器 组件
+   * @return {ReactComponent}
+   */
+
 function ReactAudioPlayer(props) {
   const context = React.useContext(Context)
   const player = useRef();
@@ -261,6 +302,12 @@ function ReactAudioPlayer(props) {
         </>}
   </>
 }
+
+  /**
+   * 音乐块 组件
+   * @return {ReactComponent}
+   */
+
 function MusicChunk(props) {
   const onUnfold = props.onUnfold ? props.onUnfold : null;
   const methods = React.useContext(Context);

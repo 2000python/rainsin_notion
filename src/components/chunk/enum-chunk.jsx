@@ -9,6 +9,14 @@ import Tag from '../tag/tag';
 import { encode, decode } from 'js-base64';
 import './enum-chunk.css';
 
+
+/**
+ * 菜单块 组件
+ * @param {Array} data 组件需要数据
+ * @param {Number} mid 
+ * @return {ReactComponent}
+ */
+
 function EnumChunk(props) {
   const data = props.data ? props.data : new Error('没有数据');
   const [tag, settag] = React.useState([]), [urlMid, setMid] = React.useState();

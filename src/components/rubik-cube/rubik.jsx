@@ -13,6 +13,15 @@ import 'video-react/dist/video-react.css';
 
 import Posi_data, { Basic_data, Twisty_data } from './api/data';
 
+
+/**
+ * 魔方提示 组件
+ * @param {Any} children 
+ * @param {String} className 追加类名
+ * @param {Number} width 设置组件宽度
+ * @param {Number} height 设置组件高度
+ * @return {ReactComponent}
+ */
 function HintChunk(props) {
   const children = props.children ? props.children : '';
   const ClassName = props.className ? props.className : '';
@@ -30,6 +39,20 @@ function HintChunk(props) {
     </div>
   )
 }
+
+/**
+ * 魔方基础提示 组件
+ * @param {Any} children 
+ * @param {String} className 追加类名
+ * @param {Number} width 设置组件宽度
+ * @param {Number} height 设置组件高度
+ * @param {String} outclassName 追加最外层容器类名
+ * @param {String} hintclassName 追加提示组件容器类名
+ * @param {String} divideclassName 追加分割线类名（需要加!important生效）
+ * @param {Number} content 设置组件内容
+ * @param {Number} data 设置组件数据
+ * @return {ReactComponent}
+ */
 
 function RubikBasicList(props) {
   const subproject = props.data ? props.data.subproject : [];

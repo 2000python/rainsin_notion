@@ -13,6 +13,13 @@ import rehypeRaw from 'rehype-raw'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+
+/**
+ * mrkdown 组件
+ * @param {String} md md文档来源
+ * @return {ReactComponent}
+ */
+
 function Markdown(props) {
     // const [mark,setMark] = React.useState();
     // marked.setOptions({

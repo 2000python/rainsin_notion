@@ -6,6 +6,14 @@ import React,{useEffect} from 'react'
 import { Color } from '../../api/color';
 import './tag.css'
 
+/**
+ * 标签 组件
+ * @param {Number} className 追加类名
+ * @param {String} color 设置标签颜色
+ * @param {Number} fontsize 设置字体大小
+ * @return {ReactComponent}
+ */
+
 function Tag(props) {
   const color = Color;
   const className = props.className ? props.className : '';

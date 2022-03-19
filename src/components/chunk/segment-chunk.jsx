@@ -7,7 +7,16 @@ import './segment-chunk.css'
 import TextChunk from './text-chunk';
 import EnumChunk from './enum-chunk';
 
-import {classifyId} from '../../page/blog/api/data'
+import { classifyId } from '../../page/blog/api/data';
+
+/**
+ * 切片 组件
+ * @param {String} databaseName 数据库名称
+ * @param {Array} childData 数据库分栏数据
+ * @param {Number} cid 数据库cid
+ * @param {Number} mid 数据库mid
+ * @return {ReactComponent}
+ */
 
 function SegmentChunk(props) {
     const databaseName = props.databaseName ? props.databaseName : '未分类', childData = props.childData ? props.childData : [];
