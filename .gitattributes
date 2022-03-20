@@ -1,0 +1,2 @@
+*.tsx linguist-language=TypeScript
+*.mdx linguist-language=MDX
