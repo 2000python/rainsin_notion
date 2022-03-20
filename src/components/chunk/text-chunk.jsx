@@ -3,7 +3,6 @@
  * @Author: 尉旭胜(Riansin)
  */
 import React,{ useEffect, useState,useRef,useContext }from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../..";
 import Tooltip from '@mui/material/Tooltip';
 // import { Link } from "react-router-dom";
@@ -106,9 +105,9 @@ export default function TextChunk(props) {
     return(
         <>   
             <Tooltip title={title}>
-            <Link to={`${url}`} {...data} onDoubleClick={dbClick} ref={ref} target={target} className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
+            <a href={url} {...data} onDoubleClick={dbClick} ref={ref} target={target} rel="noopener noreferrer" className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
-            </Link>
+            </a>
             </Tooltip> 
          </>
     )

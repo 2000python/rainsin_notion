@@ -3,10 +3,7 @@
  * @Author: 尉旭胜(Riansin)
  */
 const { override, fixBabelImports,addDecoratorsLegacy } = require('customize-cra');
-
-module.exports = override(
-    
-);
+const rewireTypescript = require('react-app-rewire-typescript');
 
 module.exports = {
   webpack: override(config => {
@@ -19,7 +16,22 @@ module.exports = {
       use: [{
         loader: 'html-loader',
       }]
-    });
+    },
+      {
+        test:/\.tsx?$|\.ts?$/,
+        use: [{
+          loader: 'ts-loader',
+        }]
+      },
+      {
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: '@mdx-js/loader',
+          }
+      ]},
+    );
+
     return config;
   })
 };
