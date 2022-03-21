@@ -58,6 +58,7 @@ const store = makeAutoObservable({
   //得到图片的主色调
   imgColor: [],
   //得到播放器
+  
   //设置音乐搜索数据列表
   set_search_data_list(value) {
     store.music.searchlistdata = value;

@@ -160,8 +160,9 @@ function Magnet() {
         }
     }
     useEffect(() => {
-        const ss = PubSub.subscribe('isLoad', Loading)
-    })
+      const ss = PubSub.subscribe('isLoad', Loading)
+      
+    },[])
 
     return(
         <>
