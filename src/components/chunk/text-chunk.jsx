@@ -103,12 +103,12 @@ export default function TextChunk(props) {
         }
     })
     return(
-        <>   
-            <Tooltip title={title}>
-            <a href={url} {...data} onDoubleClick={dbClick} ref={ref} target={target} rel="noopener noreferrer" className={`text-chunk ${ClassName}`} style={style} onMouseOver={mouseBgcolor} onMouseOut={mouseOutBgcolor} onClick={click}>
+        <>  
+            <Tooltip title={title}>   
+            <a href={url} {...data} onDoubleClick={dbClick} ref={ref} target={target} rel="noopener noreferrer" className={`text-chunk ${ClassName}`} style={style} onMouseEnter={mouseBgcolor} onMouseLeave={mouseOutBgcolor} onClick={click}>
                 {Children}{props.content}
-            </a>
-            </Tooltip> 
+                </a>
+                </Tooltip> 
          </>
     )
 }

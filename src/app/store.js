@@ -40,7 +40,13 @@ const store = makeAutoObservable({
     album_img_url: 'https://y.qq.com/music/photo_new/T002R300x300M000002C2T860Yo5Cr_1.jpg?max_age=2592000',
     album_main_color: '',
     now_paly_cid: '1',
-    list_data:[],
+    list_data: [],
+    loop_mode: 'order',
+    last_volume: 30,
+    volume: 0,
+    is_volume_show: false,
+    audio_time: 0,
+    current_time: 0,
   },
   list_state: {
     now_select_search_list: true,
@@ -57,8 +63,38 @@ const store = makeAutoObservable({
   music_unfold_class: {},
   //得到图片的主色调
   imgColor: [],
-  //得到播放器
   
+  magnet: {
+    unfold: false,
+  },
+  set_audio_time() {
+    store.music.audio_time = store.Player.duration;
+    console.log('cccc',store.music.audio_time);
+  },
+  set_current_time(value) {
+    store.Player.currentTime = value;
+    store.music.current_time = value;
+  },
+  set_last_volume(value) {
+    store.music.last_volume = value
+  },
+  set_music_volume(value) {
+    store.music.volume = value;
+    store.Player.volume = value;
+  },
+  set_music_volume_show() {
+    store.music.is_volume_show = !store.music.is_volume_show;
+    console.log(store.music.is_volume_show);
+  },
+  //设置磁力组件显示
+  set_magnet_unfold(e) {
+    store.magnet.unfold = !store.magnet.unfold;
+    if (store.magnet.unfold) {
+          e.style.overflow = 'hidden';
+      }else{
+          e.style.overflow = 'auto';
+      }
+  },
   //设置音乐搜索数据列表
   set_search_data_list(value) {
     store.music.searchlistdata = value;

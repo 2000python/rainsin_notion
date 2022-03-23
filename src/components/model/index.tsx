@@ -2,8 +2,16 @@
  * @LastEditors: 尉旭胜(Riansin)
  * @Author: 尉旭胜(Riansin)
  */
-import React, { FC, ReactElement, useState ,useEffect } from 'react';
+import { ProxyType } from 'immer/dist/internal';
+import React, { FC, ReactElement, useState, useEffect,useContext } from 'react';
+import { Context } from '../..';
+import { observer } from 'mobx-react-lite';
 import './index.css';
+
+/**
+ * @param {Boolean} unfold 是否挂载
+ * @param {Function} change 改变挂载状态的函数
+ */
 
 interface IProps {
     unfold: boolean;
@@ -17,12 +25,7 @@ const ModelChunk: FC<IProps> = ({
     unfold,
     change,
 }): ReactElement => {
-    // useEffect(() => {
-    //   document.body.style.overflow = 'hidden';
-    //   return function () {
-    //     document.body.style.overflow = 'auto';
-    //   }
-    // },[])
+    const context = useContext(Context);
     return unfold ? <>
         <div className='magnet-main-box'>
                             <div className='magnet-meck-box' onClick={() => change()}>
@@ -35,4 +38,4 @@ const ModelChunk: FC<IProps> = ({
     </> : <></>
 } 
 
-export default ModelChunk  
+export default observer(ModelChunk);  
