@@ -15,7 +15,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import VolumeControls from '../music/VolumeBar';
 
-
 const music_tag = [
   {
     id: 1,
@@ -291,7 +290,7 @@ export const MusicControl = observer({
     const context = React.useContext(Context);
     return <>
       <div className=''>
-        <TextChunk fontSize={42} svgwidth={40}>
+        <TextChunk title={context.music.loop_mode} fontSize={42} svgwidth={40}>
           <svg t="1648018309747" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3424" width="200" height="200"><path d="M606.896 387.536H408c-92.784 0-168 75.216-168 168 0 92.8 75.216 168 168 168h224c87.2 0 158.88-66.416 167.2-151.424l0.16-1.808a16 16 0 0 1 15.936-14.768h17.344a14.832 14.832 0 0 1 14.784 15.904c-8.144 111.872-101.472 200.096-215.424 200.096h-224c-119.296 0-216-96.704-216-216s96.704-216 216-216h194.144l-29.456-29.456a16 16 0 0 1-4.688-11.312v-28.304a14.464 14.464 0 0 1 24.688-10.24l97.824 97.824a11.136 11.136 0 0 1 0 15.744l-97.824 97.808a14.464 14.464 0 0 1-24.688-10.24v-28.288a16 16 0 0 1 4.688-11.312l34.208-34.224z" p-id="3425" fill="#e6e6e6"></path></svg>
         </TextChunk>
       </div>
@@ -312,7 +311,7 @@ export const MusicControl = observer({
         
         context.set_music_volume(context.music.last_volume);
       } else {
-        context.set_last_volume(30)
+        context.set_last_volume(0.3)
         context.set_music_volume(0);
       }
       console.log(context.Player.volume);
@@ -327,7 +326,7 @@ export const MusicControl = observer({
           <VolumeBox></VolumeBox>
           {context.music.is_volume_show ? <>
           <div className='music-volume-box'>
-  
+            
           </div>
         </> : <></>}
         </TextChunk>
