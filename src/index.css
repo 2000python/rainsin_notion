@@ -67,3 +67,8 @@ blockquote>p{
 ::-webkit-scrollbar-thumb:window-inactive {
   background:rgba(142, 136, 136, 0.4);
 }
+
+button{
+  border: none;
+  outline: none;
+}

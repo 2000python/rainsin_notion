@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState,useRef } from 'react';
 import axios from 'axios';
-import TextChunk from './text-chunk';
+import TextChunk,{TextButtonChunk} from './text-chunk';
 import Tag from '../tag/tag';
 import './music-chunk.css'
 import { Context } from '../..';
@@ -14,6 +14,9 @@ import { Link } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
 import VolumeControls from '../music/VolumeBar';
+import BetterScroll from 'better-scroll';
+
+const classNames = require('classnames');
 
 const music_tag = [
   {
@@ -87,6 +90,7 @@ const music_tag = [
 function MusicListItem(props) {
   const context = React.useContext(Context);
   const data = props.data ? props.data : [];
+
   return <>
     <a className='music-list-thead-detial'>
             <li>
@@ -106,15 +110,15 @@ function MusicListItem(props) {
               {data.albumName}
             </li>
             <li>
-              <TextChunk Class='music-list-control-com' alpha={.9} title='播放/暂停'>
+              <TextButtonChunk Class='music-list-control-com' alpha={.9} title='播放/暂停'>
               <svg t="1647442732953" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1357" width="200" height="200"><path d="M772.7 217.7a32.2 32.1 0 1 0 64.4 0 32.2 32.1 0 1 0-64.4 0Z" fill="#e6e6e6" p-id="1358"></path><path d="M415.8 679.9c5.9 0 11.5-1.6 16.2-4.5l231.1-134.6c10.9-5.2 18.5-16.3 18.5-29.2 0-11.9-6.4-22.3-16-27.8L439.7 352.2c-5.8-6.7-14.4-10.9-23.9-10.9-17.6 0-31.8 14.4-31.8 32.1 0 0.6 0 1.2 0.1 1.8l-0.4 0.2 0.5 269c-0.1 1.1-0.2 2.2-0.2 3.4 0 17.7 14.3 32.1 31.8 32.1z" fill="#e6e6e6" p-id="1359"></path><path d="M909.8 306.6c-5.4-10.5-16.3-17.8-28.9-17.8-17.8 0-32.2 14.4-32.2 32.1 0 6 1.7 11.7 4.6 16.5l-0.1 0.1c26.9 52.4 42.1 111.8 42.1 174.7 0 211.6-171.6 383.2-383.2 383.2S128.8 723.8 128.8 512.2 300.4 129.1 512 129.1c62.5 0 121.5 15 173.6 41.5l0.2-0.4c4.6 2.6 10 4.1 15.7 4.1 17.8 0 32.2-14.4 32.2-32.1 0-13.1-7.9-24.4-19.3-29.4C653.6 81.9 584.9 64.5 512 64.5 264.7 64.5 64.3 265 64.3 512.2S264.7 959.9 512 959.9s447.7-200.4 447.7-447.7c0-74.1-18-144-49.9-205.6z" fill="#e6e6e6" p-id="1360"></path></svg>
-          </TextChunk>
-          <TextChunk Class='music-list-control-com' alpha={.9} title='添加到播放列表'>
+          </TextButtonChunk>
+          <TextButtonChunk Class='music-list-control-com' alpha={.9} title='添加到播放列表'>
           <svg t="1647499523490" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2222" width="200" height="200"><path d="M511.5 957.9C264.9 957.9 65 758.2 65 511.9s199.9-446 446.5-446S958 265.6 958 511.9c0.1 246.3-199.8 446-446.5 446zM509 149.1c-200.4 0-355.8 162.2-355.8 362.3 0 200.1 155.4 356.8 355.8 356.8s362.9-156.7 362.9-356.8c0-200.1-162.5-362.3-362.9-362.3zM690.5 556h-134v133.8c0 24.6-20 44.6-44.6 44.6h-0.1c-24.6 0-44.6-19.9-44.6-44.6V556h-134c-24.7 0-44.6-19.9-44.6-44.5v-0.1c0-24.6 20-44.6 44.6-44.6h134V333c0-24.6 20-44.6 44.6-44.6h0.1c24.7 0 44.6 19.9 44.6 44.6v133.8h134c24.7 0 44.6 19.9 44.6 44.6v0.1c0 24.6-19.9 44.5-44.6 44.5z m0 0" p-id="2223" fill="#dbdbdb"></path></svg>
-          </TextChunk>
-          <TextChunk Class='music-list-control-com' alpha={.9} title='下载'>
+          </TextButtonChunk>
+          <TextButtonChunk Class='music-list-control-com' alpha={.9} title='下载'>
           <svg t="1647499587115" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3807" width="200" height="200"><path d="M925.6 337.9c-22.6-53.3-54.8-101.2-96-142.3-41.1-41.1-89-73.4-142.3-96C632.1 76.2 573.5 64.4 513 64.4S393.9 76.2 338.7 99.6c-53.3 22.6-101.2 54.8-142.3 96-41.1 41.1-73.4 89-96 142.3C77 393.1 65.2 451.8 65.2 512.2c0 60.4 11.8 119.1 35.2 174.3 22.6 53.3 54.8 101.2 96 142.3 41.1 41.1 89 73.4 142.3 96C393.9 948.2 452.6 960 513 960s119.1-11.8 174.3-35.2c53.3-22.6 101.2-54.8 142.3-96 41.1-41.1 73.4-89 96-142.3 23.4-55.2 35.2-113.9 35.2-174.3 0-60.4-11.8-119.1-35.2-174.3zM513 879.1c-202.3 0-366.9-164.6-366.9-366.9S310.7 145.3 513 145.3c202.3 0 366.9 164.6 366.9 366.9S715.4 879.1 513 879.1z" p-id="3808" fill="#dbdbdb"></path><path d="M664.7 520.8c-17.6-15.6-44.7-13.9-60.3 3.7l-49.2 55.7V368.5c0-1.3-0.1-2.7-0.2-4 0.1-1.4 0.2-2.9 0.2-4.4v-30.3c0-23.2-19-42.2-42.2-42.2-23.2 0-42.2 19-42.2 42.2v30.3c0 1.6 0.1 3.1 0.3 4.7-0.1 1.2-0.2 2.4-0.2 3.7v211.6l-49.2-55.6c-15.6-17.6-42.7-19.3-60.3-3.7-17.6 15.6-19.3 42.7-3.7 60.3L481 720.5c4.1 4.7 9 8.2 14.4 10.6 0.1 0 0.2 0.1 0.3 0.1l1.5 0.6c0.2 0.1 0.4 0.2 0.6 0.2 0.4 0.2 0.8 0.3 1.2 0.4 0.3 0.1 0.6 0.2 0.8 0.3 0.3 0.1 0.7 0.2 1 0.3s0.7 0.2 1 0.3 0.6 0.2 0.9 0.2c0.4 0.1 0.8 0.2 1.1 0.3 0.3 0.1 0.6 0.1 0.8 0.2 0.4 0.1 0.8 0.2 1.2 0.2 0.3 0 0.5 0.1 0.8 0.1 0.4 0.1 0.8 0.1 1.2 0.2 0.3 0 0.6 0.1 0.8 0.1 0.4 0 0.8 0.1 1.2 0.1 0.3 0 0.6 0 0.9 0.1h4.2c0.3 0 0.6 0 0.9-0.1 0.4 0 0.8-0.1 1.2-0.1 0.3 0 0.6-0.1 0.8-0.1 0.4 0 0.8-0.1 1.2-0.2 0.3 0 0.5-0.1 0.8-0.1 0.4-0.1 0.8-0.1 1.2-0.2 0.3-0.1 0.6-0.1 0.8-0.2 0.4-0.1 0.8-0.2 1.1-0.3s0.6-0.1 0.9-0.2c0.3-0.1 0.7-0.2 1-0.3s0.7-0.2 1-0.3 0.6-0.2 0.8-0.3c0.4-0.1 0.8-0.3 1.2-0.4 0.2-0.1 0.4-0.2 0.6-0.2l1.5-0.6c0.1 0 0.2-0.1 0.3-0.1 5.3-2.4 10.3-5.9 14.4-10.6L668 581.1c16-17.6 14.3-44.8-3.3-60.3z" p-id="3809" fill="#dbdbdb"></path></svg>
-              </TextChunk>
+              </TextButtonChunk>
             </li>
             </> : <></>}
         </a>
@@ -136,30 +140,30 @@ function MusicList() {
     <div className='music-list'>
       <ul className='music-list-thead-first'>
         <li>
-        <TextChunk alpha={0.9} Class='music-list-font-color music-list-search-list-box' svgwidth={18} title='添加到播放列表'>
+        <TextButtonChunk alpha={0.9} Class='music-list-font-color music-list-search-list-box' svgwidth={18} title='添加到播放列表'>
             <svg t="1647439329902" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="55804" width="200" height="200"><path d="M842 62H182c-66 0-120 54-120 120v660c0 66 54 120 120 120h660c66 0 120-54 120-120V182c0-66-54-120-120-120z m30 750c0 33-27 60-60 60H212c-33 0-60-27-60-60V212c0-33 27-60 60-60h600c33 0 60 27 60 60v600z" fill="#e6e6e6" p-id="55805"></path><path d="M737 467H557V287c0-24.8-20.2-45-45-45s-45 20.2-45 45v180H287c-24.8 0-45 20.2-45 45s20.2 45 45 45h180v180c0 24.8 20.2 45 45 45s45-20.2 45-45V557h180c24.8 0 45-20.2 45-45s-20.2-45-45-45z" fill="#e6e6e6" p-id="55806"></path></svg>
             {context.music_unfold ? '添加到' : ''}
-        </TextChunk>
+        </TextButtonChunk>
         </li>
         <div>
         <li>
-              <TextChunk alpha={0.9} Class='music-list-font-color music-list-search-list-box' svgwidth={24} content='搜索列表'>
+              <TextButtonChunk alpha={0.9} Class='music-list-font-color music-list-search-list-box' svgwidth={24} content='搜索列表'>
               <svg t="1647313946609" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1186" width="200" height="200"><path d="M736 352a32 32 0 0 1 31.264 25.088c4.384 18.816 9.792 32.256 15.232 39.712l2.336 3.008c0.8 0.896 1.088 1.024 1.28 1.024 46.624 0 65.76 39.68 65.088 101.024a32 32 0 0 1-64-0.704c0.192-16.32-1.344-28.16-3.776-34.944l-0.608-1.504-1.92-0.032a65.088 65.088 0 0 1-12.896-2.24V736c0 57.824-66.816 96-144 96S480 793.824 480 736s66.816-96 144-96c29.184 0 56.864 5.44 80.032 15.36L704 384.704c0-1.408 0.032-2.816 0.192-4.224L704 384a32 32 0 0 1 32-32zM416 704a32 32 0 0 1 0 64H224a32 32 0 0 1 0-64h192z m208 0c-46.528 0-80 19.136-80 32s33.472 32 80 32 80-19.136 80-32-33.472-32-80-32zM544 448a32 32 0 0 1 0 64H224a32 32 0 0 1 0-64h320z m256-256a32 32 0 0 1 0 64H224a32 32 0 1 1 0-64h576z" p-id="1187" fill="#e6e6e6"></path></svg>
-              </TextChunk>
+              </TextButtonChunk>
             </li>
             <li>
-              <TextChunk alpha={0.9} Class='music-list-font-color' content='播放列表' svgwidth={24}>
+              <TextButtonChunk alpha={0.9} Class='music-list-font-color' content='播放列表' svgwidth={24}>
               <svg t="1647313903483" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="980" width="200" height="200"><path d="M608.352 442.176a64 64 0 0 1 33.92 9.728l163.648 102.272a64 64 0 0 1 0 108.544l-163.648 102.272a64 64 0 0 1-97.92-54.272v-204.544a64 64 0 0 1 64-64zM448 704a32 32 0 0 1 0 64H224a32 32 0 0 1 0-64h224z m160.352-197.824v204.544l163.648-102.272-163.648-102.272zM448 448a32 32 0 0 1 0 64H224a32 32 0 0 1 0-64h224z m352-256a32 32 0 0 1 0 64H224a32 32 0 1 1 0-64h576z" p-id="981" fill="#dbdbdb"></path></svg>
-              </TextChunk>
+              </TextButtonChunk>
             </li>
         </div>
           </ul> 
         <div className='music-list-thead'>  
           <ul className='music-list-thead-detial'>
             <li>
-              <TextChunk>
+              <TextButtonChunk>
               <svg t="1647062973284" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3143" width="200" height="200"><path d="M818.655 971.545h-613.312c-84.303 0-152.886-66.343-152.886-147.89v-623.306c0-81.549 68.585-147.89 152.886-147.89h613.312c84.303 0 152.886 66.342 152.886 147.89v623.306c0 81.548-68.585 147.89-152.886 147.89zM205.345 123.155c-45.318 0-82.19 34.628-82.19 77.191v623.306c0 42.564 36.869 77.191 82.19 77.191h613.312c45.318 0 82.19-34.627 82.19-77.191v-623.306c0-42.563-36.869-77.191-82.19-77.191h-613.312z" fill="#515151" p-id="3144"></path></svg>
-              </TextChunk>
+              </TextButtonChunk>
             </li>
           
             <li>
