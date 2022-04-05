@@ -16,14 +16,14 @@ const artData = [
         classrouter: '/blog/technology',
     },
     {
-        id: 2,
+        id: 3,
         url: 'https://rainsin-1305486451.file.myqcloud.com/img/webp/blog/76419.webp',
         title: '🪢  ✍🏻 其他技术 🏸️',
         isTag: false,
         classrouter: '/blog/other',
     },
     {
-        id: 3,
+        id: 2,
         url: 'https://goodstock.photos/wp-content/uploads/before-i-die-chalkboard-sign.jpg',
         title: '📖 随笔',
         isTag: false,

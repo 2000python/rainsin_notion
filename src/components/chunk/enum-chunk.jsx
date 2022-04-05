@@ -22,12 +22,12 @@ function EnumChunk(props) {
   const [tag, settag] = React.useState([]), [urlMid, setMid] = React.useState();
   const mid = props.mid
     React.useEffect(() => {
-      settag(data.tag_list.split(','));
-      setMid(encode(data.art_url));
+      settag(data.tag.split('/'));
+      setMid(data.id);
     },[])
   return (
     <div className='enum-chunk'>
-      <Link to={'/blog/detail/'+ urlMid + '/'+ data.title} className='enum-chunk-item '>
+      <Link to={'/blog/detail/'+ urlMid} className='enum-chunk-item '>
         <div className='enum-chunk-item-img-box'>
           <ImgChunk fillmode='cover' Class='enum-chunk-item-img' />
         </div>
@@ -39,7 +39,7 @@ function EnumChunk(props) {
             {data.description}
           </div>
           <div className='enum-chunk-item-content-tag'>
-            {tag.map((item,index) => {
+            {tag.map((item) => {
               return <>
               <Tag className='enum-chunk-item-content-tag-mag' color='blue' content={item} fontsize={12}></Tag>
               </>

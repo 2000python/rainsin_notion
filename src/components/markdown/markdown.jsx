@@ -43,7 +43,7 @@ function Markdown(props) {
       <ReactMarkdown
         children={props.md}
         escapeHtml={false}
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkParse,remarkGfm]}
         rehypePlugins={[]}
         components={{
             code({ node, inline, className, children, ...props }) {

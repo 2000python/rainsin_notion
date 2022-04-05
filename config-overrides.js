@@ -29,7 +29,8 @@ module.exports = {
           {
             loader: '@mdx-js/loader',
           }
-      ]},
+        ]
+      },
     );
 
     return config;

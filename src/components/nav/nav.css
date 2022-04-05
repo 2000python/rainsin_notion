@@ -122,6 +122,9 @@
 }
 .music-chunk-content-unfold{
     display: flex;
+    -webkit-box-pack: right;
+    -webkit-justify-content: right;
+    -ms-flex-pack: right;
     justify-content: right;
     width: 100%;
     padding-right: 0;

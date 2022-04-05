@@ -200,7 +200,7 @@ export const TextButtonChunk = (props) => {
     }
     const ref = useRef();
     useEffect(() => {
-        if (ref.current.firstChild.nodeName === 'svg') {
+        if (ref.current.firstChild && ref.current.firstChild.nodeName === 'svg') {
             ref.current.firstChild.style.width = `${svgwidth}px`;
             ref.current.firstChild.style.height = `${svgheight}px`;
         }

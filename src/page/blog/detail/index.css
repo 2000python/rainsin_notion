@@ -18,8 +18,112 @@
     left: 0;
     width: 20rem;
     height: calc(100vh - 60px);
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 /* .blog-art-detail{
     width: 100%;
 } */
+.markdown-navigation .title-anchor.active {
+    background-color: #000;
+    color: #fff;
+  }
+.markdown-navigation .title-anchor:hover,
+.markdown-navigation .title-anchor.active {
+  background-color: #f8f8f8;
+  text-decoration: inherit;
+}
+.markdown-navigation {
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .markdown-navigation .title-anchor {
+    display: block;
+    color: #bbb;
+    transition: all 0.2s;
+    margin: 0.8em 0;
+    font-weight: lighter;
+    line-height: 2em;
+    padding-right: 1.8em;
+    cursor: pointer;
+  }
+  
+  .markdown-navigation .title-anchor:hover,
+  .markdown-navigation .title-anchor.active {
+    background-color: #f8f8f8;
+    text-decoration: inherit;
+  }
+  
+  .markdown-navigation .title-anchor.active {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .markdown-navigation .title-anchor small {
+    margin: 0 0.8em;
+  }
+  
+  .markdown-navigation .title-level1 {
+    color: #000;
+    font-size: 1.8em;
+    padding-left: 1em;
+    font-weight: normal;
+  }
+  
+  .markdown-navigation .title-level2 {
+    color: #333;
+    font-size: 1.6em;
+    padding-left: 1em;
+    font-weight: normal;
+  }
+  
+  .markdown-navigation .title-level3 {
+    color: #666;
+    font-size: 1.4em;
+    padding-left: 3em;
+    font-weight: normal;
+  }
+  
+  .markdown-navigation .title-level4 {
+    color: rgb(95, 95, 95);
+    font-size: 1.2em;
+    padding-left: 5em;
+  }
+  
+  .markdown-navigation .title-level5 {
+    color: rgb(98, 98, 98);
+    font-size: 1em;
+    padding-left: 7em;
+  }
+  
+  .markdown-navigation .title-level6 {
+    color: #bbb;
+    font-size: 0.9em;
+    padding-left: 9em;
+  }
+  table{
+    width: 100%;
+    border: 1px solid #d0d7de;
+    border-collapse:collapse;
+  }
+  thead{
+    background-color: #fff;
+  
+  }
+  thead th{
+    border-right: 1px solid #d0d7de;
+    margin: 0;
+    padding: 10px;
+  }
+  tbody{
+    border: 1px solid #d0d7de;
+  }
+  tbody td{
+    border: 1px solid #d0d7de;
+    padding: 10px;
+  }
+  tbody tr:nth-child(2n){
+    background-color: rgb(243,246,249);
+  }

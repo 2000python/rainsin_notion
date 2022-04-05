@@ -86,7 +86,7 @@ function Posts(props) {
                     const length = Math.floor((data.length - 1 ) / 2);
                     return index <= length ? <li key={index}>
                         <ShowChunk title={`${item.title}`} Class='showchunk-grid' url={item.url}>
-                            <TextChunk  Class='show-chunk-title' url={item.classrouter} content={`${item.title}`} fontSize={16} width='100%' alpha={.2} />
+                            <TextChunk  Class='show-chunk-title' url={`/blog/${item.id}`} content={`${item.title}`} fontSize={16} width='100%' alpha={.2} />
                         </ShowChunk>
                     </li> : ''
                 })}
@@ -96,7 +96,7 @@ function Posts(props) {
                     const length = Math.floor((data.length - 1 ) / 2);
                     return index > length ? <li key={index}>
                         <ShowChunk title={`${item.title}`} Class='showchunk-grid' url={item.url}>
-                            <TextChunk Class='show-chunk-title' url={item.classrouter} content={`${item.title}`} fontSize={16} width='100%' alpha={.2} />
+                            <TextChunk Class='show-chunk-title' url={`/blog/${item.id}`} content={`${item.title}`} fontSize={16} width='100%' alpha={.2} />
                         </ShowChunk>
                     </li> : ''
                 })}

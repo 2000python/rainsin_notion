@@ -5,20 +5,8 @@
 import { makeAutoObservable } from 'mobx';
 import blogTechData,{blogNotesData,blogCuriousData,blogOtherData} from '../page/blog/api/data';
 const store = makeAutoObservable({
-  page_title: ['解忧杂货店'],
-  page_path: [{
-    pathname: '/',
-    search: '',
-    state: null,
-  }],
-  page_icon: ['🧠'],
-  page_data: [{
-    pathname: '/',
-    search: '',
-    state: null,
-    title: '解忧杂货店',
-    icon: '🧠',
-  }],
+  page_title: '解忧杂货店',
+  page_icon: '🧠',
   blog_detail_list_data: [],
   magnet_param: 'u3c3',
   //音乐播放器播放状态
@@ -67,9 +55,20 @@ const store = makeAutoObservable({
   magnet: {
     unfold: false,
   },
+  blog_index_data: [],
+
+  //以下为action函数
+  set_blog_index_data(value) {
+    store.blog_index_data = value
+  }
+  ,
+
+  set_music_now_src(v) {
+    store.music.src = v;
+   },
+  
   set_audio_time() {
     store.music.audio_time = store.Player.duration;
-    console.log('cccc',store.music.audio_time);
   },
   set_current_time(value) {
     store.Player.currentTime = value;
@@ -84,7 +83,6 @@ const store = makeAutoObservable({
   },
   set_music_volume_show() {
     store.music.is_volume_show = !store.music.is_volume_show;
-    console.log(store.music.is_volume_show);
   },
   //设置磁力组件显示
   set_magnet_unfold(e) {
@@ -140,9 +138,12 @@ const store = makeAutoObservable({
       store.music.searchlistdata = musics
   },
    //改变播放器状态
-   change_music_paly() {
+   change_music_play() {
     store.music_paly = !store.music_paly;
   },
+  set_music_play(bool) {
+    store.music_paly = bool;
+   },
    //改变音乐播放状态
    change_nav_music_paly(e) {
      if (store.music_paly) {
@@ -153,62 +154,31 @@ const store = makeAutoObservable({
     // store.music_paly = !store.music_paly;
   },
   push_Title(value) {
-    this.page_title.push(value);
-    this.concat_Data()
+    store.page_title = value;
   },
   push_Icon(value) {
-    this.page_icon.push(value);
-    this.concat_Data()
-  },
-  push_Path(value) {
-    this.page_path.push(value);
-    this.concat_Data()
-  },
-  pop_Path() {
-    this.page_path.pop();
-    this.page_title.pop();
-    this.page_icon.pop();
-    this.page_data.pop();
-  },
-  popIndex_Path(index,history) {
-    index = Number(index);
-    this.page_path = this.page_path.slice(0, index + 1);
-    this.page_title = this.page_title.slice(0, index + 1);
-    this.page_icon = this.page_icon.slice(0, index + 1);
-    this.page_data = this.page_data.slice(0, index + 1);
-    if (index + 2 === this.page_data.length) {
-      history.back()
-    }
-  },
-  concat_Data() {
-    let a = this.page_path.map((item, index) => {
-      let b = {...item};
-      b.title = this.page_title[index];
-      b.icon = this.page_icon[index]
-      return b
-    });
-    return this.page_data = a;
+    store.page_icon= value;
   },
   selectBlog_ListData(mid) {
     switch (mid) {
       case 'technology':
-        this.blog_detail_list_data = blogTechData;
+        store.blog_detail_list_data = blogTechData;
         break;
       case 'notes':
-        this.blog_detail_list_data = blogNotesData;
+        store.blog_detail_list_data = blogNotesData;
         break;
       case 'other':
-        this.blog_detail_list_data = blogOtherData;
+        store.blog_detail_list_data = blogOtherData;
         break;
       case 'curious':
-        this.blog_detail_list_data = blogCuriousData
+        store.blog_detail_list_data = blogCuriousData
         break;
       default:
         break;
     }
   },
   select_magnet_value(value) {
-    this.magnet_param = value
+    store.magnet_param = value
   },
  })
 export default store

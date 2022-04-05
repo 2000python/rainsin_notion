@@ -7,33 +7,28 @@ import { encode, decode } from 'js-base64';
 import axios from 'axios';
 import MarkdownNavbar from 'markdown-navbar';
 import {  useLocation, useParams, useMatch } from 'react-router-dom';
-import Nav from '../../../components/nav/nav';
 import Markdown from '../../../components/markdown/markdown';
 import 'markdown-navbar/dist/navbar.css';
 import { Context } from '../../..';
 import './index.css'
+import { observer } from 'mobx-react-lite';
 // import mark from 'https://rainsin-1305486451.file.myqcloud.com/mark/%E6%89%8B%E5%86%99%E9%A2%98.md'
 
 function BlogDetail() {
-  const art = useParams();
+  const {art_mid} = useParams();
   const store = useContext(Context)
-  const location = useLocation();
   const [data,setData] = useState()
   const [artUrl,setArtUrl]=React.useState(),[blogTitle,setBlogtitle]=useState(); 
     React.useEffect(() => {
-      
-      (async function () {
-        const data = await axios.get('https://rainsin-1305486451.file.myqcloud.com/mark/%E6%89%8B%E5%86%99%E9%A2%98.md');
-        setData(data.data);
-      })()
-      setArtUrl(decode(art.art_mid));
-      setBlogtitle(art.art_title)
-    })
+      axios.get('http://rainsin.yicp.top/getartitem?id=' + art_mid).then((res) => {
+        setData(res.data[0].content)
+      }).catch((rej) => {
+        console.log(rej);
+      })
+    }, [])
   React.useEffect(() => {
-      store.push_Title(art.art_title);
-      store.push_Icon('');
-    store.push_Path(location)
-  },[])
+      store.push_Title('data');
+  })
   return (
     <>
       <div className='blog-art'>
@@ -44,11 +39,10 @@ function BlogDetail() {
           <div className='blog-art-wrap-content'>
             <Markdown md={data}></Markdown>
           </div>
-          
         </div>
       </div>
     </>
   )
 }
 
-export default BlogDetail
+export default observer(BlogDetail)
