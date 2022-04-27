@@ -4,12 +4,9 @@
  */
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
+import remarkParse from 'remark-parse';
+import remarkToc from 'remark-toc'
 import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import rehypeRaw from 'rehype-raw'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -43,7 +40,7 @@ function Markdown(props) {
       <ReactMarkdown
         children={props.md}
         escapeHtml={false}
-        remarkPlugins={[remarkParse,remarkGfm]}
+        remarkPlugins={[remarkToc,remarkParse,remarkGfm]}
         rehypePlugins={[]}
         components={{
             code({ node, inline, className, children, ...props }) {

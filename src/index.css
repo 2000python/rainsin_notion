@@ -37,7 +37,7 @@ div,a{
 }
 blockquote{
   color: rgb(154,154,154);
-  padding: 2px 20px;
+  padding: 4px 20px;
   border-left: 6px solid rgb(215,219,223);
 }
 blockquote>p{

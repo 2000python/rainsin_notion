@@ -123,6 +123,7 @@ export default function TextChunk(props) {
  * @param {*} content 文本内容
  * @param {String} target 跳转
  * @param {boolean} isPreventDefault 是否阻止默认事件
+ * @param {boolean} isStopPropagation 是否冒泡
  * @param {function} onClick  点击事件
  * @param {function} dbClick  双击事件
  * @param {function} MouseOver  鼠标移到事件
@@ -158,7 +159,7 @@ export const TextButtonChunk = (props) => {
     const target = props.target ? props.target : '';
     //是否阻止默认事件
     const isPreventDefault = props.isPreventDefault ? props.isPreventDefault : false;
-    
+    const isStopPropagation = props.isStopPropagation ? props.isStopPropagation : false;
     const svgwidth = props.svgwidth ? props.svgwidth : 18, svgheight = props.svgheight ? props.svgheight : svgwidth;
     
     const data = props.data ? props.data : {};
@@ -182,6 +183,9 @@ export const TextButtonChunk = (props) => {
     function click(e) {
         if (isPreventDefault) {
             e.preventDefault()
+        }
+        if (isStopPropagation) {
+            e.stopPropagation();
         }
         if (dbClickEvent !== null) {
             clearTimeout(content.click_timer);

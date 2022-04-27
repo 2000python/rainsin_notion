@@ -19,9 +19,9 @@ const store = makeAutoObservable({
   //播放器状态
   music: {
     //搜索数据
-    searchlistdata: [],
+    searchlistdata: new Set(),
     //播放列表
-    palylistdata: [],
+    palylistdata: new Set(),
     //当前播放url
     src: '',
     //当前播放歌曲专辑图片
@@ -93,6 +93,18 @@ const store = makeAutoObservable({
           e.style.overflow = 'auto';
       }
   },
+  set_music_palylistdata_add_del(actions,value) {
+    switch (actions) {
+      case 'add':
+        store.music.palylistdata.add(value)
+        break;
+      case 'delete':
+        store.music.palylistdata.delete(value)
+      default:
+        return -1
+        break;
+    }
+  },
   //设置音乐搜索数据列表
   set_search_data_list(value) {
     store.music.searchlistdata = value;
@@ -104,9 +116,9 @@ const store = makeAutoObservable({
   //设置音乐展示数据列表
   set_music_list() {
     if (store.list_state.now_select_search_list) {
-      store.music.list_data = store.music.searchlistdata
+      store.music.list_data = Array.from(store.music.searchlistdata)
     } else {
-      store.music.list_data = store.music.palylistdata
+      store.music.list_data = Array.from(store.music.palylistdata)
     }
   },
   //改变是否全部选择音乐项目

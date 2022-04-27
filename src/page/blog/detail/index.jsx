@@ -9,6 +9,7 @@ import MarkdownNavbar from 'markdown-navbar';
 import {  useLocation, useParams, useMatch } from 'react-router-dom';
 import Markdown from '../../../components/markdown/markdown';
 import 'markdown-navbar/dist/navbar.css';
+import ReactMarkdownHeading from 'react-markdown-heading'
 import { Context } from '../../..';
 import './index.css'
 import { observer } from 'mobx-react-lite';
@@ -20,7 +21,7 @@ function BlogDetail() {
   const [data,setData] = useState()
   const [artUrl,setArtUrl]=React.useState(),[blogTitle,setBlogtitle]=useState(); 
     React.useEffect(() => {
-      axios.get('http://rainsin.yicp.top/getartitem?id=' + art_mid).then((res) => {
+      axios.get('http://rainsin.yicp.top/getArtid?id=' + art_mid).then((res) => {
         setData(res.data[0].content)
       }).catch((rej) => {
         console.log(rej);
