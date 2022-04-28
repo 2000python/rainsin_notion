@@ -27,8 +27,12 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import Loading from '../loading';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const classNames = require('classnames');
+import { Input, Button as Bt} from 'uiw';
 
 const music_tag = [
   {
@@ -133,8 +137,8 @@ const Widget = styled('div')(({ theme }) => ({
   margin: 'auto',
   position: 'relative',
   zIndex: 1,
-  backgroundColor:
-    theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.4)',
+  // backgroundColor:
+  //   theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)',
   backdropFilter: 'blur(40px)',
 }));
 
@@ -158,14 +162,37 @@ const TinyText = styled(Typography)({
   letterSpacing: 0.2,
 });
 
+const PaginationControlled = observer(function PaginationControlledUI() {
+  const [page, setPage] = React.useState(1);
+  const context = useContext(Context);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  return (
+    <Stack className='pagin-box' spacing={2}>
+      <Pagination
+        count={10}
+        size="small"
+        page={page}
+        onChange={handleChange}
+        renderItem={(item) => (
+          <PaginationItem
+            components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+            {...item}
+          />
+        )}
+      />
+    </Stack>
+  );
+})
+
 const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
   const theme = useTheme();
   const context = useContext(Context);
-  const duration = 200; // seconds
-  const [position, setPosition] = React.useState(32);
-  const [paused, setPaused] = React.useState(false);
+  const [paused, setPaused] = React.useState(true);
   useMemo(() => {
     const p = document.getElementsByTagName('audio');
+    context.get_player(p);
     if (paused) {
       console.log(p);
     } else {
@@ -175,50 +202,52 @@ const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
   function formatDuration(value) {
     const minute = Math.floor(value / 60);
     const secondLeft = value - minute * 60;
-    return `${minute}:${secondLeft < 9 ? `0${secondLeft}` : secondLeft}`;
+    return `${minute}:${secondLeft < 9 ? `0${secondLeft.toFixed(0)}` : secondLeft.toFixed(0)}`;
   }
-  const mainIconColor = theme.palette.mode === 'dark' ? '#fff' : '#000';
-  const lightIconColor =
-    theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
-  return (
+  const mainIconColor = '#fff'
+  const lightIconColor ='rgba(255,255,255,0.8)'
+  return (<>
+    
     <Box sx={{ width: '100%', overflow: 'hidden' }}>
       <Widget>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <CoverImage>
             <img
-              alt="can't win - Chilling Sunday"
-              src="/static/images/sliders/chilling-sunday.jpg"
+              alt="点首歌"
+              src={context.music.album_img_url}
             />
           </CoverImage>
-          <Box sx={{ ml: 1.5, minWidth: 0 }}>
-            <Typography variant="caption" color="text.secondary" fontWeight={500}>
-              Jun Pulse
+          <Box sx={{ ml: 1.5, minWidth: 0, color:"#fff"}}>
+          <Typography variant="caption" color="text.secondary" fontWeight={500}>
+          {context.music.author}
             </Typography>
             <Typography noWrap>
-              <b>คนเก่าเขาทำไว้ดี (Can&apos;t win)</b>
+              <b>{ context.music.title}</b>
             </Typography>
             <Typography noWrap letterSpacing={-0.25}>
-              Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
+              {context.music.album} &mdash; {context.music.author}
             </Typography>
           </Box>
         </Box>
         <Slider
           aria-label="time-indicator"
           size="small"
-          value={position}
+          value={context.music.current_time}
           min={0}
           step={1}
-          max={duration}
-          onChange={(_, value) => setPosition(value)}
+          max={context.music.audio_time}
+          onChange={(_, value) => {
+            context.set_current_time(value)
+          }}
           sx={{
-            color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
+            color: '#fff',
             height: 4,
             '& .MuiSlider-thumb': {
               width: 8,
               height: 8,
               transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
               '&:before': {
-                boxShadow: '0 2px 12px 0 rgba(0,0,0,0.4)',
+                boxShadow: '0 2px 12px 0 rgba(0,0,0,0.7)',
               },
               '&:hover, &.Mui-focusVisible': {
                 boxShadow: `0px 0px 0px 8px ${
@@ -245,8 +274,8 @@ const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
             mt: -2,
           }}
         >
-          <TinyText>{formatDuration(position)}</TinyText>
-          <TinyText>-{formatDuration(duration - position)}</TinyText>
+          <TinyText color={'#fff'}>{formatDuration(context.music.current_time)}</TinyText>
+          <TinyText color={'#fff'}>{formatDuration(context.music.audio_time)}</TinyText>
         </Box>
         <Box
           sx={{
@@ -257,39 +286,48 @@ const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
           }}
         >
           <IconButton aria-label="previous song">
-            <FastRewindRounded fontSize="large" htmlColor={mainIconColor} />
+            <FastRewindRounded fontSize="small" htmlColor={mainIconColor} />
           </IconButton>
           <IconButton
-            aria-label={paused ? 'play' : 'pause'}
-            onClick={() => setPaused(!paused)}
+            aria-label={!context.music_paly ? 'play' : 'pause'}
+            onClick={() => {
+              context.change_nav_music_paly(context.Player)
+            }}
           >
-            {paused ? (
+            {!context.music_paly ? (
               <PlayArrowRounded
-                sx={{ fontSize: '3rem' }}
+                sx={{ fontSize: '1rem' }}
                 htmlColor={mainIconColor}
               />
             ) : (
-              <PauseRounded sx={{ fontSize: '3rem' }} htmlColor={mainIconColor} />
+              <PauseRounded sx={{ fontSize: '1rem' }} htmlColor={mainIconColor} />
             )}
           </IconButton>
           <IconButton aria-label="next song">
-            <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
+            <FastForwardRounded fontSize="small" htmlColor={mainIconColor} />
           </IconButton>
         </Box>
         <Stack spacing={2} direction="row" sx={{ mb: 1, px: 1 }} alignItems="center">
           <VolumeDownRounded htmlColor={lightIconColor} />
           <Slider
             aria-label="Volume"
-            defaultValue={30}
+            size='medium'
+            value={context.music.volume}
+            min={0}
+            max={1}
+            step={0.01}
+            onChange={(_, value) => {
+              context.set_music_volume(value)
+            }}
             sx={{
-              color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
+              color: '#fff',
               '& .MuiSlider-track': {
                 border: 'none',
               },
               '& .MuiSlider-thumb': {
-                width: 24,
-                height: 24,
-                backgroundColor: '#fff',
+                width: 16,
+                height: 16,
+                backgroundColor: 'rgba(255,255,255,1)',
                 '&:before': {
                   boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
                 },
@@ -303,6 +341,7 @@ const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
         </Stack>
       </Widget>
     </Box>
+    </>
   );
 })
 
@@ -315,28 +354,33 @@ const MusicPlayerSlider = observer(function MusicPlayerSliderUI() {
 
 function MusicListItem(props) {
   const context = React.useContext(Context);
-  const [isS, setIss] = useState(false);
+  const [isS, setIss] = useState(props.select);
   const item_ref = useRef(null)
   const data = props.data ? props.data : [];
   const paly_item = e => {
     e.preventDefault()
+    context.set_music_title(data.songName)
+    context.set_music_author(data.artist)
+    context.set_music_album(data.albumName)
     context.set_music_now_src(data.mp3)
+    context.set_music_url_img(data.cover)
+    
   }
   const handleS = () => {
     if (isS) {
       setIss(false)
-      context.set_music_palylistdata_add_del('delete',data)
+      context.set_list_state_now_select_list_item('delete',data.copyrightId)
     } else {
       setIss(true)
-      context.set_music_palylistdata_add_del('add', data)
+      context.set_list_state_now_select_list_item('set', data.copyrightId, data)
     }
   }
   return <>
     <Link to='/' ref={item_ref} data-obj={data} className='music-list-thead-detial' onClick={paly_item}>
             <li>
               <TextButtonChunk alpha={.9} onClick={handleS} isPreventDefault={true} isStopPropagation={true}>
-          {isS ? <svg t="1651068879181" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2058" width="200" height="200"><path d="M726.976697 393.184142c-12.54369-12.447359-32.831716-12.320065-45.248112 0.25631L448.447252 629.248757l-103.26354-106.112189c-12.352748-12.703669-32.60809-12.927295-45.248112-0.639914-12.672705 12.320065-12.959978 32.60809-0.639914 45.248112l126.016611 129.503454c0.063647 0.096331 0.192662 0.096331 0.25631 0.192662 0.063647 0.063647 0.096331 0.192662 0.159978 0.25631 2.016073 1.983389 4.512082 3.19957 6.880796 4.544765 1.247144 0.672598 2.239699 1.792447 3.519527 2.303346 3.872168 1.599785 8.000645 2.399677 12.096439 2.399677 4.06483 0 8.12794-0.799892 11.967424-2.33603 1.247144-0.512619 2.208735-1.536138 3.392232-2.176052 2.399677-1.343475 4.895686-2.528692 6.944443-4.544765 0.063647-0.063647 0.096331-0.192662 0.192662-0.25631 0.063647-0.096331 0.159978-0.127295 0.25631-0.192662l256.223626-259.008628C739.647682 425.888563 739.520387 405.631501 726.976697 393.184142z" p-id="2059" fill="#e6e6e6"></path><path d="M832 928.00086l-640 0c-52.9288 0-96.00086-43.07206-96.00086-95.99914l0-640c0-52.9288 43.07206-96.00086 96.00086-96.00086l640 0c52.92708 0 95.99914 43.07206 95.99914 96.00086l0 640C928.00086 884.9288 884.9288 928.00086 832 928.00086zM192 160.00086c-17.632039 0-32.00086 14.368821-32.00086 32.00086l0 640c0 17.664722 14.368821 31.99914 32.00086 31.99914l640 0c17.664722 0 31.99914-14.336138 31.99914-31.99914l0-640c0-17.632039-14.336138-32.00086-31.99914-32.00086L192 160.00086z" p-id="2060" fill="#e6e6e6"></path></svg>
-            : <svg t="1647442124461" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="56930" width="200" height="200"><path d="M818.655 971.545h-613.312c-84.303 0-152.886-66.343-152.886-147.89v-623.306c0-81.549 68.585-147.89 152.886-147.89h613.312c84.303 0 152.886 66.342 152.886 147.89v623.306c0 81.548-68.585 147.89-152.886 147.89zM205.345 123.155c-45.318 0-82.19 34.628-82.19 77.191v623.306c0 42.564 36.869 77.191 82.19 77.191h613.312c45.318 0 82.19-34.627 82.19-77.191v-623.306c0-42.563-36.869-77.191-82.19-77.191h-613.312z" fill="#e6e6e6" p-id="56931"></path></svg>}
+              {isS ? <svg t="1651068879181" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2058" width="200" height="200"><path d="M726.976697 393.184142c-12.54369-12.447359-32.831716-12.320065-45.248112 0.25631L448.447252 629.248757l-103.26354-106.112189c-12.352748-12.703669-32.60809-12.927295-45.248112-0.639914-12.672705 12.320065-12.959978 32.60809-0.639914 45.248112l126.016611 129.503454c0.063647 0.096331 0.192662 0.096331 0.25631 0.192662 0.063647 0.063647 0.096331 0.192662 0.159978 0.25631 2.016073 1.983389 4.512082 3.19957 6.880796 4.544765 1.247144 0.672598 2.239699 1.792447 3.519527 2.303346 3.872168 1.599785 8.000645 2.399677 12.096439 2.399677 4.06483 0 8.12794-0.799892 11.967424-2.33603 1.247144-0.512619 2.208735-1.536138 3.392232-2.176052 2.399677-1.343475 4.895686-2.528692 6.944443-4.544765 0.063647-0.063647 0.096331-0.192662 0.192662-0.25631 0.063647-0.096331 0.159978-0.127295 0.25631-0.192662l256.223626-259.008628C739.647682 425.888563 739.520387 405.631501 726.976697 393.184142z" p-id="2059" fill="#e6e6e6"></path><path d="M832 928.00086l-640 0c-52.9288 0-96.00086-43.07206-96.00086-95.99914l0-640c0-52.9288 43.07206-96.00086 96.00086-96.00086l640 0c52.92708 0 95.99914 43.07206 95.99914 96.00086l0 640C928.00086 884.9288 884.9288 928.00086 832 928.00086zM192 160.00086c-17.632039 0-32.00086 14.368821-32.00086 32.00086l0 640c0 17.664722 14.368821 31.99914 32.00086 31.99914l640 0c17.664722 0 31.99914-14.336138 31.99914-31.99914l0-640c0-17.632039-14.336138-32.00086-31.99914-32.00086L192 160.00086z" p-id="2060" fill="#e6e6e6"></path></svg>
+                : <svg t="1647442124461" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="56930" width="200" height="200"><path d="M818.655 971.545h-613.312c-84.303 0-152.886-66.343-152.886-147.89v-623.306c0-81.549 68.585-147.89 152.886-147.89h613.312c84.303 0 152.886 66.342 152.886 147.89v623.306c0 81.548-68.585 147.89-152.886 147.89zM205.345 123.155c-45.318 0-82.19 34.628-82.19 77.191v623.306c0 42.564 36.869 77.191 82.19 77.191h613.312c45.318 0 82.19-34.627 82.19-77.191v-623.306c0-42.563-36.869-77.191-82.19-77.191h-613.312z" fill="#e6e6e6" p-id="56931"></path></svg>}
               </TextButtonChunk>
             </li>
           
@@ -356,19 +400,27 @@ function MusicListItem(props) {
  * @return {ReactComponent}
  */
 
-function MusicList() {
+const MusicList = observer(function MusicListUI() {
   const context = React.useContext(Context);
-  React.useEffect(() => {
+  useEffect(() => {
     context.set_search_data_list(list_data);
     context.set_music_list()
-  },[context.music.searchlistdata])
+  }, [])
+  const handleAddPlaylist = () => {
+    context.list_state.now_select_list_item.forEach((key,value) => {
+      if (!context.music.palylistdata.has(key)) {
+        context.set_music_palylistdata_add_del('set',key,value)
+      }
+    });
+    console.log(context.list_state.now_select_list_item)
+  }
   return <>
     <div className='music-list'>
       <ul className='music-list-thead-first'>
         <li>
-        <TextButtonChunk alpha={0.9} Class='music-list-font-color music-list-search-list-box' svgwidth={18} title='添加到播放列表'>
+        <TextButtonChunk alpha={0.9} onClick={handleAddPlaylist} Class='music-list-font-color music-list-search-list-box' svgwidth={18} title='添加到播放列表'>
             <svg t="1647439329902" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="55804" width="200" height="200"><path d="M842 62H182c-66 0-120 54-120 120v660c0 66 54 120 120 120h660c66 0 120-54 120-120V182c0-66-54-120-120-120z m30 750c0 33-27 60-60 60H212c-33 0-60-27-60-60V212c0-33 27-60 60-60h600c33 0 60 27 60 60v600z" fill="#e6e6e6" p-id="55805"></path><path d="M737 467H557V287c0-24.8-20.2-45-45-45s-45 20.2-45 45v180H287c-24.8 0-45 20.2-45 45s20.2 45 45 45h180v180c0 24.8 20.2 45 45 45s45-20.2 45-45V557h180c24.8 0 45-20.2 45-45s-20.2-45-45-45z" fill="#e6e6e6" p-id="55806"></path></svg>
-            {context.music_unfold ? '添加到' : ''}
+            添加到
         </TextButtonChunk>
         </li>
         <div>
@@ -399,23 +451,18 @@ function MusicList() {
             <li>
               歌手
             </li>
-            {context.music_unfold ? <>
-              <li>专辑</li>
-              <li>操作</li>
-            </>
-              
-              :
-              <></>
-            }
           </ul>
           
         </div>
         <div className='music-list-tbody'>
-        {context.music.list_data ? context.music.list_data.map((item,index) => <MusicListItem key={index} cid={item.copyrightId} data={item}></MusicListItem>) : <Loading></Loading>}
+        {context.music.list_data ? context.music.list_data.map((item, index) => {
+          const select = context.music.palylistdata.has(item.copyrightId) ? true : false;
+          return <MusicListItem key={index} select={select} cid={item.copyrightId} data={item} />
+        }) : <Loading></Loading>}
         </div>
       </div>
   </>
-}
+})
 //播放器控件
 export const MusicControl = observer({
   //控件展开类名
@@ -444,17 +491,28 @@ export const MusicControl = observer({
 function ReactAudioPlayer(props) {
   const context = React.useContext(Context)
   const player = useRef();
+  async function get_album_color(url) {
+    return await axios.get(`http://rainsin.yicp.top/getImg?url=${url}`);
+  }
   useEffect(() => {
     context.get_player(player.current);
-    context.Player.addEventListener('loadedmetadata', (event) => {
+    context.Player.addEventListener('loadedmetadata', () => {
+      context.set_audio_time()
+      get_album_color(context.music.album_img_url).then((res) => {
+        context.music.album_main_color = `rgb(${res.data.join()})`
+      })
+    })
+    context.Player.addEventListener('durationchange', () => {
       context.set_audio_time()
     })
-    
+    context.Player.addEventListener('timeupdate', () => {
+      context.set_current_time(context.Player.currentTime,true)
+    });
   },[])
   return <>
-      <audio {...props} ref={player}>
-    </audio>
-    <MusicPlayerSlider></MusicPlayerSlider>
+    <audio {...props} ref={player} />
+    <PaginationControlled />
+    <MusicPlayerSlider />
     </>
 }
 
@@ -463,47 +521,35 @@ function ReactAudioPlayer(props) {
    * @return {ReactComponent}
    */
 
-async function handleSearch(e,key, limit = 30, offset = 1, type = 2) {
-  return await axios(`http://rainsin.yicp.top/music?key=${key}&limit=${limit}&offset=${offset}&type=${type}`)
+async function handleSearch(key, limit = 20, offset = 1, type = 2) {
+  const data = await axios(`http://rainsin.yicp.top/music?key=${key}&limit=${limit}&offset=${offset}&type=${type}`)
+  return data;
 }
 
 function MusicChunk(props) {
-  const [searchValue, setSearchValue] = useState('');
-  const onUnfold = props.onUnfold ? props.onUnfold : null;
+  const searchInput = useRef(null)
   const methods = React.useContext(Context);
-  const search_tag = (e, key, limit = 30, offset = 1, type = 2) => {
-    (async function () {
-      const data = await axios(`http://rainsin.yicp.top/music?key=${e.target.textContent}&limit=${limit}&offset=${offset}&type=${type}`)
-    })(methods, axios, limit, offset, type);
+  const search_tag = (e,limit = 20, offset = 1) => {
+    handleSearch(e.target.textContent, limit, offset).then(res => {
+      methods.set_music_search_pgt(res.data.pgt);
+      methods.set_search_data_list(res.data.music);
+    })
   }
-  // useEffect(() => {
-  //   let limit=20, offset=1, type=2,key='周杰伦'
-  //   (async function () {
-  //     const data = await axios(`http://rainsin.yicp.top/music?key=${key}&limit=${limit}&offset=${offset}&type=${type}`)
-  //     setListData(data.data.data.musics)
-  //   })(methods, axios,limit=20, offset=1, type=2,key);
-  // },[])
   const isPlay = () => {
     methods.change_music_play();
   }
   const isPause = () => {
     methods.change_music_play();
   }
-  useEffect(() => {
-    (
-      async function () {
-        const color = await axios.get(`http://rainsin.yicp.top/getImg?url=${methods.music.album_img_url}`);
-        methods.music.album_main_color = `rgb(${color.data.join()})`
-      }
-    )()
-  }, []);
+
   useEffect(() => {
     methods.Player.addEventListener("playing", function(){
         methods.set_music_play(true);
     });
     methods.Player.addEventListener("pause", function(){
       methods.set_music_play(false);
-  });
+    });
+    
   }, [])
   useEffect(() => {
     searchInput.current.addEventListener('keydown', (e) => {
@@ -512,27 +558,36 @@ function MusicChunk(props) {
       }
     })
   },[])
-  const searchInput = useRef(null)
-  const search = () => {
-
+  const search = (_,limit = 20, offset = 1) => {
+      handleSearch(searchkey, limit, offset).then(res => {
+        methods.set_music_search_pgt(res.data.pgt);
+        methods.set_search_data_list(res.data.music);
+      })
   }
+  const [searchkey,setSearchkey] = useState('')
   return <>
-    <div className={'music-chunk ' + methods.music_unfold_class.border_radius_init}>
+    <div className={'music-chunk '}>
       <div className='music-chunk-meck' style={{backgroundImage:'url('+ methods.music.album_img_url +')'}}></div>
       <div className={'music-chunk-content ' + methods.music_control_class.music} >
         <div className='music-chunk-content-unfold'>
-          <input ref={searchInput} id='search' type='search' value={searchValue} placeholder='输入歌名/歌手' onChange={e => setSearchValue(e.target.value)}></input>
+          <Input
+            ref={searchInput}
+            onChange={(_) => setSearchkey(_.target.value)}
+          preIcon="search"
+          placeholder="请输入内容"
+          addonAfter={<Bt icon="search" size="small" onClick={search} type="primary">搜索</Bt>}
+        />
           {/* <Button variant="contained" onClick={search}>搜索</Button> */}
         </div>
       <div className='music-chunk-tag'>
         {music_tag.map((item, index) => {
-          return <TextChunk onClick={search_tag} key={index} isPreventDefault={true} fontSize={17} lineheight='_'><Tag color={item.color}>{item.name}</Tag></TextChunk>
+          return <TextButtonChunk Class='music-chunk-tag-item' alpha={.7} onClick={search_tag} key={index} isPreventDefault={true} fontSize={17} lineheight='_'><Tag color={item.color}>{item.name}</Tag></TextButtonChunk>
         })}
         </div>
-          <div className={'album-list-box ' + + methods.music_unfold_class.music_list_table}>
+          <div className={'album-list-box '}>
             <MusicList></MusicList>
         </div>
-        <div className={'react-audio-player-box ' + methods.music_control_class.music_palyer}>
+        <div className={'react-audio-player-box '}>
         <ReactAudioPlayer
         className='react-audio-player'
         src={ methods.music.src}
@@ -540,6 +595,7 @@ function MusicChunk(props) {
         onPlay={isPlay}
         onPause={isPause}
         header='反方向的钟'
+        loop={true}
       />
         </div> 
       </div>

@@ -15,15 +15,6 @@ import Input from '../input';
 import Magnet from '../resoutool/magnet';
 import ModelChunk from '../model';
 
-const unfold_class = {
-    content_unfold: 'music-content-unfold',
-    border_radius_init: 'border-radius-init',
-}
-const shrink_class = {
-    content_unfold: '',
-    border_radius_init: '',
-}
-
 /**
  * 导航栏 组件
  * @return {ReactComponent}
@@ -39,23 +30,10 @@ function Nav(props) {
         meck_close: 'meck-close-box',
         content_close: 'content-close-box'
     });
-    const [isShowMagnet, setShowMagnet] = useState(false);
     const isMusic_paly = () => {
         const audio = document.querySelector('audio');
         navData.change_nav_music_paly(audio);
     }
-    // const is_lab_unfold = () => {
-    //     setShowMagnet((pre,newValue) => {
-    //         newValue = !pre;
-    //         return newValue;
-    //     })
-
-    //     if (!isShowMagnet) {
-    //         document.body.style.overflow = 'hidden';
-    //     }else{
-    //         document.body.style.overflow = 'auto';
-    //     }
-    // }
 
     const changeMagnet = () => {
         const body = document.body;
@@ -85,18 +63,18 @@ function Nav(props) {
         })
         document.body.style.overflow = 'auto';
     }
-    const unfold = () => {
-        if (!navData.music_unfold) {
-            navData.set_music_unfold_class(unfold_class)
-            navData.set_music_control_class(MusicControl.musicControlUnfoldClass)
-            navData.change_music_unfold();
-        } else {
-            navData.set_music_unfold_class(shrink_class)
-            navData.set_music_control_class(MusicControl.musicControlShrinkClass)
-            navData.change_music_unfold();
-        }
+    // const unfold = () => {
+    //     if (!navData.music_unfold) {
+    //         navData.set_music_unfold_class(unfold_class)
+    //         navData.set_music_control_class(MusicControl.musicControlUnfoldClass)
+    //         navData.change_music_unfold();
+    //     } else {
+    //         navData.set_music_unfold_class(shrink_class)
+    //         navData.set_music_control_class(MusicControl.musicControlShrinkClass)
+    //         navData.change_music_unfold();
+    //     }
         
-    }
+    // }
     return (
         <>
         
@@ -143,7 +121,7 @@ function Nav(props) {
             </div> */}
         </div>
         <div className={`music-box-content ${MusicClose.content_close} ${navData.music_unfold_class.content_unfold}`} style={{backgroundColor:navData.music.album_main_color}}>
-            <MusicChunk onUnfold={unfold}></MusicChunk>
+            <MusicChunk ></MusicChunk>
         </div>
         <ModelChunk unfold={navData.magnet.unfold} change={changeMagnet()}>
             <Magnet></Magnet>      

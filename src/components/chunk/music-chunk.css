@@ -57,17 +57,42 @@
 
 /* 搜索建议标签 */
 .music-chunk-tag{
+    height: 50px;
+    max-width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-y:hidden;
+    overflow-x:auto;
+    white-space: nowrap;
+}
+.music-chunk-tag-item{
+    display: inline-table;
+}
+.music-chunk-tag-item:hover{
+    cursor: pointer;
 }
 /* 音乐播放器容器 */
 .react-audio-player-box{
-    flex-grow: 1;
     box-sizing: border-box;
     width: 100%;
     bottom: 30px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+.pagin-box{
+    margin: 15px 0;
+    color: #fff;
+}
+.css-1afp10f>.css-12k9k60{
+    backdrop-filter: blur(0);
+}
+.MuiPaginationItem-root{
+    color: #fff !important;
+}
+.MuiButtonBase-root{
+    color: #fff !important;
 }
 /* 音乐列表 */
 .music-list-table{
@@ -206,17 +231,6 @@
     flex-grow: 1;
     width: 100%;
     margin: 6px 0;
-}
-
-.music-palyer-state-unfold{
-    
-}
-.play-state-box-unfold{
-
-}
-
-.music-list-table-unfold{
-    width: 50%;
 }
 
 
