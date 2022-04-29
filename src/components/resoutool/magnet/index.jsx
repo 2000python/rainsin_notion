@@ -22,7 +22,10 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import { Context } from "../../..";
 import { observer } from "mobx-react-lite";
 
+import { Input, Button as Bt, Select,Col,Row} from 'uiw';
+
 import './index.css'
+import Loading from "../../loading";
 
 function MagnetSelectUI(props) {
     const select = useContext(Context)
@@ -119,19 +122,15 @@ function ListItem(props) {
  * @return {ReactComponent}
  */
 
-function MagnetList(props) {
-    return props.isLoading ? <div className="show-magnet-list magnet-center-empty"><Spin  /></div> :
-    props.list && props.list.length === 0 ? <div className="show-magnet-list magnet-center-empty"><Empty description='没有数据' /></div> :
-        <div className="show-magnet-list">
-            {props.list.map((item,index) => {
-                return (
-                    <ListItem key={index} title={item.title} size={item.size} magnet={item.magnet} time={item.time}></ListItem>
-                )
-            })}
-        </div>
+// function MagnetList(props) {
+//     return 
     
-}
-
+// }
+// async function searchM(s = 'u3c3', q, p = 1) {
+//   const getvalue = await axios.get(`http://rainsin.yicp.top/getmagnet?s=${s}&q=${q}&p=${p}`)
+//   getSearchvalue(getvalue.data.data instanceof Array ? getvalue.data.data : [])
+  
+// }
 function Magnet() {
     //平台
     const [searchPlat, setPlat] = useState('u3c3')
@@ -139,13 +138,8 @@ function Magnet() {
     const [isLoading,setLoading] = useState(false)
     //发起搜索请求
     const onSearch = value => {
-        PubSub.publish('isLoad', true);
-        let s = searchPlat, q = value,p = 1;
-        (async function (s = 'btsow', q, p = 1) {
-            const getvalue = await axios.get(`http://rainsin.yicp.top/getmagnet?s=${s}&q=${q}&p=${p}`)
-            getSearchvalue(getvalue.data.data instanceof Array ? getvalue.data.data : [])
-            PubSub.publish('isLoad', false)
-        })(s, q, p)
+        // let s = searchPlat, q = value,p = 1;
+        
     }
     //点击标签搜索
     const searchTag = e => {
@@ -162,14 +156,31 @@ function Magnet() {
     useEffect(() => {
       const ss = PubSub.subscribe('isLoad', Loading)
       
-    },[])
-
+    }, [])
+    const rowSty = { marginBottom: 10 };
     return(
         <>
-            <div className="input-search-magnet">
-            <MagnetSelect />
-            <CustomizedInputBase onSearch={onSearch}></CustomizedInputBase>
-            </div>
+        <div className="input-search-magnet">
+        <Row gutter={10} style={{display: "felx", alignItems: 'center',justifyContent:'center'}}>
+          <Col fixed>
+              <Select size="large" value={searchPlat} defaultValue="u3c3" style={rowSty} onChange={(e,value) => {
+                console.log(e,value)
+              }}>
+                {magnetParam.map(item => {
+                  return <Select.Option key={item.id} value={item.param}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Col>
+          <Col fixed>
+              <Input
+                style={{marginBottom:"10px"}}
+                size="large"
+                onChange={(_) => getSearchvalue(_.target.value)}
+                preIcon="search"
+              placeholder="搜个你喜欢的老师吧！"
+              addonAfter={<Bt icon="search" size="small" onClick={onSearch} type="primary">搜索</Bt>}
+            />
+            </Col>
             <div className="magnet-suggest">
             <TextChunk fontSize={17} lineheight='_' onClick={searchTag}><Tag color='purple'>活宝三人组</Tag></TextChunk>
                 <TextChunk fontSize={17} lineheight='_' onClick={searchTag}><Tag color='orange'>明里紬</Tag></TextChunk>
@@ -178,8 +189,17 @@ function Magnet() {
                 <TextChunk fontSize={17} lineheight='_' onClick={searchTag}><Tag color='blue'>希岛爱理</Tag></TextChunk>
                 <TextChunk fontSize={17} lineheight='_' onClick={searchTag}><Tag color='red'>MIAA-525</Tag></TextChunk>
             </div>
-            <MagnetList list={searchValue} isLoading={isLoading}>
-            </MagnetList> 
+      </Row>
+            
+            </div>
+            {/* props.list && props.list.length === 0 ? <div className="show-magnet-list magnet-center-empty"><Loading></Loading></div> : */}
+        <div className="show-magnet-list">
+            {/* {list.map((item,index) => {
+                return (
+                    <ListItem key={index} title={item.title} size={item.size} magnet={item.magnet} time={item.time}></ListItem>
+                )
+            })} */}
+        </div>
          </>
     )
 }

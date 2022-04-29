@@ -172,6 +172,7 @@ const PaginationControlled = observer(function PaginationControlledUI() {
     <Stack className='pagin-box' spacing={2}>
       <Pagination
         count={10}
+        disabled={true}
         size="small"
         page={page}
         onChange={handleChange}
@@ -409,10 +410,9 @@ const MusicList = observer(function MusicListUI() {
   const handleAddPlaylist = () => {
     context.list_state.now_select_list_item.forEach((key,value) => {
       if (!context.music.palylistdata.has(key)) {
-        context.set_music_palylistdata_add_del('set',key,value)
+        context.set_music_palylistdata_add_del('set', key, value);
       }
     });
-    console.log(context.list_state.now_select_list_item)
   }
   return <>
     <div className='music-list'>
@@ -529,10 +529,15 @@ async function handleSearch(key, limit = 20, offset = 1, type = 2) {
 function MusicChunk(props) {
   const searchInput = useRef(null)
   const methods = React.useContext(Context);
-  const search_tag = (e,limit = 20, offset = 1) => {
-    handleSearch(e.target.textContent, limit, offset).then(res => {
-      methods.set_music_search_pgt(res.data.pgt);
-      methods.set_search_data_list(res.data.music);
+  const search_tag = (e) => {
+    console.log(e.target.textContent);
+    handleSearch(e.target.textContent).then(res => {
+      console.log(res);
+      methods.set_music_search_pgt(res.data.data.pgt);
+      methods.set_search_data_list(res.data.data.musics);
+      methods.set_music_list()
+    }).catch(rej => {
+      alert('失败了！')
     })
   }
   const isPlay = () => {
@@ -562,6 +567,7 @@ function MusicChunk(props) {
       handleSearch(searchkey, limit, offset).then(res => {
         methods.set_music_search_pgt(res.data.pgt);
         methods.set_search_data_list(res.data.music);
+        methods.set_music_list();
       })
   }
   const [searchkey,setSearchkey] = useState('')
@@ -573,8 +579,9 @@ function MusicChunk(props) {
           <Input
             ref={searchInput}
             onChange={(_) => setSearchkey(_.target.value)}
-          preIcon="search"
-          placeholder="请输入内容"
+            preIcon="search"
+            disabled
+          placeholder="API失效了，就先听听下面几首吧！"
           addonAfter={<Bt icon="search" size="small" onClick={search} type="primary">搜索</Bt>}
         />
           {/* <Button variant="contained" onClick={search}>搜索</Button> */}
